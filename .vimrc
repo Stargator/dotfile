@@ -11,8 +11,7 @@ set directory=~/.vim_backup " Directory for swap (file.swp - stores changes) fil
 set backupdir=~/.vim_backup " Directory for backup (file~) files.
 
 
-set t_Co=256 " Set VIM to 256 color mode. Make sure to set your terminal as well:
-             " export TERM='xterm-color'
+set t_Co=256 " Set VIM to 256 color mode. Make sure your terminal is setup correctly.
 
 syntax on " Syntax highlighting is on.
 colorscheme molokai " Colorschemes are stored in /usr/share/vim/vim72/colors
