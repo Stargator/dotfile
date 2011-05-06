@@ -1,0 +1,19 @@
+# Coloured ls output.
+alias ls='ls --color'
+
+# Git aliases.
+alias g='git'
+alias ga='git add'
+alias gs='git status'
+alias gl='git log --oneline'
+alias gc='git commit -am'
+alias gb='git branch'
+alias gco='git checkout'
+alias gm='git merge'
+alias gpush='git push origin master'
+alias gpull='git pull origin master'
+
+# Not so commonly used Git aliases.
+alias gitinit='git init'
+alias gitname='git config --global user.name'
+alias gitemail='git config --global user.email'
