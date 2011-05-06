@@ -1,5 +1,9 @@
 " Kelsey's Custom VIM Settings
 
+set autoindent " Set automatic indentation on.
+
+set number " Set line numbers on.
+
 set expandtab " Spaces replace tabs.
 
 set tabstop=2 " Default tab length.
