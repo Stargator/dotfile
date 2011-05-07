@@ -4,16 +4,23 @@
 # Easy access to this config file.
 alias zshconfig='vim ~/.zshrc'
 
+# Add ~/Applications to path if directory exists.
+if [ -d $HOME/Applications ]; then
+  LOCALDIR="$HOME/Applications"
+  export PATH="$PATH:$LOCALDIR/bin"
+  export MANPATH=":$LOCALDIR/share/man"
+fi
+
 # Source oh-my-zsh configurations if installed...
 if [ -d $HOME/.oh-my-sh ]; then
   source ~/.zsh_config/oh-my-zsh
 fi
 
 # Source aliases.
-source ~/.zsh_config/aliases
+source ~/.config/zsh/aliases
 
 # Source custom prompt.
-source ~/.zsh_config/prompt
+source ~/.config/zsh/prompt
 
 # Source custom key bindings.
-source ~/.zsh_config/keybindings
+source ~/.config/zsh/keybindings

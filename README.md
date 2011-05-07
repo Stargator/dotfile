@@ -10,4 +10,4 @@ _... be sure to backup anything that may be affected before cloning ..._
 Notes
 -----
 
-The VIM configuration requires that the directory ~/.vim\_backup exists and that the Molokai theme is installed.
+Nothing to say for now!

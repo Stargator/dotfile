@@ -11,8 +11,8 @@ set shiftwidth=2 " Setting for autoindent.
 
 " The following changes default directories so that vim files are not saved in the same directory as the working file. Make sure that the directory specified here does in fact exist!
 
-set directory=~/.vim_backup " Directory for swap (file.swp - stores changes) files.
-set backupdir=~/.vim_backup " Directory for backup (file~) files.
+set directory=~/.vim/backup " Directory for swap (file.swp - stores changes) files.
+set backupdir=~/.vim/backup " Directory for backup (file~) files.
 
 
 set t_Co=256 " Set VIM to 256 color mode. Make sure your terminal is setup correctly.
