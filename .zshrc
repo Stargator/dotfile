@@ -10,10 +10,10 @@ if [ -d $HOME/.oh-my-sh ]; then
 fi
 
 # Source aliases.
-source .zsh_config/aliases
+source ~/.zsh_config/aliases
 
 # Source custom prompt.
-source .zsh_config/prompt
+source ~/.zsh_config/prompt
 
 # Source custom key bindings.
-source .zsh_config/keybindings
+source ~/.zsh_config/keybindings
