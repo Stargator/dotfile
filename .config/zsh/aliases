@@ -4,6 +4,9 @@ alias ls='ls --color'
 # Extract tar archive.
 alias extar='tar --extract --file'
 
+# Rsync defaults.
+alias rs='rsync -vhuEtri --progress'
+
 # Git aliases.
 alias g='git'
 alias ga='git add'
