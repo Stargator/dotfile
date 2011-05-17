@@ -23,3 +23,5 @@ colorscheme molokai " Colorschemes are stored in /usr/share/vim/vim72/colors
 set guifont=Inconsolata\ Medium\ 15 " Default GUI font.
 set guioptions-=T " Remove the GUI toolbar.
 set guioptions-=m " Remove the GUI menu bar.
+
+set lines=32 columns=110
