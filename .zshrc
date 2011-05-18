@@ -8,12 +8,12 @@ alias zshconfig='vim ~/.zshrc'
 if [ -d $HOME/Applications ]; then
   LOCALDIR="$HOME/Applications"
   export PATH="$PATH:$LOCALDIR/bin"
-  export MANPATH=":$LOCALDIR/share/man"
+  export MANPATH="$MANPATH:$LOCALDIR/share/man"
 fi
 
 # Source oh-my-zsh configurations if installed...
 if [ -d $HOME/.oh-my-sh ]; then
-  source ~/.zsh_config/oh-my-zsh
+  source ~/.config/zsh/oh-my-zsh
 fi
 
 # Source aliases.
