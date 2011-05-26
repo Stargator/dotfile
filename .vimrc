@@ -14,6 +14,11 @@ set shiftwidth=2 " Setting for autoindent.
 set directory=~/.vim/backup " Directory for swap (file.swp - stores changes) files.
 set backupdir=~/.vim/backup " Directory for backup (file~) files.
 
+" Commenting out lines, or a range of lines with Visual mode.
+map ,# :s/^/# /<CR>:nohlsearch<CR>
+map ,/ :s/^/\/\/ /<CR>:nohlsearch<CR>
+map ," :s/^/" /<CR>:nohlsearch<CR>
+map ,c :s/^[#"] \\|^\/\/ //<CR>:nohlsearch<CR>
 
 set t_Co=256 " Set VIM to 256 color mode. Make sure your terminal is setup correctly.
 
