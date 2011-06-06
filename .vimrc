@@ -18,7 +18,7 @@ set backupdir=~/.vim/backup " Directory for backup (file~) files.
 map ,# :s/^/# /<CR>:nohlsearch<CR>
 map ,/ :s/^/\/\/ /<CR>:nohlsearch<CR>
 map ," :s/^/" /<CR>:nohlsearch<CR>
-map ,c :s/^[#"] \\|^\/\/ //<CR>:nohlsearch<CR>
+map ,c :s/^[#"]\s\=//<CR>:nohlsearch<CR>
 
 set t_Co=256 " Set VIM to 256 color mode. Make sure your terminal is setup correctly.
 
