@@ -23,7 +23,7 @@ _... source: [stevelosh.com](http://stevelosh.com/blog/2009/03/candy-colored-ter
     Cyan:      103-217-240
     White:     242-242-242
 
-I also like to disable "Allow bold text".
+I also like to disable "Allow bold text" and set scheme to "Gray on black".
 
 
 
