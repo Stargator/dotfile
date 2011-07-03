@@ -12,7 +12,7 @@ Gnome-Terminal Colours
 
 These are the RGB values for gnome-terminal colours that should be used with my zsh configuration:
 
-_... source: steveloch.com/blog/2009/03/candy-colored-terminal/ ..._
+_... source: [stevelosh.com](stevelosh.com/blog/2009/03/candy-colored-terminal/) ..._
 
     Black:     000-000-000
     Red:       229-034-034
