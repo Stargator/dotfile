@@ -23,10 +23,6 @@ map ,c :s/^[#"/]\/\=\s\=//<CR>:nohlsearch<CR>
 set t_Co=256 " Set VIM to 256 color mode. Make sure your terminal is setup correctly.
 
 syntax on " Syntax highlighting is on.
-colorscheme molokai " Colorschemes are stored in /usr/share/vim/vim72/colors
+colorscheme molokai " Found in .vim/colors/ 
 
-set guifont=Inconsolata\ Medium\ 15 " Default GUI font.
-set guioptions-=T " Remove the GUI toolbar.
-set guioptions-=m " Remove the GUI menu bar.
-
-set lines=32 columns=110
+set lines=32 columns=110 " My default terminal size.

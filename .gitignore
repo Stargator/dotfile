@@ -4,6 +4,7 @@
 
 !.fonts.conf
 !.vimrc
+!.gvimrc
 !.zshrc
 
 !.config
@@ -12,4 +13,7 @@
 
 !.vim
 .vim/backup/*
+.vim/doc
+.vim/nerdtree_plugin
+.vim/plugin
 !.vim/backup/dummy
