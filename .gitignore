@@ -15,5 +15,7 @@
 .vim/backup/*
 .vim/doc
 .vim/nerdtree_plugin
+.vim/syntax
+.vim/ftdetect
 .vim/plugin
 !.vim/backup/dummy
