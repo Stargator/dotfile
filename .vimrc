@@ -25,4 +25,4 @@ set t_Co=256 " Set VIM to 256 color mode. Make sure your terminal is setup corre
 syntax on " Syntax highlighting is on.
 colorscheme molokai " Found in .vim/colors/ 
 
-set lines=32 columns=110 " My default terminal size.
+" set lines=32 columns=110 " My default terminal size.

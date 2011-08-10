@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cp -r .config .fonts.conf .git .gitignore .gvimrc INSTALL readme.md .vim .vimrc .zshrc $HOME/
+
+echo "Copying all dotfiles to home directory."

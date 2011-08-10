@@ -30,4 +30,4 @@ I also like to disable "Allow bold text" and set scheme to "Gray on black".
 Notes
 -----
 
-Nothing to say for now!
+Be careful of using the install script. It will overwrite all your old dotfiles without asking! The script copies everything including the install script and readme. This is for ease of future pushes to github.
