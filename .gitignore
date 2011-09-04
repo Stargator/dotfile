@@ -13,7 +13,10 @@
 !.config/zsh
 
 !.vim
+.vim/*
+!.vim/backup
 .vim/backup/*
+!.vim/colors
 .vim/doc
 .vim/nerdtree_plugin
 .vim/syntax
