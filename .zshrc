@@ -24,3 +24,10 @@ source ~/.config/zsh/prompt
 
 # Source custom key bindings.
 source ~/.config/zsh/keybindings
+
+# Source local customizations (edit these on a system by system basis).
+if [ ! -e $HOME/.zshrc.local ]; then
+  touch ~/.zshrc.local
+fi
+
+source ~/.zshrc.local
