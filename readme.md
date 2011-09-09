@@ -1,5 +1,5 @@
-Kelsey's Dot Files
-==================
+Kelsey's Dotfiles
+=================
 
 These are my personal configuration files.
 
