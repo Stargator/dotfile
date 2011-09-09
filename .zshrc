@@ -4,6 +4,12 @@
 # Easy access to this config file.
 alias zshconfig='vim ~/.zshrc'
 
+# Add vless with vim pager mode (for syntax highlighting) if found directory.
+# As an added note: press 'v' when in less to invoke your editor.
+if [ -d /usr/share/vim/vim73 ]; then
+  alias vless='vim -u /usr/share/vim/vim73/macros/less.vim -c "set t_Co=256 | colo molokai"'
+fi
+
 # Add ~/Applications to path if directory exists.
 if [ -d $HOME/Applications ]; then
   LOCALDIR="$HOME/Applications"

@@ -14,7 +14,7 @@ These are the RGB values for gnome-terminal colours that should be used with my 
 
 _... source: [stevelosh.com](http://stevelosh.com/blog/2009/03/candy-colored-terminal/) ..._
 
-    Black:     000-000-000
+    Black:     016-016-016
     Red:       229-034-034
     Green:     166-227-045
     Yellow:    252-149-030
@@ -23,7 +23,14 @@ _... source: [stevelosh.com](http://stevelosh.com/blog/2009/03/candy-colored-ter
     Cyan:      103-217-240
     White:     242-242-242
 
-I also like to disable "Allow bold text" and set scheme to "Gray on black".
+I also like to disable "Allow bold text" and set scheme to "Gray on black" with background colour 016-016-016 (matching the black above).
+
+
+
+Vim
+---
+
+Consider the following plugins - NERDTree, Conque (terminal emulator inside vim - eg. `:ConqueTerm zsh` will open zsh in the current vim window).
 
 
 
