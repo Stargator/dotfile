@@ -1,5 +1,10 @@
 #!/bin/bash
 
+echo "Copying all dotfiles to home directory."
 cp -r .config .fonts.conf .git .gitignore .gvimrc INSTALL readme.md .vim .vimrc .zshrc $HOME/
 
-echo "Copying all dotfiles to home directory."
+if [ -d $HOME/.config/sublime-text-2 ]; then
+  echo "Copying Sublime Text 2 configuration."
+  echo "Remember to remove 'Vintage' from ignored packages."
+  cp .sublime/* $HOME/.config/sublime-text-2/Packages/User/
+fi
