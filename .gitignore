@@ -1,7 +1,7 @@
 /*
 !readme.md
-!INSTALL
-!INSTALL_NO_GIT
+!install.sh
+!install_no_git.sh
 !.gitignore
 
 !.fonts.conf
