@@ -14,14 +14,14 @@ These are the RGB values for gnome-terminal colours that should be used with my 
 
 _... source: [stevelosh.com](http://stevelosh.com/blog/2009/03/candy-colored-terminal/) ..._
 
-    Black:     016-016-016
-    Red:       229-034-034
-    Green:     166-227-045
-    Yellow:    252-149-030
-    Blue:      196-141-255
-    Magenta:   250-037-115
-    Cyan:      103-217-240
-    White:     242-242-242
+    Black:     016-016-016   #101010
+    Red:       229-034-034   #E52222
+    Green:     166-227-045   #A6E32D
+    Yellow:    252-149-030   #FC951E
+    Blue:      196-141-255   #C48DFF
+    Magenta:   250-037-115   #FA2573
+    Cyan:      103-217-240   #67D9F0
+    White:     242-242-242   #F2F2F2
 
 I also like to disable "Allow bold text" and set scheme to "Gray on black" with background colour 016-016-016 (matching the black above).
 
