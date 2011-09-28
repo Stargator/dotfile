@@ -7,8 +7,12 @@ cp -r .config .fonts.conf .gvimrc .vim .vimrc .zshrc $HOME/
 
 if [ -d $HOME/.config/sublime-text-2 ]; then
   echo "Copying Sublime Text 2 configuration."
-  echo "Remember to remove 'Vintage' from ignored packages."
-  cp .sublime/* $HOME/.config/sublime-text-2/Packages/User/
+  sublime_dir=$HOME'/.config/sublime-text-2/Packages'
+  sublime_default=$sublime_dir'/Default/Global.sublime-settings'
+  # Enable vintage (vi) mode by taking it out of ignored packages.
+  sed -e 's/\["Vintage"\]/\[\]/g' $sublime_default > .sublime/Global.sublime-settings
+  mv .sublime/Global.sublime-settings $sublime_default
+  cp .sublime/* $sublime_dir/User/
 fi
 
 if [ -x '/usr/bin/gconftool-2' ]; then
