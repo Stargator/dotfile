@@ -3,11 +3,11 @@
 cd $( dirname $0 )
 
 echo "Copying all dotfiles to home directory."
-cp -r .config .fonts.conf .git .gitignore .gvimrc install.sh install_no_git.sh readme.md .vim .vimrc .zshrc $HOME/
+cp -r .config .fonts.conf .gvimrc .vim .vimrc .zshrc $HOME/
 
 if [ -d $HOME/.config/sublime-text-2 ]; then
-  echo 'Copying Sublime Text 2 configuration.'
-  echo 'Remember to remove "Vintage" from ignored packages.'
+  echo "Copying Sublime Text 2 configuration."
+  echo "Remember to remove 'Vintage' from ignored packages."
   cp .sublime/* $HOME/.config/sublime-text-2/Packages/User/
 fi
 
