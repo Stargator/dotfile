@@ -45,10 +45,4 @@ if [ -n "$(cat /proc/version | grep ARCH)" -a ! -e /usr/bin/packer ]; then
   wget http://aur.archlinux.org/packages/pa/packer/PKGBUILD
   makepkg -si --noconfirm PKGBUILD
   cd ../ && rm -rf packer
-  echo "Installing Ubuntu Font Family (for Monospace variant) and Microsoft Core Fonts."
-  packer -S --noconfirm ttf-ubuntu-font-family ttf-ms-fonts
-  echo "Setting Gnome Terminal Font to Ubuntu Mono 15."
-  gt_font_key='/apps/gnome-terminal/profiles/Default/font'
-  gt_font_value='Ubuntu Mono 15'
-  gconftool-2 --type string --set $gt_font_key "$gt_font_value"
 fi
