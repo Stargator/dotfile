@@ -34,11 +34,13 @@ if [ -x '/usr/bin/gconftool-2' ]; then
   sed -e 's/^Exec=gnome-terminal/Exec=gnome-terminal --geometry=120x32/g' $gnomet_desktop > gnome-terminal.desktop
   echo "Copying new gnome-terminal.desktop (requires root privileges)."
   sudo mv gnome-terminal.desktop $gnomet_desktop
+  echo "Also consider using Ubuntu Monospace 15 font (it's more fun than Inconsolata)."
 fi
 
 if [ -n "$(cat /proc/version | grep ARCH)" -a ! -e /usr/bin/packer ]; then
   echo "Using Arch Linux, but Packer is not installed. Installing Packer (AUR)..."
-  wget http://aur.archlinux.org/packages/pa/packer/PKGBUILD -o /tmp/PKGBUILD
-  makepkg -si /tmp/PKGBUILD
-  rm /tmp/PKGBUILD
+  mkdir /tmp/packer && cd /tmp/packer
+  wget http://aur.archlinux.org/packages/pa/packer/PKGBUILD
+  makepkg -si --noconfirm PKGBUILD
+  cd ../ && rm -rf packer
 fi
