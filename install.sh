@@ -34,7 +34,9 @@ if [ -x '/usr/bin/gconftool-2' ]; then
   sed -e 's/^Exec=gnome-terminal/Exec=gnome-terminal --geometry=120x32/g' $gnomet_desktop > gnome-terminal.desktop
   echo "Copying new gnome-terminal.desktop (requires root privileges)."
   sudo mv gnome-terminal.desktop $gnomet_desktop
-  echo "Also consider using Ubuntu Monospace 15 font (it's more fun than Inconsolata)."
+  echo "Also consider using Ubuntu Monospace 15 font."
+  echo "  - more fun than Inconsolata."
+  echo "  - however line spacing a bit squashed..."
 fi
 
 if [ -n "$(cat /proc/version | grep ARCH)" -a ! -e /usr/bin/packer ]; then
@@ -43,4 +45,10 @@ if [ -n "$(cat /proc/version | grep ARCH)" -a ! -e /usr/bin/packer ]; then
   wget http://aur.archlinux.org/packages/pa/packer/PKGBUILD
   makepkg -si --noconfirm PKGBUILD
   cd ../ && rm -rf packer
+  echo "Installing Ubuntu Font Family (for Monospace variant) and Microsoft Core Fonts."
+  packer -S --noconfirm ttf-ubuntu-font-family ttf-ms-fonts
+  echo "Setting Gnome Terminal Font to Ubuntu Mono 15."
+  gt_font_key='/apps/gnome-terminal/profiles/Default/font'
+  gt_font_value='Ubuntu Mono 15'
+  gconftool-2 --type string --set $gt_font_key "$gt_font_value"
 fi
