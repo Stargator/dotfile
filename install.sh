@@ -35,3 +35,10 @@ if [ -x '/usr/bin/gconftool-2' ]; then
   echo "Copying new gnome-terminal.desktop (requires root privileges)."
   sudo mv gnome-terminal.desktop $gnomet_desktop
 fi
+
+if [ -n "$(cat /proc/version | grep ARCH)" -a ! -e /usr/bin/packer ]; then
+  echo "Using Arch Linux, but Packer is not installed. Installing Packer (AUR)..."
+  wget http://aur.archlinux.org/packages/pa/packer/PKGBUILD -o /tmp/PKGBUILD
+  makepkg -si /tmp/PKGBUILD
+  rm /tmp/PKGBUILD
+fi
