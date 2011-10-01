@@ -3,8 +3,7 @@
 cd $( dirname $0 )
 
 # Warning check.
-printf "WARNING: This script will overwrite files without prompting. Continue? [Y/n] "
-read warning
+printf "WARNING: This script will overwrite files without prompting. Continue? [Y/n] "; read warning
 if [ "$warning" == "n" ]; then exit; fi
 
 # Copy dotfiles.
