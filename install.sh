@@ -24,8 +24,8 @@ if [ -x '/usr/bin/gconftool-2' ]; then
   sed -e 's/^Exec=gnome-terminal/Exec=gnome-terminal --geometry=120x32/g' $gnomet_desktop > gnome-terminal.desktop
   echo "Copying new gnome-terminal.desktop (requires root privileges)."
   sudo mv gnome-terminal.desktop $gnomet_desktop
-  echo "Installing and setting Ubuntu Mono 15 font."
   if [ ! -e $HOME/.fonts/UbuntuMono-R.ttf ]; then
+    echo "Installing and setting Ubuntu Mono 15 font."
     sudo cp .ubuntu-mono/* $HOME/.fonts/
     sudo fc-cache -f
     gnomet_font_key='/apps/gnome-terminal/profiles/Default/font'
