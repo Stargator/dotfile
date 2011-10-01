@@ -2,9 +2,16 @@
 
 cd $( dirname $0 )
 
+# Warning check.
+printf "WARNING: This script will overwrite files without prompting. Continue? [Y/n] "
+read warning
+if [ "$warning" == "n" ]; then exit; fi
+
+# Copy dotfiles.
 echo "Copying all dotfiles to home directory."
 cp -r .config .fonts.conf .gvimrc .vim .vimrc .zshrc $HOME/
 
+# Set gnome-terminal settings.
 if [ -x '/usr/bin/gconftool-2' ]; then
   echo "Changing gnome-terminal visual theme."
   fg_key='/apps/gnome-terminal/profiles/Default/foreground_color'
@@ -24,6 +31,7 @@ if [ -x '/usr/bin/gconftool-2' ]; then
   sed -e 's/^Exec=gnome-terminal/Exec=gnome-terminal --geometry=120x32/g' $gnomet_desktop > gnome-terminal.desktop
   echo "Copying new gnome-terminal.desktop (requires root privileges)."
   sudo mv gnome-terminal.desktop $gnomet_desktop
+  # Install Ubuntu Mono if it is not already installed.
   if [ ! -e $HOME/.fonts/UbuntuMono-R.ttf ]; then
     echo "Installing and setting Ubuntu Mono 15 font."
     sudo cp .ubuntu-mono/* $HOME/.fonts/
@@ -37,6 +45,7 @@ if [ -x '/usr/bin/gconftool-2' ]; then
   fi
 fi
 
+# Configure Sublime Text 2
 if [ -d $HOME/.config/sublime-text-2 ]; then
   echo "Copying Sublime Text 2 configuration."
   sublime_dir=$HOME'/.config/sublime-text-2/Packages'
@@ -48,6 +57,7 @@ if [ -d $HOME/.config/sublime-text-2 ]; then
   cp .sublime/theme/* $sublime_dir'/Color Scheme - Default/'
 fi
 
+# Configure Arch Linux
 if [ -n "$(cat /proc/version | grep ARCH)" -a ! -e /usr/bin/packer ]; then
   echo "Using Arch Linux, but Packer is not installed. Installing Packer (AUR)..."
   mkdir /tmp/packer && cd /tmp/packer

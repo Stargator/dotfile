@@ -39,4 +39,4 @@ Consider the following plugins - NERDTree, Conque (terminal emulator inside vim 
 Notes
 -----
 
-Be careful of using the install script. It will overwrite all your old dotfiles without asking! The script copies everything including the install script and readme. This is for ease of future pushes to github.
+Be careful when using the install script. It will overwrite all of your old dotfiles!
