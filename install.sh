@@ -24,9 +24,17 @@ if [ -x '/usr/bin/gconftool-2' ]; then
   sed -e 's/^Exec=gnome-terminal/Exec=gnome-terminal --geometry=120x32/g' $gnomet_desktop > gnome-terminal.desktop
   echo "Copying new gnome-terminal.desktop (requires root privileges)."
   sudo mv gnome-terminal.desktop $gnomet_desktop
-  echo "Also consider using Ubuntu Monospace 15 font."
-  echo "  - more fun than Inconsolata."
-  echo "  - however line spacing a bit squashed..."
+  echo "Installing and setting Ubuntu Mono 15 font."
+  if [ ! -e $HOME/.fonts/UbuntuMono-R.ttf ]; then
+    sudo cp .ubuntu-mono/* $HOME/.fonts/
+    sudo fc-cache -f
+    gnomet_font_key='/apps/gnome-terminal/profiles/Default/font'
+    gnomet_font_value='Ubuntu Mono 15'
+    gnomet_dfont_key='/apps/gnome-terminal/profiles/Default/use_system_font'
+    gnomet_dfont_value='False'
+    gconftool-2 --type string --set $gnomet_font_key "$gnomet_font_value"
+    gconftool-2 --type bool --set $gnomet_dfont_key "$gnomet_dfont_value"
+  fi
 fi
 
 if [ -d $HOME/.config/sublime-text-2 ]; then
