@@ -20,6 +20,9 @@ map ,/ :s/^/\/\/ /<CR>:nohlsearch<CR>
 map ," :s/^/" /<CR>:nohlsearch<CR>
 map ,c :s/^[#"/]\/\=\s\=//<CR>:nohlsearch<CR>
 
+" Add the command :w!! to write file with root privileges.
+cmap w!! w !sudo tee >/dev/null %
+
 set t_Co=256 " Set VIM to 256 color mode. Make sure your terminal is setup correctly.
 
 syntax on " Syntax highlighting is on.
