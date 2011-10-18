@@ -16,6 +16,9 @@ fi
 # Easy access to this config file.
 alias zshconfig='vim ~/.zshrc'
 
+# Set default editor.
+EDITOR='vim'
+
 # Add vless with vim pager mode (for syntax highlighting) if found directory.
 # As an added note: press 'v' when in less to invoke your editor.
 if [ -d /usr/share/vim/vim7? ]; then
