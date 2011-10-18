@@ -1,4 +1,5 @@
 " Kelsey's Custom GVIM Settings
+" -----------------------------
 
 colorscheme freckle " Found in .vim/colors/ 
 

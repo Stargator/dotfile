@@ -1,4 +1,5 @@
 " Kelsey's Custom VIM Settings
+" ----------------------------
 
 set autoindent " Set automatic indentation on.
 
