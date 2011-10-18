@@ -1,6 +1,18 @@
 # Kelsey's ZSH Configuration
 # --------------------------
 
+# Exit if shell is not interactive.
+if [[ $- != *i* ]]; then return; fi
+
+# Start tmux if installed and not already running ($TERM == screen).
+if [ -n $(which tmux) ] && [[ $TERM != "screen" ]]; then
+  if [[ $TERM == "xterm" ]]; then
+    tmux -2 && exit # 256 colours.
+  else
+    tmux && exit
+  fi
+fi
+
 # Easy access to this config file.
 alias zshconfig='vim ~/.zshrc'
 

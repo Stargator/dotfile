@@ -61,7 +61,7 @@ if [ -d $HOME/.config/sublime-text-2 ]; then
 fi
 
 # Configure Arch Linux
-if [ -n "$(cat /proc/version | grep ARCH)" -a ! -e /usr/bin/packer ]; then
+if [ -n "$(cat /proc/version | grep ARCH)" -a ! -x /usr/bin/packer ]; then
   echo "Using Arch Linux, but Packer is not installed. Installing Packer (AUR)..."
   mkdir /tmp/packer && cd /tmp/packer
   wget http://aur.archlinux.org/packages/pa/packer/PKGBUILD
