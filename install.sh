@@ -30,7 +30,7 @@ if [ -x '/usr/bin/gconftool-2' ]; then
   gconftool-2 --type bool --set $systheme_key $systheme_value
   # Set geometry as it doesn't work through gconf.
   gnomet_desktop='/usr/share/applications/gnome-terminal.desktop'
-  sed -e 's/^Exec=gnome-terminal/Exec=gnome-terminal --geometry=120x32/g' $gnomet_desktop > gnome-terminal.desktop
+  sed -e 's/^Exec=gnome-terminal.*$/Exec=gnome-terminal --geometry=120x36/g' $gnomet_desktop > gnome-terminal.desktop
   echo "Copying new gnome-terminal.desktop (requires root privileges)."
   sudo mv gnome-terminal.desktop $gnomet_desktop
   # Install Ubuntu Mono if it is not already installed.
