@@ -70,7 +70,7 @@ if [ -n "$(cat /proc/version | grep ARCH)" -a ! -x /usr/bin/packer ]; then
   echo "Suggested AUR packages (install with packer):"
   echo "  - ttf-ubuntu-font-family ttf-ms-fonts ttf-vista-fonts"
   echo "  - faenza-icon-theme faience-icon-theme zukitwo-themes"
-  echo "  - google-chrome-dev"
+  echo "  - google-chrome-dev tmux"
 fi
 
 echo "All done!"
