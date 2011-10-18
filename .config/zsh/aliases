@@ -16,6 +16,7 @@ alias gc='git commit -am'
 alias gb='git branch'
 alias gco='git checkout'
 alias gm='git merge'
+alias gd='git diff --color'
 alias gpush='git push origin master'
 alias gpull='git pull origin master'
 
