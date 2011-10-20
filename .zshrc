@@ -5,7 +5,7 @@
 if [[ $- != *i* ]]; then return; fi
 
 # Start tmux if installed and not already running ($TERM == screen).
-if [ -n $(which tmux) ] && [[ $TERM != "screen" ]]; then
+if [[ $(which tmux) != "tmux not found" ]] && [[ $TERM != "screen" ]]; then
   if [[ $TERM == "xterm" ]]; then
     tmux -2 && exit # 256 colours.
   else
