@@ -1,6 +1,9 @@
 # Coloured ls output.
 alias ls='ls --color'
 
+# Coloured rspec output.
+alias spec='rspec --color'
+
 # Extract tar archive.
 alias extar='tar --extract --file'
 
