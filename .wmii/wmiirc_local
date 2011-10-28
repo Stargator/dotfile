@@ -1,0 +1,11 @@
+# Kelsey's WMII Configuration
+# ---------------------------
+
+MODKEY=Mod4
+
+# Blue focus windows, black and grey normal.
+WMII_NORMCOLORS='#808080 #000000 #000000'
+WMII_FOCUSCOLORS='#ffffff #0000ff #0000ff'
+
+# Smooth fonts.
+WMII_FONT='xft:UbuntuMono-15'
