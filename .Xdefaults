@@ -8,6 +8,7 @@ Xft*autohint: true
 Xft*hinting: true
 Xft*hintstyle: hintnone
 URxvt*font: xft:ubuntu mono:size=15:style=medium:antialias=true
+XTerm*faceName: xft:ubuntu mono:size=15:style=medium:antialias=true
 
 URxvt*scrollBar: false
 URxvt*geometry: 120x36
