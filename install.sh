@@ -8,7 +8,7 @@ if [ "$warning" == "n" ]; then exit; fi
 
 # Copy dotfiles.
 echo "Copying all dotfiles to home directory."
-cp -r .config .fonts.conf .gvimrc .pryrc .tmux.conf .vim .vimrc .zshrc .wmii $HOME/
+cp -r .config .fonts.conf .gvimrc .pryrc .tmux.conf .vim .vimrc .zshrc .wmii .Xdefaults $HOME/
 
 # Set gnome-terminal settings.
 if [ -x '/usr/bin/gconftool-2' ]; then
@@ -70,7 +70,7 @@ if [ -n "$(cat /proc/version | grep ARCH)" -a ! -x /usr/bin/packer ]; then
   echo "Suggested AUR packages (install with packer):"
   echo "  - ttf-ubuntu-font-family ttf-ms-fonts ttf-vista-fonts"
   echo "  - faenza-icon-theme faience-icon-theme zukitwo-themes"
-  echo "  - google-chrome-dev tmux"
+  echo "  - google-chrome-dev tmux rxvt-unicode wmii"
 fi
 
 echo "All done!"

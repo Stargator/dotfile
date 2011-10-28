@@ -1,0 +1,50 @@
+! Kelsey's URXVT Configuration
+! ----------------------------
+
+! Fonts
+Xft*dpi: 96
+Xft*antialias: true
+Xft*autohint: true
+Xft*hinting: true
+Xft*hintstyle: hintnone
+URxvt*font: xft:ubuntu mono:size=15:style=medium:antialias=true
+
+URxvt*scrollBar: false
+URxvt*geometry: 120x36
+
+! Colours
+*background: #101010
+*foreground: #aaaaaa
+*colorBD: #f2f2f2
+
+! Black
+*color0: #101010
+*color8: #101010
+
+! Red
+*color1: #e52222
+*color9: #e52222
+
+! Green
+*color2: #a6e32d
+*color10: #a6e32d
+
+! Yellow
+*color3: #fc951e
+*color11: #fc951e
+
+! Blue
+*color4: #c48dff
+*color12: #c48dff
+
+! Magenta
+*color5: #fa2573
+*color13: #fa2573
+
+! Cyan
+*color6: #67d9f0
+*color14: #67d9f0
+
+! White
+*color7: #f2f2f2
+*color15: #f2f2f2
