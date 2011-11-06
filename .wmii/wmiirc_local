@@ -9,3 +9,6 @@ WMII_FOCUSCOLORS='#ffffff #0000ff #0000ff'
 WMII_FONT='xft:UbuntuMono-15'
 
 WMII_TERM='urxvt'
+
+# Uncomment the following to set a background image. Requires "feh".
+# feh --bg-fill /path/to/image.jpg
