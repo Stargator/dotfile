@@ -30,7 +30,10 @@
 ! Cyan
 *color6: #bca566
 *color14: #bca566
-ff815a
+
 ! White
 *color7: #e0cab8
 *color15: #e0cab8
+
+! Cursor
+*cursorColor: #40ff44
