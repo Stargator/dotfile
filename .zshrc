@@ -5,7 +5,10 @@
 if [[ $- != *i* ]]; then return; fi
 
 # Start tmux if installed and not already running ($TERM == screen).
-if [[ $(which tmux) != "tmux not found" ]] && [[ $TERM != "screen" ]]; then
+wmii_running=$(pgrep wmii) # Don't use tmux in a tiling window manager.
+if [[ $(which tmux) != "tmux not found" ]] && \
+   [[ $TERM != "screen" ]] && \
+   [[ $wmii_running == "" ]]; then
   if [[ $TERM == "xterm" ]]; then
     tmux -2 && exit # 256 colours.
   else

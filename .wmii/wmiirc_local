@@ -2,7 +2,7 @@
 # ---------------------------
 
 MODKEY=Mod4
-WMII_FONT='xft:UbuntuMono-15'
+WMII_FONT='xft:UbuntuMono-13.5'
 WMII_TERM='urxvt'
 
 # Uncomment the following to set a background image. Requires "feh".

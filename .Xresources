@@ -7,9 +7,9 @@ Xft*antialias: true
 Xft*autohint: true
 Xft*hinting: true
 Xft*hintstyle: hintnone
-URxvt*font: xft:ubuntu mono:size=15:style=medium:antialias=true
-XTerm*faceName: xft:ubuntu mono:size=15:style=medium:antialias=true
+URxvt*font: xft:ubuntu mono:size=13.5:style=medium:antialias=true
+XTerm*faceName: xft:ubuntu mono:size=13.5:style=medium:antialias=true
 
 URxvt*scrollBar: false
-URxvt*geometry: 120x36
+URxvt*geometry: 130x38
 
