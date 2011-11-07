@@ -12,10 +12,13 @@ cp -r .config .fonts.conf .gvimrc .pryrc .tmux.conf .vim .vimrc .zshrc .wmii .xi
 
 # Append the specified or default colourscheme to Xresources.
 if [[ $1 == "foolish" ]]; then
+  echo "Using Foolish Passion theme for Xresources."
   cat .xcolourschemes/foolish_passion >> $HOME/.Xresources
-elif [[ $1 == "foolish2" ]]; then
-  cat .xcolourschemes/foolish_passion_2 >> $HOME/.Xresources
+elif [[ $1 == "garden" ]]; then
+  echo "Using Gardening theme for Xresources."
+  cat .xcolourschemes/gardening >> $HOME/.Xresources
 else
+  echo "Using Monokai theme for Xresources."
   cat .xcolourschemes/monokai >> $HOME/.Xresources
 fi
 
