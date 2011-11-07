@@ -9,8 +9,9 @@ Xft*hinting: true
 Xft*hintstyle: hintnone
 URxvt*font: xft:ubuntu mono:size=13.5:style=medium:antialias=true
 XTerm*faceName: xft:ubuntu mono:size=13.5:style=medium:antialias=true
+URxvt*lineSpace: 3
 
 URxvt*fading: 75
 URxvt*scrollBar: false
-URxvt*geometry: 130x38
+URxvt*geometry: 134x34
 
