@@ -14,12 +14,15 @@ cp -r .config .fonts.conf .gvimrc .pryrc .tmux.conf .vim .vimrc .zshrc .wmii .xi
 if [[ $1 == "foolish" ]]; then
   echo "Using Foolish Passion theme for Xresources."
   cat .xcolourschemes/foolish_passion >> $HOME/.Xresources
+  cat .xcolourschemes/wmii_foolish_passion >> $HOME/.wmii/wmiirc_local
 elif [[ $1 == "garden" ]]; then
   echo "Using Gardening theme for Xresources."
   cat .xcolourschemes/gardening >> $HOME/.Xresources
+  cat .xcolourschemes/wmii_default >> $HOME/.wmii/wmiirc_local
 else
   echo "Using Monokai theme for Xresources."
   cat .xcolourschemes/monokai >> $HOME/.Xresources
+  cat .xcolourschemes/wmii_default >> $HOME/.wmii/wmiirc_local
 fi
 
 # Symlink Xdefaults to Xresources for older programs.
