@@ -9,7 +9,9 @@ if [ "$warning" == "n" ]; then exit; fi
 # Copy dotfiles.
 echo "Copying all dotfiles to home directory."
 cp -r .config .fonts.conf .gvimrc .pryrc .tmux.conf .vim .vimrc .zshrc .wmii .xinitrc .Xresources $HOME/
-ln -s $HOME/.Xresources $HOME/.Xdefaults
+if [[ ! -h $HOME/.Xdefaults ]]; then
+  ln -s $HOME/.Xresources $HOME/.Xdefaults
+fi
 
 # Set gnome-terminal settings.
 if [ -x '/usr/bin/gconftool-2' ]; then
