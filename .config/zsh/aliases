@@ -12,7 +12,7 @@ alias rs='rsync -vhuEtri --progress'
 
 # Start wmii.
 wmiipath=$(which wmii)
-alias startwmii="startx $wmiipath"
+alias startw="startx $wmiipath"
 
 # Git aliases.
 alias g='git'
