@@ -15,6 +15,10 @@ if [[ $1 == "foolish" ]]; then
   echo "Using Foolish Passion theme for Xresources."
   cat .xcolourschemes/foolish_passion >> $HOME/.Xresources
   cat .xcolourschemes/wmii_foolish_passion >> $HOME/.wmii/wmiirc_local
+elif [[ $1 == "foolishb" ]]; then
+  echo "Using Foolish Passion Bright theme for Xresources."
+  cat .xcolourschemes/foolish_passion_bright >> $HOME/.Xresources
+  cat .xcolourschemes/wmii_foolish_passion >> $HOME/.wmii/wmiirc_local
 elif [[ $1 == "garden" ]]; then
   echo "Using Gardening theme for Xresources."
   cat .xcolourschemes/gardening >> $HOME/.Xresources
