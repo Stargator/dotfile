@@ -9,6 +9,17 @@ if [ "$warning" == "n" ]; then exit; fi
 # Copy dotfiles.
 echo "Copying all dotfiles to home directory."
 cp -r .config .fonts.conf .gvimrc .pryrc .tmux.conf .vim .vimrc .zshrc .wmii .xinitrc .Xresources $HOME/
+
+# Append the specified or default colourscheme to Xresources.
+if [[ $1 == "foolish" ]]; then
+  cat .xcolourschemes/foolish_passion >> $HOME/.Xresources
+elif [[ $1 == "foolish2" ]]; then
+  cat .xcolourschemes/foolish_passion_2 >> $HOME/.Xresources
+else
+  cat .xcolourschemes/monokai >> $HOME/.Xresources
+fi
+
+# Symlink Xdefaults to Xresources for older programs.
 if [[ ! -h $HOME/.Xdefaults ]]; then
   ln -s $HOME/.Xresources $HOME/.Xdefaults
 fi
