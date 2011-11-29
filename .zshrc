@@ -14,6 +14,9 @@ if [[ $(which tmux) != "tmux not found" ]] && \
   else
     tmux && exit
   fi
+else
+  # This fixes trouble I had with backspace-key/ssh/urxvt/wmii.
+  TERM='xterm'
 fi
 
 # Easy access to this config file.
