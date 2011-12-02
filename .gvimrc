@@ -11,6 +11,6 @@ set guioptions-=L " Remove the GUI left scrollbar.
 
 set lines=40 columns=130 " Slighty larger than my default terminal size.
 
-" Following causes GVIM to automatically save sessions between... sessions.
+" Following causes GVIM to automatically save sessions. Restore with :Restore.
 autocmd VimLeave * mksession! ~/.gvimsession " Force save session.
-autocmd VimEnter * source ~/.gvimsession " Load session on startup.
+command Restore source ~/.gvimsession
