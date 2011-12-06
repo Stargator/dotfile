@@ -2,10 +2,8 @@
 # -----------------------------
 
 # Depending on argument, start a different window manager.
-if [[ $1 == "wmii" ]]; then
-  exec wmii
-elif [[ $1 == "awesome" ]]; then
-  exec awesome
+if [[ $1 == "w" ]]; then
+  exec ck-launch-session wmii
 else
   exec ck-launch-session gnome-session
 fi
