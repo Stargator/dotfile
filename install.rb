@@ -16,7 +16,7 @@ require 'dotfile'
 # Check for existence of ~/.dotfiles.conf.yml
 f = File.expand_path('~/.dotfiles.conf.yml')
 unless File.exists?(f)
-  FileUtils.cp('./.dotfiles.conf.yml', f)
+  FileUtils.cp('./dotfiles.conf.yml', f)
 end
 
 Dotfile.load_config(f)

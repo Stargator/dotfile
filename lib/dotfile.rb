@@ -27,17 +27,44 @@ class Dotfile
   # Array of all instances of this class.
   @@dotfiles = []
   
-  def initialize(f)
+  def initialize(file_path)
     @@dotfiles << self
 
-    @type = :placeholder # Type of dotfile
+    @is_directory = File.directory?(file_path)
+    @file_path = file_path
   end
 
   def configure
-    # Modify file differently based on @type
+    unless @is_directory
+      puts "Running dotfile #{@file_path} through configurations..."
+      @lines = File.readlines(@file_path)
+      # Substitute any placeholders for equivalent key/value in config file.
+      @lines.map! do |l|
+        l.gsub(/{{[\w-]+}}/) do |option|
+          @@y[option.gsub(/{{|}}/, "")]
+        end
+      end
+    else
+      puts "Skipping directory #{@file_path}..."
+    end
   end
 
   def create
+    unless @is_directory
+      d = File.split(@file_path.gsub("templates/", Dir.home + "/."))
+      @destination = "#{d[0]}/#{d[1]}"
+
+      f = Tempfile.new(d[1])
+      @lines.each { |l| f.puts l }
+      @source = f.path
+      f.close
+      f.unlink
+    else
+      @destination = @file_path.gsub("templates/", Dir.home + "/.")
+      @source = @file_path
+    end
+    puts @destination
+    puts @source
   end
 
   def self.all

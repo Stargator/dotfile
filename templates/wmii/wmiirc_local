@@ -3,8 +3,9 @@
 
 MODKEY=Mod4
 WMII_FONT='xft:UbuntuMono-13.5'
-WMII_TERM='urxvt'
+WMII_TERM='{{wmii-default-terminal}}'
 
-# Uncomment the following to set a background image. Requires "feh".
-# feh --bg-fill /path/to/image.jpg
+# Set background image. Requires "feh".
+{{wmii-background-enabled}}feh --bg-fill {{wmii-background-image}}
 
+{{wmii-colourscheme}}

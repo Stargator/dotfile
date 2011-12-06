@@ -2,17 +2,18 @@
 ! ----------------------------
 
 ! Fonts
-Xft*dpi: 96
-Xft*antialias: true
-Xft*autohint: true
-Xft*hinting: true
-Xft*hintstyle: hintnone
-Xft*rgba: none
-URxvt*font: xft:ubuntu mono:size=13.5:style=medium:antialias=true
-XTerm*faceName: xft:ubuntu mono:size=13.5:style=medium:antialias=true
-URxvt*lineSpace: 3
+Xft*dpi: {{font-dpi}}
+Xft*antialias: {{font-antialias}}
+Xft*autohint: {{font-autohint}}
+Xft*hinting: {{font-hinting}}
+Xft*hintstyle: {{font-hinting-style}}
+Xft*rgba: {{font-rgba}}
+URxvt*font: xft:{{font}}:size={{font-size}}:style={{font-style}}:antialias={{font-antialias}}
+XTerm*faceName: xft:{{font}}:size={{font-size}}:style={{font-style}}:antialias={{font-antialias}}
+URxvt*lineSpace: {{urxvt-linespace}}
 
-URxvt*fading: 75
-URxvt*scrollBar: false
-URxvt*geometry: 134x34
+URxvt*fading: {{urxvt-fading}}
+URxvt*scrollBar: {{urxvt-scrollbar}}
+URxvt*geometry: {{urxvt-size}}
 
+{{colourscheme}}

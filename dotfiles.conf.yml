@@ -1,0 +1,67 @@
+
+#   Kelsey's Dotfile Configuration
+#   --------------------------------
+
+#     This file is made up of the defaults for new configurations. It will not
+#     be overwritten when running dotfiles/install.rb. However if it doesn't
+#     exist, then it will be created in this initial state.
+
+
+### Included Files, Directories
+
+# Static files in dotfiles directory.
+included: config pryrc tmux.conf vim zshrc xinitrc
+
+# Dynamic files in templates directory.
+included-templates: fonts.conf gvimrc vimrc wmii/wmiirc_local Xresources
+
+
+### Other Settings (shell scripts in ./lib)
+
+other-settings:
+  arch-linux: true
+  gnome-terminal: true
+  sublime-text: true
+
+
+### X Terminal
+
+x-colourscheme: foolish_passion_bright    # Colourschemes are found in dotfiles/templates/xcolourschemes.
+
+urxvt-fading: 75
+urxvt-scrollbar: false
+urxvt-size: 134x34
+
+
+### VIM
+
+vim-syntax: on
+vim-colourscheme: molokai
+
+gvim-colourscheme: freckle
+gvim-columns: 130
+gvim-lines: 40
+
+
+### Fonts
+
+font: ubuntu mono
+font-style: medium
+font-size: 13.5
+font-dpi: 96
+
+font-antialias: true
+font-autohint: true
+font-hinting: true
+font-hinting-style: none    # eg. hintnone, hintslight, hintmedium, hintfull
+font-rgba: none    # eg. none for grayscale anti-alias
+
+urxvt-linespace: 3
+
+
+### wmii
+
+wmii-colourscheme: wmii_foolish_passion    # Colourschemes are found in dotfiles/templates/xcolourschemes.
+wmii-default-terminal: urxvt
+wmii-background-enabled: "# "    # "# " to disable, "" to enable.
+wmii-background-image: /path/to/background.jpg    # Requires that feh is installed. Specify a full pathname.
