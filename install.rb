@@ -41,7 +41,7 @@ puts "Performing template substitutions..."
 Dotfile.templates.each do |filename|
   dotfile = Dotfile.new("templates/" + filename)
   dotfile.configure
-  dotfile.set_paths(Dir.home + "/test")
+  dotfile.set_paths
   puts "-> " + dotfile.name
 end
 puts "\n"
@@ -52,7 +52,16 @@ Dotfile.all.each do |dotfile|
   FileUtils.cp(dotfile.source, dotfile.destination)
   puts "-> " + dotfile.name
 end
+
+Dotfile.included.each do |filename|
+  source_file = "dotfiles/#{filename}"
+  FileUtils.cp_r(source_file, Dir.home)
+  puts "-> " + filename
+end
 puts "\n"
 
 puts "Executing extra shell scripts..."
 Dotfile.configure_optional
+puts "\n"
+
+puts "All done!"

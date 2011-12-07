@@ -10,7 +10,7 @@
 ### Included Files, Directories
 
 # Static files in dotfiles directory.
-included: config pryrc tmux.conf vim zshrc xinitrc
+included: .config .pryrc .tmux.conf .vim .zshrc .xinitrc
 
 # Dynamic files in templates directory.
 included-templates: fonts.conf gvimrc vimrc wmii/wmiirc_local Xresources
@@ -35,7 +35,7 @@ urxvt-size: 134x34
 
 ### VIM
 
-vim-syntax: on
+vim-syntax: "on"
 vim-colourscheme: molokai
 
 gvim-colourscheme: freckle
