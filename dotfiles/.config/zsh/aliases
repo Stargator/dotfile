@@ -11,7 +11,6 @@ alias extar='tar --extract --file'
 alias rs='rsync -vhuEtri --progress'
 
 # Start wmii.
-wmiipath=$(which wmii)
 alias startw="xinit w"
 
 # Git aliases.
