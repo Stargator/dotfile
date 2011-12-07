@@ -94,6 +94,8 @@ class Dotfile
   # Takes path to file as argument.
   def self.load_config(f)
     @@y = YAML.load(File.open f)
+
+    up_to_date?
   end
 
   # Array of dotfiles to copy.
@@ -121,6 +123,11 @@ class Dotfile
     else
       @@y[option]
     end
+  end
+
+  def self.up_to_date?
+    # Future method to compare current and new .dotfiles.conf.yml to check
+    # for missing keys (options).
   end
 end
 
