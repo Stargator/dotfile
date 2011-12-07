@@ -16,8 +16,8 @@ require 'tempfile'
 #
 #       FileUtils.cp vimrc.source vimrc.destination
 #
-#       # Optionally you can close the temporary source files after copying.
-#       vimrc.close_tmp
+#       # Optionally you can remove the temporary source files after copying.
+#       vimrc.remove_tmp
 #
 #     Every instance of class Dotfile is referenced in a class variable:
 #
@@ -64,6 +64,7 @@ class Dotfile
     @tmp = Tempfile.new(d[1])
     @lines.each { |l| @tmp.puts l }
     @source = @tmp.path
+    @tmp.close
   end
 
   def destination
@@ -82,8 +83,7 @@ class Dotfile
     File.split(@file_path)[1]
   end
 
-  def close_tmp
-    @tmp.close
+  def remove_tmp
     @tmp.unlink
   end
 
@@ -123,3 +123,4 @@ class Dotfile
     end
   end
 end
+

@@ -42,12 +42,14 @@ Dotfile.templates.each do |filename|
   dotfile = Dotfile.new("templates/" + filename)
   dotfile.configure
   dotfile.set_paths(Dir.home + "/test")
+  puts "-> " + dotfile.name
 end
 puts "\n"
 
 puts "Installing new configuration files..."
 Dotfile.all.each do |dotfile|
   FileUtils.mkdir_p(dotfile.destination_path)
+  FileUtils.cp(dotfile.source, dotfile.destination)
   puts "-> " + dotfile.name
 end
 puts "\n"

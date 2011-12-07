@@ -8,4 +8,4 @@ WMII_TERM='{{wmii-default-terminal}}'
 # Set background image. Requires "feh".
 {{wmii-background-enabled}}feh --bg-fill {{wmii-background-image}}
 
-{{wmii-colourscheme}}
+{{wmii-theme}}
