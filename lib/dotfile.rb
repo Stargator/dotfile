@@ -5,11 +5,13 @@ require 'yaml'
 #
 #     Generate dotfiles based on configurations found in ~/.dotfiles.conf.yml.
 #     New files are based on the dotfiles found in this git repository. They
-#     are loaded in, edited, and finally written out to the home directory.
+#     are loaded in, edited, and finally are given a source and destination.
 #
-#       pryrc = Dotfile.new(".pryrc")
-#       pryrc.configure
-#       pryrc.create
+#       vimrc = Dotfile.new("templates/vimrc")
+#       vimrc.configure
+#       vimrc.set_paths
+#
+#       FileUtils.cp vimrc.source vimrc.destination
 #
 #     Every instance of class Dotfile is referenced in a class variable:
 #
@@ -41,7 +43,8 @@ class Dotfile
       # Substitute any placeholders for equivalent key/value in config file.
       @lines.map! do |l|
         l.gsub(/{{[\w-]+}}/) do |option|
-          @@y[option.gsub(/{{|}}/, "")]
+          option.gsub!(/{{|}}/, "")
+          return_option_value(option)
         end
       end
     else
@@ -49,9 +52,18 @@ class Dotfile
     end
   end
 
-  def create
+  def return_option_value(option)
+    # If option is a colourscheme, it must be sources from an external file.
+    if option =~ /.*colourscheme/
+      File.readlines("templates/xcolourschemes/#{@@y[option]}").join
+    else
+      @@y[option]
+    end
+  end
+
+  def set_paths(prefix = Dir.home)
     unless @is_directory
-      d = File.split(@file_path.gsub("templates/", Dir.home + "/."))
+      d = File.split(@file_path.gsub("templates/", prefix + "/."))
       @destination = "#{d[0]}/#{d[1]}"
 
       f = Tempfile.new(d[1])
@@ -60,11 +72,17 @@ class Dotfile
       f.close
       f.unlink
     else
-      @destination = @file_path.gsub("templates/", Dir.home + "/.")
+      @destination = @file_path.gsub("templates/", prefix + "/.")
       @source = @file_path
     end
-    puts @destination
-    puts @source
+  end
+
+  def destination
+    @destination || raise "Destination not set for #{@file_path}. Run set_source_destination."
+  end
+
+  def source
+    @source || raise "Source not set for #{@file_path}. Run set_source_destination."
   end
 
   def self.all
@@ -80,6 +98,9 @@ class Dotfile
   def self.included
     @@y['included'].split(' ')
   end
+
+  def self.templates
+    @@y['included-templates'].split(' ')
 
   # Other optional settings to load.
   def self.config_optional

@@ -16,4 +16,4 @@ URxvt*fading: {{urxvt-fading}}
 URxvt*scrollBar: {{urxvt-scrollbar}}
 URxvt*geometry: {{urxvt-size}}
 
-{{colourscheme}}
+{{x-colourscheme}}
