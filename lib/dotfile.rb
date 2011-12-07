@@ -1,4 +1,5 @@
 require 'yaml'
+require 'tempfile'
 
 #   dotfile.rb
 #   ------------
@@ -7,11 +8,16 @@ require 'yaml'
 #     New files are based on the dotfiles found in this git repository. They
 #     are loaded in, edited, and finally are given a source and destination.
 #
+#       Dotfile.load_config(File.expand_path('~/.dotfiles.conf.yml'))
+#
 #       vimrc = Dotfile.new("templates/vimrc")
 #       vimrc.configure
 #       vimrc.set_paths
 #
 #       FileUtils.cp vimrc.source vimrc.destination
+#
+#       # Optionally you can close the temporary source files after copying.
+#       vimrc.close_tmp
 #
 #     Every instance of class Dotfile is referenced in a class variable:
 #
@@ -20,8 +26,8 @@ require 'yaml'
 #     Therefore you may iterate over all dotfiles...
 #
 #       Dotfile.all.each do |d|
-#         d.configure
-#         d.create
+#         # ... code copying files etc. ...
+#         # ...
 #       end
 
 
@@ -38,7 +44,6 @@ class Dotfile
 
   def configure
     unless @is_directory
-      puts "Running dotfile #{@file_path} through configurations..."
       @lines = File.readlines(@file_path)
       # Substitute any placeholders for equivalent key/value in config file.
       @lines.map! do |l|
@@ -48,16 +53,7 @@ class Dotfile
         end
       end
     else
-      puts "Skipping directory #{@file_path}..."
-    end
-  end
-
-  def return_option_value(option)
-    # If option is a colourscheme, it must be sources from an external file.
-    if option =~ /.*colourscheme/
-      File.readlines("templates/xcolourschemes/#{@@y[option]}").join
-    else
-      @@y[option]
+      raise "Directory #{@file_path} listed as template file..."
     end
   end
 
@@ -65,24 +61,39 @@ class Dotfile
     unless @is_directory
       d = File.split(@file_path.gsub("templates/", prefix + "/."))
       @destination = "#{d[0]}/#{d[1]}"
+      @destination_path = d[0]
 
-      f = Tempfile.new(d[1])
-      @lines.each { |l| f.puts l }
-      @source = f.path
-      f.close
-      f.unlink
+      @tmp = Tempfile.new(d[1])
+      @lines.each { |l| @tmp.puts l }
+      @source = @tmp.path
     else
       @destination = @file_path.gsub("templates/", prefix + "/.")
+      @destination_path = @destination
       @source = @file_path
     end
   end
 
   def destination
-    @destination || raise "Destination not set for #{@file_path}. Run set_source_destination."
+    @destination
+  end
+
+  def destination_path
+    @destination_path
   end
 
   def source
-    @source || raise "Source not set for #{@file_path}. Run set_source_destination."
+    @source
+  end
+
+  def name
+    File.split(@file_path)[1]
+  end
+
+  def close_tmp
+    unless @is_directory
+      @tmp.close
+      @tmp.unlink
+    end
   end
 
   def self.all
@@ -101,11 +112,23 @@ class Dotfile
 
   def self.templates
     @@y['included-templates'].split(' ')
+  end
 
-  # Other optional settings to load.
-  def self.config_optional
+  # Other optional shell scripts to load.
+  def self.configure_optional
     @@y['other-settings'].each do |k, v|
       system("./lib/" + k + ".sh") if v
+    end
+  end
+
+  private
+
+  def return_option_value(option)
+    # If option is a theme, it must be sources from an external file.
+    if option =~ /.*theme/
+      File.readlines("templates/themes/#{@@y[option]}").join
+    else
+      @@y[option]
     end
   end
 end
