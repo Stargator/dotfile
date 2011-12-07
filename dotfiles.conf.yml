@@ -53,7 +53,7 @@ font-dpi: 96
 font-antialias: true
 font-autohint: true
 font-hinting: true
-font-hinting-style: none    # eg. hintnone, hintslight, hintmedium, hintfull
+font-hinting-style: hintnone    # eg. hintnone, hintslight, hintmedium, hintfull
 font-rgba: none    # eg. none for grayscale anti-alias
 
 urxvt-linespace: 3
