@@ -38,39 +38,32 @@ class Dotfile
   def initialize(file_path)
     @@dotfiles << self
 
-    @is_directory = File.directory?(file_path)
+    if File.directory?(file_path)
+      raise "Directory #{@file_path} listed as template file..."
+    end
+
     @file_path = file_path
   end
 
   def configure
-    unless @is_directory
-      @lines = File.readlines(@file_path)
-      # Substitute any placeholders for equivalent key/value in config file.
-      @lines.map! do |l|
-        l.gsub(/{{[\w-]+}}/) do |option|
-          option.gsub!(/{{|}}/, "")
-          return_option_value(option)
-        end
+    @lines = File.readlines(@file_path)
+    # Substitute any placeholders for equivalent key/value in config file.
+    @lines.map! do |l|
+      l.gsub(/{{[\w-]+}}/) do |option|
+        option.gsub!(/{{|}}/, "")
+        return_option_value(option)
       end
-    else
-      raise "Directory #{@file_path} listed as template file..."
     end
   end
 
   def set_paths(prefix = Dir.home)
-    unless @is_directory
-      d = File.split(@file_path.gsub("templates/", prefix + "/."))
-      @destination = "#{d[0]}/#{d[1]}"
-      @destination_path = d[0]
+    d = File.split(@file_path.gsub("templates/", prefix + "/."))
+    @destination = "#{d[0]}/#{d[1]}"
+    @destination_path = d[0]
 
-      @tmp = Tempfile.new(d[1])
-      @lines.each { |l| @tmp.puts l }
-      @source = @tmp.path
-    else
-      @destination = @file_path.gsub("templates/", prefix + "/.")
-      @destination_path = @destination
-      @source = @file_path
-    end
+    @tmp = Tempfile.new(d[1])
+    @lines.each { |l| @tmp.puts l }
+    @source = @tmp.path
   end
 
   def destination
@@ -90,10 +83,8 @@ class Dotfile
   end
 
   def close_tmp
-    unless @is_directory
-      @tmp.close
-      @tmp.unlink
-    end
+    @tmp.close
+    @tmp.unlink
   end
 
   def self.all
