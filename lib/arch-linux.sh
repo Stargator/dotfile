@@ -7,8 +7,10 @@ if [ -n "$(cat /proc/version | grep ARCH)" -a ! -x /usr/bin/packer ]; then
   wget http://aur.archlinux.org/packages/pa/packer/PKGBUILD
   makepkg -si --noconfirm PKGBUILD
   cd ../ && rm -rf packer
-  echo "Suggested AUR packages (install with packer):"
+  echo "Suggested AUR/Arch packages (install with packer):"
   echo "  - ttf-ubuntu-font-family ttf-ms-fonts ttf-vista-fonts"
   echo "  - faenza-icon-theme faience-icon-theme zukitwo-themes"
-  echo "  - google-chrome-dev tmux rxvt-unicode wmii"
+  echo "  - dwb google-chrome-dev tmux rxvt-unicode wmii"
+  echo "  - cmus deadbeef weechat marlin-bzr gvim"
+  echo "  - xcalib (to set icc colour profile)"
 fi
