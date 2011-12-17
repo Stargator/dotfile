@@ -3,6 +3,8 @@
 # Kelsey's StartX Configuration
 # -----------------------------
 
+# xcalib -d :0 profile.icm
+
 # Depending on argument, start a different window manager.
 if [[ $1 == "w" ]]; then
   exec ck-launch-session wmii
