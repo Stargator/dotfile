@@ -14,4 +14,5 @@ if [ -n "$(cat /proc/version | grep ARCH)" -a ! -x /usr/bin/packer ]; then
   echo "  - cmus deadbeef weechat marlin-bzr gvim"
   echo "  - xcalib (to set icc colour profile)"
   echo "  - htop iftop (server administration)"
+  echo "  - twf (preview gtk themes)"
 fi
