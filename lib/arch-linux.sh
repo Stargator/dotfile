@@ -13,4 +13,5 @@ if [ -n "$(cat /proc/version | grep ARCH)" -a ! -x /usr/bin/packer ]; then
   echo "  - dwb google-chrome-dev tmux rxvt-unicode wmii"
   echo "  - cmus deadbeef weechat marlin-bzr gvim"
   echo "  - xcalib (to set icc colour profile)"
+  echo "  - htop iftop (server administration)"
 fi
