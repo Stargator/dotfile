@@ -38,6 +38,11 @@ if [ -d $HOME/Applications ]; then
   export MANPATH="$MANPATH:$LOCALDIR/share/man"
 fi
 
+# Run dircolors to set coloured ls output.
+if [ -e $HOME/.dircolors ]; then
+  eval `dircolors ~/.dircolors`
+fi
+
 # Source oh-my-zsh configurations if installed...
 if [ -d $HOME/.oh-my-sh ]; then
   source ~/.config/zsh/oh-my-zsh

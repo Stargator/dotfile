@@ -1,5 +1,5 @@
 # Coloured ls output.
-alias ls='ls --color'
+alias ls='ls --color=auto'
 
 # Coloured rspec output.
 alias spec='rspec --color'
