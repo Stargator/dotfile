@@ -1,39 +1,39 @@
 ! Colours
-*background: #151c1b
+*background: #0f0d16
 *foreground: #e0cab8
 *colorBD: #ffffff
 
 ! Black
-*color0: #151c1b
-*color8: #151c1b
+*color0: #0f0d16
+*color8: #0f0d16
 
 ! Red
-*color1: #f44e45
-*color9: #f44e45
+*color1: #f93a35
+*color9: #f93a35
 
 ! Green
-*color2: #ff815a
-*color10: #ff815a
+*color2: #ff6445
+*color10: #ff6445
 
 ! Yellow
-*color3: #fffc8d
-*color11: #fffc8d
+*color3: #66ff71
+*color11: #66ff71
 
 ! Blue
-*color4: #ab6aba
-*color12: #ab6aba
+*color4: #c456ed
+*color12: #c456ed
 
 ! Magenta
-*color5: #e95f62
-*color13: #e95f62
+*color5: #ff485a
+*color13: #ff485a
 
 ! Cyan
-*color6: #bca566
-*color14: #bca566
+*color6: #ad8d3e
+*color14: #ad8d3e
 
 ! White
 *color7: #e0cab8
 *color15: #e0cab8
 
 ! Cursor
-*cursorColor: #40ff44
+*cursorColor: #66ff71

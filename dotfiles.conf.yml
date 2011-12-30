@@ -26,7 +26,7 @@ other-settings:
 
 ### X Terminal
 
-x-theme: foolish_passion_bright    # Themes are found in dotfiles/templates/themes.
+x-theme: foolish_passion    # Themes are found in dotfiles/templates/themes.
 
 urxvt-fading: 75
 urxvt-scrollbar: false
