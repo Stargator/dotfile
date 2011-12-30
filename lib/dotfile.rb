@@ -15,6 +15,7 @@ require 'tempfile'
 #       vimrc.set_paths
 #
 #       FileUtils.cp vimrc.source vimrc.destination
+#       # ... or FileUtils.cp_r if including directories.
 #
 #       # Optionally you can remove the temporary source files after copying.
 #       vimrc.remove_tmp
@@ -117,7 +118,7 @@ class Dotfile
   private
 
   def return_option_value(option)
-    # If option is a theme, it must be sources from an external file.
+    # If option is a theme, it must be sourced from an external file.
     if option =~ /.*theme/
       File.readlines("templates/themes/#{@@y[option]}").join
     else
