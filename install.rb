@@ -55,7 +55,7 @@ end
 
 Dotfile.included.each do |filename|
   source_file = "dotfiles/#{filename}"
-  FileUtils.cp_r(source_file, Dir.home)
+  FileUtils.cp_r(source_file, ENV['HOME'])
   puts "-> " + filename
 end
 puts "\n"

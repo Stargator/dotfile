@@ -57,7 +57,7 @@ class Dotfile
     end
   end
 
-  def set_paths(prefix = Dir.home)
+  def set_paths(prefix = ENV['HOME'])
     d = File.split(@file_path.gsub("templates/", prefix + "/."))
     @destination = "#{d[0]}/#{d[1]}"
     @destination_path = d[0]
