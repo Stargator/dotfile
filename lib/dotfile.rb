@@ -50,8 +50,8 @@ class Dotfile
     @lines = File.readlines(@file_path)
     # Substitute any placeholders for equivalent key/value in config file.
     @lines.map! do |l|
-      l.gsub(/{{[\w-]+}}/) do |option|
-        option.gsub!(/{{|}}/, "")
+      l.gsub(/\{\{[\w-]+\}\}/) do |option|
+        option.gsub!(/\{\{|\}\}/, "")
         return_option_value(option)
       end
     end
