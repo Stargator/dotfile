@@ -8,6 +8,6 @@ precmd () { vcs_info }
 # Prompt appearance.
 setopt PROMPT_SUBST # Needed for dynamic prompt substitution.
 PROMPT='
-%B%F{magenta}%n%f @ %F{magenta}%m%f on %F{blue}%y%f in %F{yellow}%~%f${vcs_info_msg_0_}%F{green}${vcs_info_msg_1_}%f
+%B%F{magenta}%n%f @ %F{magenta}%m%f on %F{magenta}%y%f in %F{magenta}%~%f${vcs_info_msg_0_}%F{magenta}${vcs_info_msg_1_}%f
 %1~ ▶ %b' # (Bold) User @ Host on Line \n Working Directory ▶
 RPROMPT='%D{%H:%M:%S %A}' # Hour:Minute:Second Weekday
