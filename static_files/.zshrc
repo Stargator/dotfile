@@ -5,16 +5,19 @@
 if [[ $- != *i* ]]; then return; fi
 
 # Start tmux if installed and not already running ($TERM == screen).
-wmii_running=$(pgrep wmii) # Don't use tmux in a tiling window manager.
+if [[ $(ps -e | grep wmii) != "" ]]; then # pgrep not universally available.
+  wmii_running=true
+fi
+
 if [[ $(which tmux) != "tmux not found" ]] && \
    [[ $TERM != "screen" ]] && \
-   [[ $wmii_running == "" ]]; then
+   [ ! $wmii_running ]; then
   if [[ $TERM == "xterm" ]]; then
     tmux -2 && exit # 256 colours.
   else
     tmux && exit
   fi
-elif [[ $wmii_running != "" ]]; then
+elif [ $wmii_running ]; then
   # This fixes trouble I had with backspace-key/ssh/urxvt/wmii.
   TERM='rxvt-unicode'
 fi
