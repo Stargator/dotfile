@@ -20,6 +20,7 @@ included-templates: fonts.conf gvimrc vimrc wmii/wmiirc_local Xresources
 
 other-settings:
   arch-linux: false
+  cygwin: false
   gnome-terminal: false
   mintty: false
   sublime-text: false
