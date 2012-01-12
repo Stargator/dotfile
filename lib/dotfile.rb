@@ -96,7 +96,7 @@ class Dotfile
   def self.load_config(f)
     @@y = YAML.load(File.open f)
 
-    up_to_date?
+    out_of_date?
   end
 
   # Array of dotfiles to copy.
@@ -126,9 +126,11 @@ class Dotfile
     end
   end
 
-  def self.up_to_date?
+  def self.out_of_date?
     # Future method to compare current and new .dotfiles.conf.yml to check
     # for missing keys (options).
+
+    # Returns true or false (as it is a question mark method!)
   end
 end
 
