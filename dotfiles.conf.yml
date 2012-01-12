@@ -10,7 +10,7 @@
 ### Included Files, Directories
 
 # Static files in dotfiles directory.
-included: .config .pryrc .tmux.conf .vim .zshrc .xinitrc .dircolors
+included-static-files: .config .pryrc .tmux.conf .vim .zshrc .xinitrc .dircolors
 
 # Dynamic files in templates directory.
 included-templates: fonts.conf gvimrc vimrc wmii/wmiirc_local Xresources

@@ -26,7 +26,7 @@ end
 Dotfile.load_config(f)
 
 puts "The following static files/directories will be copied:"
-Dotfile.included.each do |filename|
+Dotfile.static_files.each do |filename|
   puts "-> " + filename
 end
 puts "\n"
@@ -53,8 +53,8 @@ Dotfile.all.each do |dotfile|
   puts "-> " + dotfile.name
 end
 
-Dotfile.included.each do |filename|
-  source_file = "dotfiles/#{filename}"
+Dotfile.static_files.each do |filename|
+  source_file = "static_files/#{filename}"
   FileUtils.cp_r(source_file, ENV['HOME'])
   puts "-> " + filename
 end

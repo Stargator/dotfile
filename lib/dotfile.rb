@@ -100,8 +100,8 @@ class Dotfile
   end
 
   # Array of dotfiles to copy.
-  def self.included
-    @@y['included'].split(' ')
+  def self.static_files
+    @@y['included-static-files'].split(' ')
   end
 
   def self.templates
