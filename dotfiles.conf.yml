@@ -16,12 +16,13 @@ included: .config .pryrc .tmux.conf .vim .zshrc .xinitrc .dircolors
 included-templates: fonts.conf gvimrc vimrc wmii/wmiirc_local Xresources
 
 
-### Other Settings (shell scripts in ./lib)
+### Other Settings (shell scripts in ./lib/optional)
 
 other-settings:
-  arch-linux: true
-  gnome-terminal: true
-  sublime-text: true
+  arch-linux: false
+  gnome-terminal: false
+  mintty: false
+  sublime-text: false
 
 
 ### X Terminal

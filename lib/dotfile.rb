@@ -111,7 +111,7 @@ class Dotfile
   # Other optional shell scripts to load.
   def self.configure_optional
     @@y['other-settings'].each do |k, v|
-      system("./lib/" + k + ".sh") if v
+      system("./lib/optional/" + k + ".sh") if v
     end
   end
 
