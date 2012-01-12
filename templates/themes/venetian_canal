@@ -1,0 +1,39 @@
+! Colours
+*background: #847e7b
+*foreground: #dddad9
+*colorBD: #ffffff
+
+! Black
+*color0: #514c49
+*color8: #514c49
+
+! Red
+*color1: #ff905d
+*color9: #ff905d
+
+! Green
+*color2: #69eda2
+*color10: #69eda2
+
+! Yellow
+*color3: #cec7a3
+*color11: #cec7a3
+
+! Blue
+*color4: #6be6f2
+*color12: #6be6f2
+
+! Magenta
+*color5: #8e3c8a
+*color13: #8e3c8a
+
+! Cyan
+*color6: #a3c6bd
+*color14: #a3c6bd
+
+! White
+*color7: #dddad9
+*color15: #ffffff
+
+! Cursor
+*cursorColor: #514c49
