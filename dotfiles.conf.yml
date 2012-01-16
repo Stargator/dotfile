@@ -24,6 +24,7 @@ other-settings:
   gnome-terminal: false
   mintty: false
   sublime-text: false
+  xrdb-reload: false
 
 
 ### X Terminal

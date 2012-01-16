@@ -2,7 +2,7 @@
 
 # Set gnome-terminal settings.
 if [ -x '/usr/bin/gconftool-2' ]; then
-  echo "Changing gnome-terminal visual theme."
+  echo "Changing gnome-terminal visual theme..."
   fg_key='/apps/gnome-terminal/profiles/Default/foreground_color'
   fg_value='#AAAAAAAAAAAA'
   bg_key='/apps/gnome-terminal/profiles/Default/background_color'
@@ -21,19 +21,6 @@ if [ -x '/usr/bin/gconftool-2' ]; then
   # Set geometry as it doesn't work through gconf.
   gnomet_desktop='/usr/share/applications/gnome-terminal.desktop'
   sed -e 's/^Exec=gnome-terminal.*$/Exec=gnome-terminal --geometry=120x36/g' $gnomet_desktop > gnome-terminal.desktop
-  echo "Copying new gnome-terminal.desktop (requires root privileges)."
+  echo "Copying new gnome-terminal.desktop (requires root privileges)..."
   sudo mv gnome-terminal.desktop $gnomet_desktop
-  # Install Ubuntu Mono if it is not already installed.
-  if [ ! -e $HOME/.fonts/UbuntuMono-R.ttf ]; then
-    echo "Installing and setting Ubuntu Mono 15 font."
-    if [ ! -d $HOME/.fonts ]; then mkdir $HOME/.fonts; fi
-    sudo cp .ubuntu-mono/* $HOME/.fonts/
-    sudo fc-cache -f
-    gnomet_font_key='/apps/gnome-terminal/profiles/Default/font'
-    gnomet_font_value='Ubuntu Mono 15'
-    gnomet_dfont_key='/apps/gnome-terminal/profiles/Default/use_system_font'
-    gnomet_dfont_value='False'
-    gconftool-2 --type string --set $gnomet_font_key "$gnomet_font_value"
-    gconftool-2 --type bool --set $gnomet_dfont_key "$gnomet_dfont_value"
-  fi
 fi

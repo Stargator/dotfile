@@ -2,7 +2,7 @@
 
 # Configure Sublime Text 2
 if [ -d $HOME/.config/sublime-text-2 ]; then
-  echo "Copying Sublime Text 2 configuration."
+  echo "Copying Sublime Text 2 configuration..."
   sublime_dir=$HOME'/.config/sublime-text-2/Packages'
   sublime_default=$sublime_dir'/Default/Global.sublime-settings'
   # Enable vintage (vi) mode by taking it out of ignored packages.
