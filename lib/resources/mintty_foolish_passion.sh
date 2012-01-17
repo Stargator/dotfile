@@ -1,7 +1,7 @@
 # Mintty Foolish Passion (for Cygwin)
 
 echo -ne '\e]10;#e0cab8\a'     # Foreground
-echo -ne '\e]11;#0f0d16\a'     # Background
+echo -ne '\e]11;#1b0723\a'     # Background
 echo -ne '\e]12;#66ff71\a'     # Cursor
 
 echo -ne '\e]4;0;#0f0d16\a'    # Black
