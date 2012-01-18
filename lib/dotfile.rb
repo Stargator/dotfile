@@ -94,8 +94,10 @@ class Dotfile
 
   # Loads the user's local config and the default (for comparison).
   def self.load_config(config_local, config_default = 'dotfiles.conf.yml')
-    @@y = YAML.load(File.open config_local)
-    @@d = YAML.load(File.open config_default)
+    @@lf = File.open(config_local).readlines
+    @@df = File.open(config_default).readlines
+    @@l = YAML.load(@@lf.join"\n")
+    @@d = YAML.load(@@df.join"\n")
 
     puts "Your local config file is #{up_to_date? ? '' : 'not '}up to date."
     out_of_date unless up_to_date?
@@ -103,16 +105,16 @@ class Dotfile
 
   # Array of dotfiles to copy.
   def self.static_files
-    @@y['included-static-files'].split(' ')
+    @@l['included-static-files'].split(' ')
   end
 
   def self.templates
-    @@y['included-templates'].split(' ')
+    @@l['included-templates'].split(' ')
   end
 
   # Other optional shell scripts to load.
   def self.configure_optional
-    @@y['optional-scripts'].each do |k, v|
+    @@l['optional-scripts'].each do |k, v|
       system("./lib/optional/" + k + ".sh") if v
     end
   end
@@ -122,20 +124,28 @@ class Dotfile
   def return_option_value(option)
     # If option is a theme, it must be sourced from an external file.
     if option =~ /.*theme/
-      File.readlines("templates/themes/#{@@y[option]}").join
+      File.readlines("templates/themes/#{@@l[option]}").join
     else
-      @@y[option]
+      @@l[option]
     end
   end
 
   # Returns true if local config file is up to date.
   def self.up_to_date?
     # Must check for keys on multiple levels.
-    @@d.keys == @@y.keys && @@d['optional-scripts'].keys == @@y['optional-scripts'].keys
+    @@d.keys == @@l.keys && @@d['optional-scripts'].keys == @@l['optional-scripts'].keys
   end
 
   # Called by load_config if up_to_date? returns false.
+  # Current implementation just prints missing keys and exits.
   def self.out_of_date
+    missing = []
+    missing_optional =  @@d['optional-scripts'].keys - @@l['optional-scripts'].keys
+    missing << missing_optional.map { |k| "optional-scripts:#{k}" }
+    missing << @@d.keys - @@l.keys
+    puts "You're missing the following keys: #{missing.join(', ')}."
+    puts "\n!!! Installation failed"
+    abort
   end
 end
 
