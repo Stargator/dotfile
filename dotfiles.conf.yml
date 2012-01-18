@@ -18,7 +18,7 @@ included-templates: fonts.conf gvimrc vimrc wmii/wmiirc_local Xresources
 
 ### Other Settings (shell scripts in ./lib/optional)
 
-other-settings:
+optional-scripts:
   arch-linux: false
   cygwin: false
   gnome-terminal: false
