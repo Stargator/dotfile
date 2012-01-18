@@ -130,18 +130,19 @@ class Dotfile
 
   # Returns true if local config file is up to date.
   def self.up_to_date?
-    # Must check for keys on multiple levels.
-    @@d.keys == @@l.keys && @@d['optional-scripts'].keys == @@l['optional-scripts'].keys
+    @@missing = []
+    missing_optional =  @@d['optional-scripts'].keys - @@l['optional-scripts'].keys
+    @@missing << missing_optional.map { |k| "optional-scripts:#{k}" }
+    @@missing << @@d.keys - @@l.keys
+
+    @@missing[0].empty? && @@missing[1].empty?
   end
 
   # Called by load_config if up_to_date? returns false.
   # Current implementation just prints missing keys and exits.
   def self.out_of_date
-    missing = []
-    missing_optional =  @@d['optional-scripts'].keys - @@l['optional-scripts'].keys
-    missing << missing_optional.map { |k| "optional-scripts:#{k}" }
-    missing << @@d.keys - @@l.keys
-    puts "You're missing the following keys:\n#{missing.join("\n")}"
+    puts "You're missing the following keys:\n#{@@missing.join("\n")}"
+    puts "\nEither add the keys listed above to your local file, or remove it."
     puts "\n!!! Installation failed"
     abort
   end
