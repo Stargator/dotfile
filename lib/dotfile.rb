@@ -94,10 +94,8 @@ class Dotfile
 
   # Loads the user's local config and the default (for comparison).
   def self.load_config(config_local, config_default = 'dotfiles.conf.yml')
-    @@lf = File.open(config_local).readlines
-    @@df = File.open(config_default).readlines
-    @@l = YAML.load(@@lf.join"\n")
-    @@d = YAML.load(@@df.join"\n")
+    @@l = YAML.load(File.open config_local)
+    @@d = YAML.load(File.open config_default)
 
     puts "Your local config file is #{up_to_date? ? '' : 'not '}up to date."
     out_of_date unless up_to_date?
