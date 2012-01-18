@@ -142,7 +142,7 @@ class Dotfile
   # Current implementation just prints missing keys and exits.
   def self.out_of_date
     puts "You're missing the following keys:\n#{@@missing.join("\n")}"
-    puts "\nEither add the keys listed above to your local file, or remove it."
+    puts "\nEither add the keys listed above to your local config file, or remove it."
     puts "\n!!! Installation failed"
     abort
   end
