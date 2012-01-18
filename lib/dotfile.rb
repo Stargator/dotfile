@@ -141,7 +141,7 @@ class Dotfile
     missing_optional =  @@d['optional-scripts'].keys - @@l['optional-scripts'].keys
     missing << missing_optional.map { |k| "optional-scripts:#{k}" }
     missing << @@d.keys - @@l.keys
-    puts "You're missing the following keys: #{missing.join(', ')}."
+    puts "You're missing the following keys:\n#{missing.join("\n")}"
     puts "\n!!! Installation failed"
     abort
   end
