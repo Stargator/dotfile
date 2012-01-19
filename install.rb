@@ -23,26 +23,51 @@ unless File.exists?(f)
   FileUtils.cp('dotfiles.conf.yml', f)
 end
 
-Dotfile.load_config(f, 'dotfiles.conf.yml')
+begin
+  Dotfile.load_config(f, 'dotfiles.conf.yml')
+  puts "Your local config file is up to date.\n\n"
+rescue DotfileError
+  puts "!!! Your local config file is not up to date.\n\n"
+  Dotfile.out_of_date
+  puts "\n!!! Installation failed"
+  abort
+end
 
-puts "The following static files/directories will be copied:"
-Dotfile.static_files.each do |filename|
-  puts "-> " + filename
+# List the static_files to be copied.
+begin
+  puts "The following static files/directories will be copied:"
+  Dotfile.static_files.each do |filename|
+    puts "-> " + filename
+  end
+rescue DotfileError
+  puts "!!! Configuration file has not been loaded. No files listed."
 end
 puts "\n"
 
-puts "The following dynamically generated files/directories will be copied:"
-Dotfile.templates.each do |filename|
-  puts "-> " + filename
+# List the templates to be copied.
+begin
+  puts "The following dynamically generated files/directories will be copied:"
+  Dotfile.templates.each do |filename|
+    puts "-> " + filename
+  end
+rescue DotfileError
+  puts "!!! Configuration file has not been loaded. No files listed."
 end
 puts "\n"
 
 puts "Performing template substitutions..."
-Dotfile.templates.each do |filename|
-  dotfile = Dotfile.new("templates/" + filename)
-  dotfile.configure
-  dotfile.set_paths
-  puts "-> " + dotfile.name
+begin
+  Dotfile.templates.each do |filename|
+    dotfile = Dotfile.new("templates/" + filename)
+    dotfile.configure
+    dotfile.set_paths
+    puts "-> " + dotfile.name
+  end
+rescue ArgumentError
+  puts "!!! The file #{filename} doesn't exist, or is a directory."
+rescue DotfileError
+  puts "!!! Must load a configuration file before configuring templates."
+  abort
 end
 puts "\n"
 
@@ -60,8 +85,12 @@ Dotfile.static_files.each do |filename|
 end
 puts "\n"
 
-puts "Executing extra shell scripts..."
-Dotfile.configure_optional
+begin
+  puts "Executing extra shell scripts..."
+  Dotfile.configure_optional
+rescue DotfileError
+  puts "!!! Configuration file has not been loaded. No files listed."
+end
 puts "\n"
 
 puts "All done!"

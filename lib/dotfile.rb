@@ -20,7 +20,7 @@ require 'tempfile'
 #       # Optionally you can remove the temporary source files after copying.
 #       vimrc.remove_tmp
 #
-#     Every instance of class Dotfile is referenced in a class variable:
+#     Every instance of the class is referenced in a class instance variable:
 #
 #       Dotfile.all    # -> [object1, object2, object3 ... ]
 #
@@ -34,16 +34,28 @@ require 'tempfile'
 
 class Dotfile
   # Array of all instances of this class.
-  @@dotfiles = []
+  @dotfiles = []
   
   def initialize(file_path)
-    @@dotfiles << self
-
     if File.directory?(file_path)
-      raise "Directory #{@file_path} listed as template file..."
+      # Templates must be files, not directories.
+      raise ArgumentError
+    end
+
+    unless File.exists?(file_path)
+      raise ArgumentError
     end
 
     @file_path = file_path
+    if defined? self.class.config_local
+      @l = self.class.config_local
+    else
+      # A configuration file must be loaded before creating an instance.
+      raise DotfileError
+    end
+
+    # Add this instance to array of all instances.
+    self.class.dotfiles << self
   end
 
   def configure
@@ -89,64 +101,78 @@ class Dotfile
   end
 
   def self.all
-    @@dotfiles
+    @dotfiles
   end
 
   # Loads the user's local config and a default if specified (for comparison).
   def self.load_config(config_local, config_default = :none)
-    @@l = YAML.load(File.open config_local)
+    @l = YAML.load(File.open config_local)
 
     unless config_default == :none
-      @@d = YAML.load(File.open config_default)
-      puts "Your local config file is #{up_to_date? ? '' : 'not '}up to date.\n\n"
-      out_of_date unless up_to_date?
+      @d = YAML.load(File.open config_default)
+      raise DotfileError unless up_to_date?
     end
   end
 
   # Array of dotfiles to copy.
   def self.static_files
-    @@l['included-static-files'].split(' ')
+    raise DotfileError unless defined? @l
+    @l['included-static-files'].split(' ')
   end
 
   def self.templates
-    @@l['included-templates'].split(' ')
+    raise DotfileError unless defined? @l
+    @l['included-templates'].split(' ')
   end
 
   # Other optional shell scripts to load.
   def self.configure_optional
-    @@l['optional-scripts'].each do |k, v|
+    raise DotfileError unless defined? @l
+    @l['optional-scripts'].each do |k, v|
       system("./lib/optional/" + k + ".sh") if v
     end
   end
 
+  # Prints missing keys from local dotfile. Use if load_config raises error.
+  def self.out_of_date
+    puts "You're missing the following keys:\n  #{@missing.join("\n  ")}"
+    puts "\nEither add the keys listed above to your local config file, or remove it."
+  end
+
   private
+
+  # Access to class instance variable holding all instances of this class.
+
+  # Instance level access to local configuration.
+  def self.config_local
+    @l
+  end
+
+  # Instance level access to dotfiles array.
+  def self.dotfiles
+    @dotfiles
+  end
 
   def return_option_value(option)
     # If option is a theme, it must be sourced from an external file.
     if option =~ /.*theme/
-      File.readlines("templates/themes/#{@@l[option]}").join
+      File.readlines("templates/themes/#{@l[option]}").join
     else
-      @@l[option]
+      @l[option]
     end
   end
 
   # Returns true if local config file is up to date.
   def self.up_to_date?
-    @@missing = []
-    missing_optional =  @@d['optional-scripts'].keys - @@l['optional-scripts'].keys
-    @@missing << missing_optional.map { |k| "optional-scripts:#{k}" }
-    @@missing << @@d.keys - @@l.keys
+    @missing = []
+    missing_optional =  @d['optional-scripts'].keys - @l['optional-scripts'].keys
+    @missing << missing_optional.map { |k| "optional-scripts:#{k}" }
+    @missing << @d.keys - @l.keys
 
-    @@missing[0].empty? && @@missing[1].empty?
-  end
-
-  # Called by load_config if up_to_date? returns false.
-  # Current implementation just prints missing keys and exits.
-  def self.out_of_date
-    puts "You're missing the following keys:\n#{@@missing.join("\n")}"
-    puts "\nEither add the keys listed above to your local config file, or remove it."
-    puts "\n!!! Installation failed"
-    abort
+    @missing[0].empty? && @missing[1].empty?
   end
 end
 
+# Handles any errors specific to the use of Dotfile.
+class DotfileError < Exception
+end
