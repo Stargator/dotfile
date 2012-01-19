@@ -23,7 +23,7 @@ unless File.exists?(f)
   FileUtils.cp('dotfiles.conf.yml', f)
 end
 
-Dotfile.load_config(f)
+Dotfile.load_config(f, 'dotfiles.conf.yml')
 
 puts "The following static files/directories will be copied:"
 Dotfile.static_files.each do |filename|

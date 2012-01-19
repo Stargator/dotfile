@@ -92,13 +92,15 @@ class Dotfile
     @@dotfiles
   end
 
-  # Loads the user's local config and the default (for comparison).
-  def self.load_config(config_local, config_default = 'dotfiles.conf.yml')
+  # Loads the user's local config and a default if specified (for comparison).
+  def self.load_config(config_local, config_default = :none)
     @@l = YAML.load(File.open config_local)
-    @@d = YAML.load(File.open config_default)
 
-    puts "Your local config file is #{up_to_date? ? '' : 'not '}up to date.\n\n"
-    out_of_date unless up_to_date?
+    unless config_default == :none
+      @@d = YAML.load(File.open config_default)
+      puts "Your local config file is #{up_to_date? ? '' : 'not '}up to date.\n\n"
+      out_of_date unless up_to_date?
+    end
   end
 
   # Array of dotfiles to copy.
