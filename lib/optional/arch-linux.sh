@@ -15,4 +15,5 @@ if [ -n "$(cat /proc/version | grep ARCH)" -a ! -x /usr/bin/packer ]; then
   echo "  - xcalib (to set icc colour profile)"
   echo "  - htop iftop (server administration)"
   echo "  - awf-git (preview gtk themes)"
+  echo "  - zsh-syntax-highlighting-git"
 fi
