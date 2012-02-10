@@ -11,7 +11,7 @@ if [ -n "$(cat /proc/version | grep ARCH)" -a ! -x /usr/bin/packer ]; then
   echo "  - ttf-ubuntu-font-family ttf-ms-fonts ttf-vista-fonts"
   echo "  - faenza-icon-theme faience-icon-theme gnome-shell-theme-elegance"
   echo "  - dwb google-chrome-dev tmux rxvt-unicode wmii zathura (pdf)"
-  echo "  - cmus deadbeef weechat marlin-bzr gvim"
+  echo "  - cmus deadbeef weechat marlin-bzr gvim movgrab (youtube downloader)"
   echo "  - xcalib (to set icc colour profile)"
   echo "  - htop iftop (server administration)"
   echo "  - awf-git (preview gtk themes)"
