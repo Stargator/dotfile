@@ -1,19 +1,27 @@
 #!/bin/bash
 
 # Configure Arch Linux
-if [ -n "$(cat /proc/version | grep ARCH)" -a ! -x /usr/bin/packer ]; then
-  echo "Using Arch Linux, but Packer is not installed. Installing Packer (AUR)..."
-  mkdir /tmp/packer && cd /tmp/packer
-  wget http://aur.archlinux.org/packages/pa/packer/PKGBUILD
-  makepkg -si --noconfirm PKGBUILD
-  cd ../ && rm -rf packer
-  echo "Suggested AUR/Arch packages (install with packer):"
-  echo "  - ttf-ubuntu-font-family ttf-ms-fonts ttf-vista-fonts"
-  echo "  - faenza-icon-theme faience-icon-theme gnome-shell-theme-elegance"
-  echo "  - dwb google-chrome-dev tmux rxvt-unicode wmii zathura (pdf)"
-  echo "  - cmus deadbeef weechat marlin-bzr gvim movgrab (youtube downloader)"
-  echo "  - xcalib (to set icc colour profile)"
-  echo "  - htop iftop (server administration)"
-  echo "  - awf-git (preview gtk themes)"
-  echo "  - zsh-syntax-highlighting-git"
+
+script_directory=$(pwd)
+
+if [ -n "$(cat /proc/version | grep ARCH)" -a ! -x /usr/bin/yaourt ]; then
+  echo "Using Arch Linux, but yaourt is not installed. Install yaourt? [y/N]" && read install_yaourt
+  if [ $install_yaourt == 'y' ]; then
+    echo -e "\nInstalling yaourt..."
+    cd /tmp
+    wget -q http://aur.archlinux.org/packages/ya/yaourt/yaourt.tar.gz
+    wget -q http://aur.archlinux.org/packages/pa/package-query/package-query.tar.gz
+    tar xzf yaourt.tar.gz
+    tar xzf package-query.tar.gz
+    cd package-query && makepkg -si --noconfirm > /dev/null 2>&1 && cd ../
+    cd yaourt && makepkg -si --noconfirm > /dev/null 2>&1 && echo -e "Installed yaourt.\n"
+    cd /tmp; rm -r yaourt yaourt.tar.gz package-query package-query.tar.gz
+    cd $script_directory
+  fi
+fi
+
+echo "List suggested Arch/AUR packages? [y/N]" && read list_packages
+if  [ $list_packages == 'y' ]; then
+  printf "\n"
+  cat ../resources/arch_recommended
 fi
