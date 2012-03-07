@@ -18,6 +18,13 @@ Terminal / CLI
   cmus (music) tmux (terminal multiplexer) weechat (irc)
   zsh-syntax-highlighting-git rxvt-unicode (terminal)
 
+Games
+-------
+  nethack tintin (mud client) zork1 zork2 zork3 hitchhikersguide
+  frotz -OR- nfrotz (play datafiles from other infocom text adventures)
+  EXAMPLE: nfrotz /usr/share/hitchhikersguide/hhgg.z3 ... or download
+    abandonware such as Leather Goddesses of Phobos!
+
 Server Administration
 -----------------------
   htop (more legible top) iftop (top for network interfaces)
