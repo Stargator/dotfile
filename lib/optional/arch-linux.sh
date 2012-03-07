@@ -2,7 +2,7 @@
 
 # Configure Arch Linux
 
-script_directory=$(pwd)
+start_directory=$(pwd)
 
 if [ -n "$(cat /proc/version | grep ARCH)" -a ! -x /usr/bin/yaourt ]; then
   echo "Using Arch Linux, but yaourt is not installed. Install yaourt? [y/N]" && read install_yaourt
@@ -14,14 +14,15 @@ if [ -n "$(cat /proc/version | grep ARCH)" -a ! -x /usr/bin/yaourt ]; then
     tar xzf yaourt.tar.gz
     tar xzf package-query.tar.gz
     cd package-query && makepkg -si --noconfirm > /dev/null 2>&1 && cd ../
-    cd yaourt && makepkg -si --noconfirm > /dev/null 2>&1 && echo -e "Installed yaourt.\n"
+    cd yaourt && makepkg -si --noconfirm > /dev/null 2>&1 && echo "Installed yaourt." && \
+      echo -e "Note: For convenience sake, may want to alias yaourt to 'yaourt --confirm'.\n"
     cd /tmp; rm -r yaourt yaourt.tar.gz package-query package-query.tar.gz
-    cd $script_directory
+    cd $start_directory
   fi
 fi
 
 echo "List suggested Arch/AUR packages? [y/N]" && read list_packages
 if  [ $list_packages == 'y' ]; then
   printf "\n"
-  cat ../resources/arch_recommended
+  cat lib/resources/arch_recommended
 fi
