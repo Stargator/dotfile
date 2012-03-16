@@ -22,11 +22,17 @@ elif [ $wmii_running ]; then
   TERM='rxvt-unicode'
 fi
 
-# Easy access to this config file.
-alias zshconfig='vim ~/.zshrc'
+# Easy access to local config file.
+alias zshconfig='vim ~/.zshrc.local'
 
 # Set default editor.
 export EDITOR='vim'
+
+# No error.
+unsetopt nomatch
+
+# Vi mode.
+bindkey -v
 
 # Add vless with vim pager mode (for syntax highlighting) if found directory.
 # As an added note: press 'v' when in less to invoke your editor.
