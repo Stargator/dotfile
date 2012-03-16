@@ -1,0 +1,9 @@
+# Git Version Control System integration.
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:*' formats ' %s' ' %b'
+zstyle ':vcs_info:*' actionformats ' %s' ' %b'
+precmd () { vcs_info }
+
+# Prompt appearance.
+setopt PROMPT_SUBST # Needed for dynamic prompt substitution.

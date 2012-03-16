@@ -10,10 +10,10 @@
 ### Included Files, Directories
 
 # Static files in dotfiles directory.
-included-static-files: .config .pryrc .tmux.conf .vim .zshrc .xinitrc .dircolors
+included-static-files: .config .pryrc .tmux.conf .vim .xinitrc .dircolors
 
 # Dynamic files in templates directory.
-included-templates: fonts.conf gvimrc vimrc wmii/wmiirc_local Xresources
+included-templates: fonts.conf gvimrc vimrc wmii/wmiirc_local Xresources zshrc
 
 
 ### Other Settings (shell scripts in ./lib/optional)
@@ -34,6 +34,13 @@ x-theme: foolish_passion    # Themes are found in dotfiles/templates/themes.
 urxvt-fading: 75
 urxvt-scrollbar: false
 urxvt-size: 134x34
+
+
+### ZSH
+
+zsh-prompt: default
+zsh-editor: vim
+zsh-mode: v # eg. 'v' for Vi, 'e' for Emacs
 
 
 ### VIM
