@@ -1,0 +1,26 @@
+
+[settings]
+default-encoding=ISO-8859-1
+default-font-family=Sans
+monospace-font-family=Inconsolata
+default-font-size=11
+default-monospace-font-size=11
+minimum-font-size=6
+enable-site-specific-quirks=true
+last-window-width=1100
+last-window-height=635
+last-window-state=MIDORI_WINDOW_MAXIMIZED
+last-panel-page=3
+toolbar-style=MIDORI_TOOLBAR_ICONS
+toolbar-items=Back,Forward,Next,ReloadStop,BookmarkAdd,Location,Trash,CompactMenu,TabNew,
+download-folder=/home/kelsey/Downloads
+text-editor=gvim -f %F
+location-entry-search=https://duckduckgo.com/?q=%s
+enable-html5-database=true
+user-agent=Mozilla/5.0 (Macintosh; U; Intel Mac OS X; c) AppleWebKit/535+ (KHTML, like Gecko) Version/5.0 Safari/535.4+ Midori/0.4
+search-width=500
+
+[extensions]
+libtoolbar-editor.so=true
+libadblock.so=true
+libfeed-panel.so=true
