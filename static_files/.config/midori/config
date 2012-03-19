@@ -12,7 +12,7 @@ last-window-height=635
 last-window-state=MIDORI_WINDOW_MAXIMIZED
 last-panel-page=3
 toolbar-style=MIDORI_TOOLBAR_ICONS
-toolbar-items=Back,Forward,Next,ReloadStop,BookmarkAdd,Location,Trash,CompactMenu,TabNew,
+toolbar-items=Back,Forward,Next,Homepage,ReloadStop,BookmarkAdd,Location,Trash,CompactMenu,TabNew,
 download-folder=/home/kelsey/Downloads
 text-editor=gvim -f %F
 location-entry-search=https://duckduckgo.com/?q=%s
