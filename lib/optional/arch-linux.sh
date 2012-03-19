@@ -15,7 +15,7 @@ if [ -n "$(cat /proc/version | grep ARCH)" -a ! -x /usr/bin/yaourt ]; then
     tar xzf package-query.tar.gz
     cd package-query && makepkg -si --noconfirm > /dev/null 2>&1 && cd ../
     cd yaourt && makepkg -si --noconfirm > /dev/null 2>&1 && echo "Installed yaourt." && \
-      echo -e "Note: For convenience sake, may want to alias yaourt to 'yaourt --confirm'.\n"
+      echo -e "Note: For convenience sake, may want to alias yaourt to 'yaourt --noconfirm'.\n"
     cd /tmp; rm -r yaourt yaourt.tar.gz package-query package-query.tar.gz
     cd $start_directory
   fi
