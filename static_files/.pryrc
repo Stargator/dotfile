@@ -15,8 +15,7 @@ user = ENV['USER']
 dir = Dir.pwd
 
 prompt = Proc.new do |obj, _, _|
-           # For some reason, this pryrc file will not take unicode strings.
-           "#{bright}pry #{magenta + user + white} in #{blue + obj.to_s + white} ▶ #{c_end}"
+           blue + obj.to_s + white + " ▶ " + c_end
          end
 
 # Other settings, some are defaults, but set in case of future change!
