@@ -3,7 +3,8 @@
 
 colorscheme {{gvim-colourscheme}} " Found in .vim/colors/ 
 
-set guifont=Inconsolata\ Medium\ 13.5 " Default GUI font.
+set guifont=Ubuntu\ Mono\ 13.5 " Default GUI font.
+set linespace=3 " Match line spacing for Ubuntu Mono in URxvt.
 set guioptions-=T " Remove the GUI toolbar.
 set guioptions-=m " Remove the GUI menu bar.
 set guioptions-=r " Remove the GUI right scrollbar.
