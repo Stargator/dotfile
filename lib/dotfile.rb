@@ -38,20 +38,18 @@ class Dotfile
   
   def initialize(file_path)
     if File.directory?(file_path)
-      # Templates must be files, not directories.
-      raise ArgumentError
+      raise ArgumentError, "Templates must be files, not directories."
     end
 
     unless File.exists?(file_path)
-      raise ArgumentError
+      raise ArgumentError, "File #{file_path} does not exist."
     end
 
     @file_path = file_path
     if defined? self.class.config_local
       @l = self.class.config_local
     else
-      # A configuration file must be loaded before creating an instance.
-      raise DotfileError
+      raise DotfileError, "A configuration file must be loaded before creating an instance."
     end
 
     # Add this instance to array of all instances.
@@ -110,24 +108,24 @@ class Dotfile
 
     unless config_default == :none
       @d = YAML.load(File.open config_default)
-      raise DotfileError unless up_to_date?
+      raise DotfileError, "~/.dotfiles.conf.yaml is out of date." unless up_to_date?
     end
   end
 
   # Array of dotfiles to copy.
   def self.static_files
-    raise DotfileError unless defined? @l
+    raise DotfileError, "Local configuration file has not been loaded." unless defined? @l
     @l['included-static-files'].split(' ')
   end
 
   def self.templates
-    raise DotfileError unless defined? @l
+    raise DotfileError, "Default configuration file has not been loaded." unless defined? @l
     @l['included-templates'].split(' ')
   end
 
   # Other optional shell scripts to load.
   def self.configure_optional
-    raise DotfileError unless defined? @l
+    raise DotfileError, "Local configuration file has not been loaded." unless defined? @l
     @l['optional-scripts'].each do |k, v|
       system("./lib/optional/" + k + ".sh") if v
     end
