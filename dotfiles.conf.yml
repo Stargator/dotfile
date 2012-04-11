@@ -9,11 +9,7 @@
 
 ### Included Files, Directories
 
-# Static files in dotfiles directory.
-included-static-files: .config .pryrc .tmux.conf .vim .xinitrc .dircolors
-
-# Dynamic files in templates directory.
-included-templates: fonts.conf gvimrc vimrc wmii/wmiirc_local Xresources zshrc
+included-groups: zsh vim tmux xorg wmii ruby dwb midori dircolors
 
 
 ### Other Settings (shell scripts in ./lib/optional)
@@ -39,6 +35,7 @@ urxvt-size: 134x34
 ### ZSH
 
 zsh-prompt: default
+zsh-tmux-auto: off
 zsh-editor: vim
 zsh-mode: v # eg. 'v' for Vi, 'e' for Emacs
 

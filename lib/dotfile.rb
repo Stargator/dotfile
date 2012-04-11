@@ -163,7 +163,7 @@ class Dotfile
   # Returns true if local config file is up to date.
   def self.up_to_date?
     @missing = []
-    missing_optional =  @d['optional-scripts'].keys - @l['optional-scripts'].keys
+    missing_optional = @d['optional-scripts'].keys - @l['optional-scripts'].keys
     @missing << missing_optional.map { |k| "optional-scripts:#{k}" }
     @missing << @d.keys - @l.keys
 
