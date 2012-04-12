@@ -5,9 +5,10 @@
 if [[ $- != *i* ]]; then return; fi
 
 # Should tmux run automatically?
-tmux_auto_start={{zsh-tmux-auto}}
+tmux_auto_start="{{zsh-tmux-auto}}"
 
-if [[ $tmux_auto_start ]]; then
+# Apparently false in zsh/bash is just a string...
+if [[ $tmux_auto_start != "false" ]]; then
   # Start tmux if installed and not already running ($TERM == screen).
   if [[ $(ps -e | grep wmii) != "" ]]; then # pgrep not universally available.
     wmii_running=true
@@ -23,7 +24,7 @@ if [[ $tmux_auto_start ]]; then
     fi
   elif [ $wmii_running ]; then
     # This fixes trouble I had with backspace-key/ssh/urxvt/wmii.
-    TERM='rxvt-unicode'
+    export TERM='rxvt-unicode'
   fi
 fi
 

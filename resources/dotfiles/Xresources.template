@@ -1,5 +1,5 @@
-! Kelsey's URXVT Configuration
-! ----------------------------
+! Kelseys URXVT Configuration
+! -----------------------------
 
 ! Fonts
 Xft*dpi: {{font-dpi}}

@@ -25,7 +25,7 @@ optional-scripts:
 
 ### X Terminal
 
-x-theme: foolish_passion    # Themes are found in dotfiles/templates/themes.
+x-theme: foolish_passion    # Themes are found in resources/themes.
 
 urxvt-fading: 75
 urxvt-scrollbar: false

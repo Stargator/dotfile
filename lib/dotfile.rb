@@ -154,7 +154,7 @@ class Dotfile
   def return_option_value(option)
     # If option is a theme, it must be sourced from an external file.
     if option =~ /.*theme/
-      File.readlines("templates/themes/#{@l[option]}").join
+      File.readlines("resources/themes/#{@l[option]}").join
     else
       @l[option]
     end

@@ -14,6 +14,14 @@ alias rs='rsync -vhuEtri --progress'
 # Start wmii.
 alias startw="xinit w"
 
+# Tmux.
+term_colour=`echo $TERM | grep -o 256`
+if [[ $term_colour == '256' ]]; then
+  alias tmux='tmux -2'
+fi
+
+alias t='tmux'
+
 # Git aliases.
 alias g='git'
 alias ga='git add'
