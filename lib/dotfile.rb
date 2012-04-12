@@ -33,6 +33,7 @@ require 'tempfile'
 
 
 class Dotfile
+
   # Array of all instances of this class.
   @dotfiles = []
   
@@ -169,6 +170,7 @@ class Dotfile
 
     @missing[0].empty? && @missing[1].empty?
   end
+
 end
 
 # Handles any errors specific to the use of Dotfile.
