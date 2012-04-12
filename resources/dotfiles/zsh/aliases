@@ -21,6 +21,15 @@ if [[ $term_colour == '256' ]]; then
 fi
 
 alias t='tmux'
+alias ta='tmux attach'
+alias td='tmux detach'
+alias tl='tmux list-sessions'
+
+if [ $TMUX ]; then
+  alias tc='t clock-mode'
+else
+  alias tc='echo "Must be running tmux for clock mode."'
+fi
 
 # Git aliases.
 alias g='git'
