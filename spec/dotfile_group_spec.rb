@@ -12,7 +12,7 @@ describe Dotfile::Group do
 
   describe '#file' do
     it 'returns a file' do
-      group.file.should be_an_instance_of(File)
+      group.file.should be_a(File)
     end
   end
 
@@ -64,7 +64,7 @@ describe Dotfile::Group do
           group.included_groups.should include(group.current_group)
 
           parsed = group.parse_line(valid_line)
-          parsed.should be_an_instance_of(Hash)
+          parsed.should be_a(Hash)
           parsed.should have_exactly(3).items
 
           expected_source = "spec/examples/resources/dotfiles/vim/test_file"
@@ -94,13 +94,13 @@ describe Dotfile::Group do
     it 'returns a hash for every line in an included group' do
       @group.parse_file
       @group.dotfiles.should have_exactly(4).items
-      @group.dotfiles[0].should be_an_instance_of(Hash)
+      @group.dotfiles[0].should be_a(Hash)
     end
 
     describe '#dotfiles' do
       it 'returns an array of hashes' do
         @group.dotfiles.each do |dotfile|
-          dotfile.should be_an_instance_of(Hash)
+          dotfile.should be_a(Hash)
           dotfile.should have_exactly(3).items
         end
       end
