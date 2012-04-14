@@ -46,8 +46,8 @@ describe Dotfile::Group do
       group.strip_excess(line).should eq(expected)
     end
 
-    it 'returns current_group nil until assigned' do
-      group.current_group.should be_nil
+    it 'returns empty current_group until assigned' do
+      group.current_group.should eq('')
     end
 
     describe '#parse_line' do

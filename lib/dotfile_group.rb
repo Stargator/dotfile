@@ -2,9 +2,10 @@ class Dotfile::Group
 
   attr_reader :file, :included_groups, :current_group, :dotfiles
 
-  def initialize(file, included_groups)
+  def initialize(file, included_groups = :all)
     @file = File.new(file, 'r')
     @included_groups = included_groups
+    @current_group = ''
     @dotfiles = []
   end
 
@@ -41,6 +42,7 @@ class Dotfile::Group
   end
 
   def included_group?
+    return true if @included_groups == :all
     @included_groups.include?(@current_group)
   end
 

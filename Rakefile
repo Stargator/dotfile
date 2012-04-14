@@ -1,3 +1,10 @@
+class Dotfile
+end
+
+require './lib/dotfile_group.rb'
+
+groups = Dotfile::Group.new('groups.conf')
+
 desc "Install dotfiles based on configuration."
 task :install do
   exec 'ruby install.rb'
