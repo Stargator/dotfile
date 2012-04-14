@@ -1,4 +1,4 @@
-class Dotfile::Group
+class Dotfile::GroupConfig
 
   attr_reader :config_file, :included_groups, :current_group, :dotfiles
 
@@ -7,6 +7,11 @@ class Dotfile::Group
     @included_groups = included_groups
     @current_group = ''
     @dotfiles = []
+  end
+
+  def parse
+    parse_file
+    recurse
   end
 
   ### Parsing a line
@@ -63,10 +68,66 @@ class Dotfile::Group
   def parse_file
     config_file.readlines.each do |line|
       parsed = parse_line(line)
-      dotfiles << parsed if parsed
+      @dotfiles << parsed if parsed
     end
 
     config_file.close
+  end
+
+  def get_directories
+    dotfiles.select do |dotfile|
+      File.directory?(dotfile[:source])
+    end
+  end
+
+  def find_dotfiles(directory)
+    dir_contents = add_recursively(directory[:source])
+
+    dir_contents.map! do |path|
+      { group: directory[:group],
+        source: directory[:source] + '/' + path,
+        destination: directory[:destination] + '/' + path
+      }
+    end
+
+    dir_contents
+  end
+
+  def add_recursively(path)
+    dir_contents = []
+
+    Dir.entries(path).each do |entry|
+      next if entry =~ /^\.\.?$/
+      full_path = path + '/' + entry
+      if File.directory?(full_path)
+        contents = add_recursively(full_path)
+        contents.each do |entry_2|
+          dir_contents << entry + '/' + entry_2
+        end
+      else
+        dir_contents << entry
+      end
+    end
+
+    dir_contents
+  end
+
+  def add_directory_contents
+    get_directories.each do |dir|
+      find_dotfiles(dir).each do |dotfile|
+        @dotfiles << dotfile
+      end
+    end
+
+  end
+
+  def remove_directories
+    @dotfiles -= get_directories
+  end
+
+  def recurse
+    add_directory_contents
+    remove_directories
   end
 
 end

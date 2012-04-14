@@ -1,10 +1,10 @@
 require 'spec_helper.rb'
-require 'dotfile_group.rb'
+require 'dotfile_groupconfig.rb'
 
-describe Dotfile::Group do
+describe Dotfile::GroupConfig do
 
   let(:config_file) { 'spec/examples/groups.conf' }
-  let(:group) { Dotfile::Group.new(config_file, %w{ vim zsh xorg }) }
+  let(:group) { Dotfile::GroupConfig.new(config_file, %w{ vim zsh xorg }) }
 
   it 'reads a given groups.conf file' do
     File.exist?(config_file).should be_true
@@ -117,6 +117,99 @@ describe Dotfile::Group do
       end
     end
 
+  end
+
+  describe 'handling directories' do
+
+    before(:all) do
+      @group = group
+      @group.parse_file
+    end
+
+    it 'reads each element of dotfile and returns any directories' do
+      @group.get_directories.should have_exactly(2).items
+    end
+
+    it 'returns directories' do
+      @group.get_directories.each do |dir|
+        is_a_directory = File.directory?(dir[:source])
+        is_a_directory.should be_true
+      end
+    end
+
+    it 'does not return regular files' do
+      @group.get_directories.each do |dir|
+        is_a_file = File.file?(dir[:source])
+        is_a_file.should be_false
+      end
+    end
+
+    describe '#add_contents' do
+      before(:all) do
+        @dotfiles = @group.find_dotfiles(@group.get_directories[1])
+      end
+
+      it 'returns all dotfiles in a directory recursively' do
+        @dotfiles.should be_an(Array)
+        @dotfiles.should have_exactly(5).items
+      end
+
+      it 'returns an array of hashes' do
+        @dotfiles[0].should be_a(Hash)
+      end
+
+      it 'descends right down the directory tree' do
+        @dotfiles[2][:source].should match(/file_five/)
+      end
+    end
+
+    describe 'removing hashes pointing to directories' do
+      it 'adds all found files to the rest' do
+        @group.add_directory_contents
+        @group.dotfiles.should have_exactly(12).items
+      end
+
+      it 'removes the directories from the dotfiles array' do
+        @group.remove_directories
+        @group.dotfiles.should have_exactly(10).items
+      end
+    end
+
+  end
+
+  describe 'parsing a file with no directories and one file' do
+    let(:config_file) { 'spec/examples/groups.conf.2' }
+
+    before(:all) do
+      @no_dirs = group
+    end
+
+    it 'returns a single dotfile' do
+      @no_dirs.parse
+      @no_dirs.dotfiles.should have_exactly(1).items
+    end
+  end
+
+  describe '#parse' do
+    before(:all) do
+      @group = group
+    end
+
+    it 'parses a given configuration file' do
+      @group.parse
+    end
+
+    it 'will return dotfile information' do
+      @group.dotfiles.each do |dotfile|
+        dotfile[:group].should_not be_nil
+        dotfile[:source].should_not be_nil
+        dotfile[:destination].should_not be_nil
+      end
+    end
+
+    it 'returns the correct amount of dotfiles' do
+      @group.dotfiles.should have_exactly(10).items
+    end
   end
 
 end
