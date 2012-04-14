@@ -18,7 +18,7 @@ class Dotfile::Group
     if included_group?
       line = split_line(line)
       line = build_paths(line)
-      { group: @current_group,
+      { group: current_group,
         source: line[0],
         destination: File.expand_path(line[1])
       }
@@ -42,8 +42,8 @@ class Dotfile::Group
   end
 
   def included_group?
-    return true if @included_groups == :all
-    @included_groups.include?(@current_group)
+    return true if included_groups == :all
+    included_groups.include?(current_group)
   end
 
   def split_line(line)
@@ -51,8 +51,8 @@ class Dotfile::Group
   end
 
   def build_paths(line)
-    config_path = File.dirname(@file)
-    dotfile_path = "/resources/dotfiles/#{@current_group}/"
+    config_path = File.dirname(file)
+    dotfile_path = "/resources/dotfiles/#{current_group}/"
     source = config_path + dotfile_path + line[0]
     destination = File.expand_path(line[1])
     [source, destination]
@@ -61,9 +61,9 @@ class Dotfile::Group
   ### Parsing a file
 
   def parse_file
-    @file.readlines.each do |line|
+    file.readlines.each do |line|
       parsed = parse_line(line)
-      @dotfiles << parsed if parsed
+      dotfiles << parsed if parsed
     end
 
     @file.close
