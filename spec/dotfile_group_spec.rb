@@ -12,7 +12,7 @@ describe Dotfile::Group do
 
   describe '#file' do
     it 'returns a file' do
-      group.file.should be_a(File)
+      group.config_file.should be_a(File)
     end
   end
 

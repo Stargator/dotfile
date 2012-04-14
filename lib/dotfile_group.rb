@@ -1,9 +1,9 @@
 class Dotfile::Group
 
-  attr_reader :file, :included_groups, :current_group, :dotfiles
+  attr_reader :config_file, :included_groups, :current_group, :dotfiles
 
-  def initialize(file, included_groups = :all)
-    @file = File.new(file, 'r')
+  def initialize(config_file, included_groups = :all)
+    @config_file = File.new(config_file, 'r')
     @included_groups = included_groups
     @current_group = ''
     @dotfiles = []
@@ -51,7 +51,7 @@ class Dotfile::Group
   end
 
   def build_paths(line)
-    config_path = File.dirname(file)
+    config_path = File.dirname(config_file)
     dotfile_path = "/resources/dotfiles/#{current_group}/"
     source = config_path + dotfile_path + line[0]
     destination = File.expand_path(line[1])
@@ -61,12 +61,12 @@ class Dotfile::Group
   ### Parsing a file
 
   def parse_file
-    file.readlines.each do |line|
+    config_file.readlines.each do |line|
       parsed = parse_line(line)
       dotfiles << parsed if parsed
     end
 
-    @file.close
+    config_file.close
   end
 
 end
