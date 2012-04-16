@@ -35,11 +35,6 @@ class Dotfile
     @dotfiles << templates
   end
 
-  self.copy_config
-    destination = File.expand_path('~/.dotfiles.conf.yml')
-    FileUtils.cp('dotfiles.conf.yml', destination)
-  end
-
   # Arrays of dotfiles to copy.
 
   def self.static_files
@@ -58,6 +53,11 @@ class Dotfile
     end
   end
 
+  def self.copy_config
+    destination = File.expand_path('~/.dotfiles.conf.yml')
+    FileUtils.cp('dotfiles.conf.yml', destination)
+  end
+
   def self.copy_dotfile(dotfile)
     FileUtils.mkdir_p(dotfile.destination_path)
     FileUtils.cp(dotfile.source, dotfile.destination)
@@ -67,6 +67,10 @@ class Dotfile
     all.each do |dotfile|
       copy_dotfile(dotfile)
     end
+  end
+
+  def self.missing
+    @config.missing
   end
 
 end

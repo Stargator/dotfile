@@ -24,11 +24,11 @@ end
 
 #Load the configuration.
 begin
-  config = Dotfile::Config.new(f, 'dotfiles.conf.yml')
+  Dotfile.configure
   puts "Your local config file is up to date.\n\n"
 rescue DotfileError
   puts "!!! Your local config file is not up to date.\n\n"
-  puts "You're missing the following keys:\n  #{config.missing.join("\n  ")}"
+  puts "You're missing the following keys:\n  #{Dotfile.missing.join("\n  ")}"
   puts "\nEither add the keys listed above to your local config file, or remove it."
   puts "\n!!! Installation failed"
   abort
