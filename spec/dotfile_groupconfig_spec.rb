@@ -159,7 +159,7 @@ describe Dotfile::GroupConfig do
       end
 
       it 'descends right down the directory tree' do
-        @dotfiles[2][:source].should match(/file_five/)
+        @dotfiles.to_s.should match(/file_five/)
       end
     end
 
