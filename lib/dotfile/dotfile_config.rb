@@ -16,9 +16,10 @@ module Dotfile
 
     def up_to_date?
       @missing = []
-      o = 'optional-scripts'
-      missing_optional = @config_default[o].keys - @config_local[o].keys
-      @missing << missing_optional.map { |k| o + ':' + k }
+      key = 'optional-scripts'
+      missing_optional = @config_default[key].keys -
+                         @config_local[key].keys
+      @missing << missing_optional.map { |k| 'optional-scripts:' + k }
       @missing << @config_default.keys - @config_local.keys
 
       (@missing[0] + @missing[1]).empty?
