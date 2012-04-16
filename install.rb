@@ -12,8 +12,8 @@ require 'dotfile'
 #     Will automatically create above file using defaults if it is not found.
 
 
-puts "Installing Personal Configurations"
-puts "------------------------------------\n\n"
+puts "Installing Personal Configurations\n" + 
+     "------------------------------------\n\n"
 
 # Check for existence of ~/.dotfiles.conf.yml
 f = File.expand_path('~/.dotfiles.conf.yml')
@@ -27,10 +27,10 @@ begin
   Dotfile.configure
   puts "Your local config file is up to date.\n\n"
 rescue DotfileError
-  puts "!!! Your local config file is not up to date.\n\n"
-  puts "You're missing the following keys:\n  #{Dotfile.missing.join("\n  ")}"
-  puts "\nEither add the keys listed above to your local config file, or remove it."
-  puts "\n!!! Installation failed"
+  puts "!!! Your local config file is not up to date.\n\n" +
+       "You're missing the following keys:\n\n  #{Dotfile.missing.join("\n  ")}\n\n" +
+       "Either add the keys listed above to your local config file, or remove it.\n\n" +
+       "!!! Installation failed"
   abort
 end
 
@@ -39,14 +39,14 @@ puts "The following static files will be copied:"
 Dotfile.static_files.each do |dotfile|
   puts "-> " + dotfile.name
 end
-puts "\n"
+puts
 
 # List the templates to be copied.
 puts "The following dynamically generated files will be copied:"
 Dotfile.templates.each do |dotfile|
   puts "-> " + dotfile.name
 end
-puts "\n"
+puts
 
 # Install to home directory.
 puts "Installing new configuration files..."
@@ -54,11 +54,11 @@ Dotfile.all.each do |dotfile|
   Dotfile.copy_dotfile(dotfile)
   puts "-> " + dotfile.name
 end
-puts "\n"
+puts
 
 # Run any optional scripts.
 puts "Executing extra shell scripts..."
 Dotfile.run_optional_scripts
-puts "\n"
+puts
 
 puts "All done!"

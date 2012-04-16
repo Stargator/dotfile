@@ -87,5 +87,5 @@ module Dotfile
 end
 
 # Handles any errors specific to the use of Dotfile.
-class DotfileError < Exception
+class DotfileError < StandardError
 end
