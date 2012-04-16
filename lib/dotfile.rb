@@ -10,7 +10,13 @@ require 'dotfile_config'
 #
 #     Example of usage:
 #     
-#         Dotfile.configure
+#         begin
+#           Dotfile.configure
+#         rescue DotfileError
+#           print "Missing keys:\n  "
+#           Dotfile.missing.join("\n  ")
+#           abort
+#         end
 #         
 #         puts "Copying dotfiles..."
 #         Dotfile.all.each do |dotfile|
@@ -29,6 +35,8 @@ class Dotfile
     local = File.expand_path('~/.dotfiles.conf.yml')
     default = './dotfiles.conf.yml'
     @config = Dotfile::Config.new(local, default)
+    @config.check_local
+    @config.read_groups_conf
 
     @dotfiles = []
     @dotfiles << static_files

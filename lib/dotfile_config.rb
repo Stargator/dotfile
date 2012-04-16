@@ -10,15 +10,12 @@ class Dotfile
 
     def initialize(config_local, config_default = nil)
       @config_local = YAML.load(File.open config_local)
+      @config_default = YAML.load(File.open config_default) if config_default
+    end
 
-      if config_default
-        @config_default = YAML.load(File.open config_default)
-        error_message = "~/.dotfiles.conf.yml is out of date."
-        raise DotfileError, error_message unless up_to_date?
-      end
-
-      @groups = @config_local['included-groups'].split(' ')
-      read_groups_conf
+    def check_local
+      error_message = "~/.dotfiles.conf.yml is out of date."
+      raise DotfileError, error_message unless up_to_date?
     end
 
     def up_to_date?
@@ -32,7 +29,8 @@ class Dotfile
     end
 
     def read_groups_conf
-      groups_conf = Dotfile::GroupConfig.new('./groups.conf', @groups)
+      groups = @config_local['included-groups'].split(' ')
+      groups_conf = Dotfile::GroupConfig.new('./groups.conf', groups)
       groups_conf.parse
       @dotfiles = groups_conf.dotfiles
 
