@@ -54,6 +54,7 @@ Dotfile.all.each do |dotfile|
   Dotfile.copy_dotfile(dotfile)
   puts "-> " + dotfile.name
 end
+puts "\n"
 
 # Run any optional scripts.
 puts "Executing extra shell scripts..."
