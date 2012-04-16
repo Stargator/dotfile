@@ -1,5 +1,5 @@
 require 'spec_helper.rb'
-require 'dotfile_groupconfig.rb'
+require 'dotfile/dotfile_groupconfig.rb'
 
 describe Dotfile::GroupConfig do
 

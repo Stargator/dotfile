@@ -1,2 +1,2 @@
-class Dotfile
+module Dotfile
 end
