@@ -1,3 +1,6 @@
+class Dotfile
+end
+
 require 'yaml'
 require 'tempfile'
 require 'fileutils'
