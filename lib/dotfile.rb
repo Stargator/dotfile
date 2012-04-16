@@ -1,7 +1,10 @@
 require 'yaml'
 require 'tempfile'
 require 'fileutils'
-require 'dotfile_config'
+require 'dotfile/dotfile_config'
+require 'dotfile/dotfile_groupconfig'
+require 'dotfile/dotfile_static'
+require 'dotfile/dotfile_template'
 
 #   dotfile.rb
 #   ------------
@@ -25,7 +28,7 @@ require 'dotfile_config'
 #         end
 
 
-class Dotfile
+module Dotfile
 
   def self.all
     @dotfiles

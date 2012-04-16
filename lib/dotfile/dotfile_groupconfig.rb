@@ -1,4 +1,4 @@
-class Dotfile
+module Dotfile
 
   class GroupConfig
 

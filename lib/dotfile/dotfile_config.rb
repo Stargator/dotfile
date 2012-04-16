@@ -1,8 +1,4 @@
-require 'dotfile_static'
-require 'dotfile_template'
-require 'dotfile_groupconfig'
-
-class Dotfile
+module Dotfile
 
   class Config
 
