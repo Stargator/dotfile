@@ -39,8 +39,8 @@ class Dotfile
     @config.read_groups_conf
 
     @dotfiles = []
-    @dotfiles << static_files
-    @dotfiles << templates
+    @dotfiles += static_files
+    @dotfiles += templates
   end
 
   # Arrays of dotfiles to copy.
