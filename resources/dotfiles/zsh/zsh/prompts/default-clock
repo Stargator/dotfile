@@ -5,4 +5,4 @@ precmd() { print -P "\n%B%n %F{magenta}@%f %m %F{magenta}on%f %y %F{magenta}in%f
 PROMPT='%F{magenta}%1~ $ %f%b' # (Bold) User @ Host on Line \n Working Directory $
 
 # Right of prompt.
-RPROMPT=''
+RPROMPT='%D{%H:%M:%S %A}' # Hour:Minute:Second Weekday
