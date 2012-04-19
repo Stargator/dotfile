@@ -15,7 +15,7 @@ user = ENV['USER']
 dir = Dir.pwd
 
 prompt = Proc.new do |obj, _, _|
-           blue + obj.to_s + white + " $ " + c_end
+           blue + obj.to_s + " $ " + c_end
          end
 
 # Other settings, some are defaults, but set in case of future change!
