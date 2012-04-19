@@ -2,12 +2,14 @@ $LOAD_PATH << './lib'
 
 require 'dotfile'
 
-# With this I plan to write an addition to edit that makes it possible to
-# specify only the filename. It shall search through the dotfiles in
-# groups.conf and find the first match to edit.
-# Perhaps if there is more than one match, it will ask the user which file
-# to edit from a list.
-groups = Dotfile::GroupConfig.new('groups.conf')
+def getkey
+  system 'stty raw -echo'
+  key = $stdin.getc
+  system 'stty -raw echo'
+  key
+end
+
+### Installation Tasks
 
 desc "Install dotfiles based on configuration."
 task :install do
@@ -18,12 +20,22 @@ desc "Run a test install without modifying files."
 task :test_install do
 end
 
-# eg. rake edit['zsh/zshrc'] - no need to specify the template suffix.
-# CURRENTLY DOES NOT WORK - As I added group directories.
+# Edits a matching file from groups.conf. If multiple matches occur, the user
+# selects the appropriate file from a list.
 desc "Edit a dotfile."
-task :edit, :relative_path do |t, args|
-  directory = "resources/dotfiles/"
-  dotfile = args[:relative_path]
-  dotfile = File.exists?(directory + dotfile) ? dotfile : dotfile + '.template'
-  exec ENV['EDITOR'] + ' ' + directory + dotfile
+task :edit, :filename do |t, args|
+  groups = Dotfile::GroupConfig.new('groups.conf')
+  file_matches = groups.dotfiles.select { |d| d[:source].include? args[:filename] }
+
+  if file_matches.length == 1
+    exec ENV['EDITOR'] + ' ' + file_matches[0][:source]
+  elsif file_matches.length > 1
+    puts "Multiple matches found. Select a file to edit:"
+    file_matches.each_with_index do |d, i|
+      puts "#{i + 1}. #{d[:source]}"
+    end
+    exec ENV['EDITOR'] + ' ' + file_matches[getkey.to_i - 1][:source]
+  else
+    puts "No match found."
+  end
 end

@@ -28,7 +28,6 @@ module Dotfile
     def read_groups_conf
       groups = @config_local['included-groups'].split(' ')
       groups_conf = Dotfile::GroupConfig.new('./groups.conf', groups)
-      groups_conf.parse
       @dotfiles = groups_conf.dotfiles
 
       @static_files = []

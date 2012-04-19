@@ -4,11 +4,13 @@ module Dotfile
 
     attr_reader :config_file, :included_groups, :current_group, :dotfiles
 
-    def initialize(config_file = './groups.conf', included_groups = :all)
+    def initialize(config_file = './groups.conf', included_groups = :all, test = nil)
       @config_file = File.new(config_file, 'r')
       @included_groups = included_groups
       @current_group = ''
       @dotfiles = []
+
+      parse unless test
     end
 
     def parse
