@@ -29,4 +29,5 @@ To install dotfiles locally, run `rake install`. Local copies of any dotfiles li
 To do
 -------
 
+### Chromatic
 Create a one-size-fits-all colour/theme generator to work with dotfile.rb (colour.rb or something). This will take one colour file (in some format yet to be determined) which defines the 16/8 ANSI colours of a "theme". It will then generate themes based on this file for X, wmii, gnome-terminal, etc... This way you can choose one "theme" in dotfiles.conf.yaml and it will apply to everything. Also makes development of new themes much easier!
