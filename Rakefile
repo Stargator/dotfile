@@ -6,11 +6,60 @@ require 'dotfile'
 
 desc "Install dotfiles based on personal configuration."
 task :install do
-  exec 'ruby install.rb'
+  puts "Installing Personal Configurations\n" + 
+       "------------------------------------\n\n"
+
+  # Check for existence of ~/.dotfiles.conf.yml
+  f = File.expand_path('~/.dotfiles.conf.yml')
+  unless File.exists?(f)
+    puts "~/.dotfiles.conf.yml does not exist... creating.\n\n"
+    Dotfile.copy_config
+  end
+
+  #Load the configuration.
+  begin
+    Dotfile.configure
+    puts "Your local config file is up to date.\n\n"
+  rescue DotfileError
+    puts "!!! Your local config file is not up to date.\n\n" +
+         "You're missing the following keys:\n\n  #{Dotfile.missing.join("\n  ")}\n\n" +
+         "Either add the keys listed above to your local config file, or remove it.\n\n" +
+         "!!! Installation failed"
+    abort
+  end
+
+  # List the static_files to be copied.
+  puts "The following static files will be copied:"
+  Dotfile.static_files.each do |dotfile|
+    puts "-> " + dotfile.name
+  end
+  puts
+
+  # List the templates to be copied.
+  puts "The following dynamically generated files will be copied:"
+  Dotfile.templates.each do |dotfile|
+    puts "-> " + dotfile.name
+  end
+  puts
+
+  # Install to home directory.
+  puts "Installing new configuration files..."
+  Dotfile.all.each do |dotfile|
+    Dotfile.copy_dotfile(dotfile)
+    puts "-> " + dotfile.name
+  end
+  puts
+
+  # Run any optional scripts.
+  puts "Executing extra shell scripts..."
+  Dotfile.run_optional_scripts
+  puts
+
+  puts "All done!"
 end
 
 desc "Run a test installation without modifying files."
-task :test_install do
+task :test do
 end
 
 ### Dotfile Manipulation ###
@@ -24,7 +73,9 @@ task :edit, :name do |t, args|
   end
 
   groups = Dotfile::GroupConfig.new('groups.conf')
-  file_matches = groups.dotfiles.select { |d| relative_path(d[:source]).include? args[:name] }
+  file_matches = groups.dotfiles.select do |d|
+    relative_path(d[:source]).include? args[:name]
+  end
 
   if file_matches.length == 1
     exec ENV['EDITOR'] + ' ' + file_matches[0][:source]
