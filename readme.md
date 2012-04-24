@@ -1,7 +1,7 @@
 Kelsey's Dotfiles
 ===================
 
-These are my personal configuration files.
+These are my personal configuration files... with a twist!
 
 _... vim, zsh, font rendering etc. ..._
 
@@ -22,6 +22,8 @@ Files listed under `optional-before` or `optional-after` in `~/.dotfiles.conf.ym
 
 ### Rake Tasks / Installing
 For easy editing of dotfiles, run `rake edit['dotfile_name']`. The dotfile name need not be exact, as it will find any matches and ask which you file you'd like to edit (relies on the EDITOR environment variable).
+
+------
 
 To install dotfiles locally, run `rake install`. Local copies of any dotfiles listed in `groups.conf` will be overwritten without warning, so be careful!
 
