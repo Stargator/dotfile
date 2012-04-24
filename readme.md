@@ -18,7 +18,7 @@ All dotfiles (both template and regular) are found in `resources/dotfiles`. Ever
 Where there is a `-theme` suffix to an option in `~/.dotfiles.conf.yml`, it refers to the corresponding file found in `resources/themes`.
 
 ### Optional Scripts
-Files listed under `optional-scripts` in `~/.dotfiles.conf.yml` refer to similarly named scripts in the `lib/optional` directory. Currently these scripts must be suffixed `.sh`.
+Files listed under `optional-before` or `optional-after` in `~/.dotfiles.conf.yml` refer to similarly named scripts in the `lib/optional` directory. These files are executed at the beginning or end of the installation process respectively. This scripts may be in the form of ruby or shell sripts. Ruby scripts should have the `.rb` suffix.
 
 ### Rake Tasks / Installing
 For easy editing of dotfiles, run `rake edit['dotfile_name']`. The dotfile name need not be exact, as it will find any matches and ask which you file you'd like to edit (relies on the EDITOR environment variable).

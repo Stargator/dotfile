@@ -28,6 +28,11 @@ task :install do
     abort
   end
 
+  # Run preceeding optional scripts.
+  puts "Executing preceeding optional shell scripts..."
+  Dotfile.run_optional_before
+  puts
+
   # List the static_files to be copied.
   puts "The following static files will be copied:"
   Dotfile.static_files.each do |dotfile|
@@ -50,9 +55,9 @@ task :install do
   end
   puts
 
-  # Run any optional scripts.
-  puts "Executing extra shell scripts..."
-  Dotfile.run_optional_scripts
+  # Run succeeding optional scripts.
+  puts "Executing succeeding optional shell scripts..."
+  Dotfile.run_optional_after
   puts
 
   puts "All done!"

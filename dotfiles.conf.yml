@@ -14,7 +14,9 @@ included-groups: zsh vim tmux xorg wmii ruby dwb midori dircolors
 
 ### Other Settings (shell scripts in ./lib/optional)
 
-optional-scripts:
+optional-before:
+
+optional-after:
   arch-linux: false
   cygwin: false
   gnome-terminal: false

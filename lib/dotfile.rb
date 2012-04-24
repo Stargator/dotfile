@@ -58,10 +58,27 @@ module Dotfile
 
   # Other optional shell scripts to load.
 
-  def self.run_optional_scripts
-    @config.config_local['optional-scripts'].each do |k, v|
-      system('./resources/optional/' + k + '.sh') if v
+  def self.run_optional(scripts)
+    if scripts
+      scripts.each do |k, v|
+        files = Dir.entries('./lib/optional').select do |f|
+          f.match(k)
+        end
+
+        files.each do |f|
+          interpreter = f =~ /\.rb$/ ? 'ruby' : 'sh'
+          system("#{interpreter} ./lib/optional/#{f}") if v
+        end
+      end
     end
+  end
+
+  def self.run_optional_before
+    self.run_optional(@config.config_local['optional-before'])
+  end
+
+  def self.run_optional_after
+    self.run_optional(@config.config_local['optional-after'])
   end
 
   def self.copy_config

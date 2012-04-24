@@ -15,14 +15,8 @@ module Dotfile
     end
 
     def up_to_date?
-      @missing = []
-      key = 'optional-scripts'
-      missing_optional = @config_default[key].keys -
-                         @config_local[key].keys
-      @missing << missing_optional.map { |k| 'optional-scripts:' + k }
-      @missing << @config_default.keys - @config_local.keys
-
-      (@missing[0] + @missing[1]).empty?
+      @missing = @config_default.keys - @config_local.keys
+      @missing.empty?
     end
 
     def read_groups_conf
