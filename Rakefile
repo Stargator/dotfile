@@ -72,20 +72,22 @@ task :edit, :name do |t, args|
     path.sub('./resources/dotfiles/', '')
   end
 
+  editor = ENV['EDITOR'] || 'vi'
+
   groups = Dotfile::GroupConfig.new('groups.conf')
   file_matches = groups.dotfiles.select do |d|
     relative_path(d[:source]).include? args[:name]
   end
 
   if file_matches.length == 1
-    exec ENV['EDITOR'] + ' ' + file_matches[0][:source]
+    exec editor + ' ' + file_matches[0][:source]
   elsif file_matches.length > 1
     puts "Multiple matches found. Select a file to edit:\n\n"
     file_matches.each_with_index do |d, i|
       puts "#{i + 1}. #{relative_path(d[:source])}"
     end
     print "\nChoice? "
-    exec ENV['EDITOR'] + ' ' + file_matches[$stdin.gets.to_i - 1][:source]
+    exec editor + ' ' + file_matches[$stdin.gets.to_i - 1][:source]
   else
     puts "No matches found for '#{args[:name]}'."
   end
