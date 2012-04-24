@@ -8,6 +8,6 @@ if [ -d $HOME/.config/sublime-text-2 ]; then
   # Enable vintage (vi) mode by taking it out of ignored packages.
   sed -e 's/\["Vintage"\]/\[\]/g' $sublime_default > /tmp/Preferences.sublime-settings
   mv /tmp/Preferences.sublime-settings $sublime_default
-  cp lib/resources/sublime/user/* $sublime_dir/User/
-  cp lib/resources/sublime/theme/* $sublime_dir'/Color Scheme - Default/'
+  cp resources/optional/sublime/user/* $sublime_dir/User/
+  cp resources/optional/sublime/theme/* $sublime_dir'/Color Scheme - Default/'
 fi

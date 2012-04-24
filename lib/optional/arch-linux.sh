@@ -24,5 +24,5 @@ fi
 echo "List suggested Arch/AUR packages? [y/N]" && read list_packages
 if  [ $list_packages == 'y' ]; then
   printf "\n"
-  cat lib/resources/arch_recommended
+  cat resources/optional/arch_recommended
 fi
