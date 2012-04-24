@@ -6,7 +6,7 @@ start_directory=$(pwd)
 
 if [ -n "$(cat /proc/version | grep ARCH)" -a ! -x /usr/bin/yaourt ]; then
   echo "Using Arch Linux, but yaourt is not installed. Install yaourt? [y/N]" && read install_yaourt
-  if [ $install_yaourt == 'y' ]; then
+  if [ $install_yaourt ] && [ $install_yaourt == 'y' ]; then
     echo -e "\nInstalling yaourt..."
     cd /tmp
     wget -q http://aur.archlinux.org/packages/ya/yaourt/yaourt.tar.gz
@@ -22,7 +22,7 @@ if [ -n "$(cat /proc/version | grep ARCH)" -a ! -x /usr/bin/yaourt ]; then
 fi
 
 echo "List suggested Arch/AUR packages? [y/N]" && read list_packages
-if  [ $list_packages == 'y' ]; then
+if [ $list_packages ] && [ $list_packages == 'y' ]; then
   printf "\n"
   cat resources/optional/arch_recommended
 fi
