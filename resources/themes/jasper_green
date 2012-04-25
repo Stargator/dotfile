@@ -1,11 +1,11 @@
 ! Colours
-*background: #111111
-*foreground: #a5a5a5
+*background: #122123
+*foreground: #567c7b
 *colorBD: #ffffff
 
 ! Black
-*color0: #111111
-*color8: #111111
+*color0: #122123
+*color8: #122123
 
 ! Red
 *color1: #ff335b
@@ -32,5 +32,5 @@
 *color14: #79f2ca
 
 ! White
-*color7: #a5a5a5
+*color7: #567c7b
 *color15: #ffffff
