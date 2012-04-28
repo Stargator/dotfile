@@ -74,11 +74,11 @@ module Dotfile
   end
 
   def self.run_optional_before
-    self.run_optional(@config.config_local['optional-before'])
+    run_optional(@config.config_local['optional-before'])
   end
 
   def self.run_optional_after
-    self.run_optional(@config.config_local['optional-after'])
+    run_optional(@config.config_local['optional-after'])
   end
 
   def self.copy_config
