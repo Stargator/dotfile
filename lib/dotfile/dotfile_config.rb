@@ -2,7 +2,8 @@ module Dotfile
 
   class Config
 
-    attr_reader :config_local, :config_default, :missing, :static_files, :templates
+    attr_reader :config_local, :config_default, :missing
+    attr_reader :static_files, :templates
 
     def initialize(config_local, config_default = nil)
       @config_local = YAML.load(File.open config_local)
@@ -21,7 +22,9 @@ module Dotfile
 
     def read_groups_conf
       groups = @config_local['included-groups'].split(' ')
-      groups_conf = Dotfile::GroupConfig.new('./groups.conf', groups)
+      groups_conf = Dotfile::GroupConfig.new('config/groups.conf',
+                                             'resources/dotfiles',
+                                             groups)
       @dotfiles = groups_conf.dotfiles
 
       @static_files = []

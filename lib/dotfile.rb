@@ -36,7 +36,7 @@ module Dotfile
 
   def self.configure
     local = File.expand_path('~/.dotfiles.conf.yml')
-    default = './dotfiles.conf.yml'
+    default = 'config/dotfiles.conf.yml'
     @config = Dotfile::Config.new(local, default)
     @config.check_local
     @config.read_groups_conf
@@ -83,7 +83,7 @@ module Dotfile
 
   def self.copy_config
     destination = File.expand_path('~/.dotfiles.conf.yml')
-    FileUtils.cp('dotfiles.conf.yml', destination)
+    FileUtils.cp('config/dotfiles.conf.yml', destination)
   end
 
   def self.copy_dotfile(dotfile)

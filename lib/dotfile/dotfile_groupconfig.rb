@@ -4,8 +4,12 @@ module Dotfile
 
     attr_reader :config_file, :included_groups, :current_group, :dotfiles
 
-    def initialize(config_file = './groups.conf', included_groups = :all, test = nil)
+    def initialize(config_file = 'config/groups.conf',
+                   dotfile_path = 'resources/dotfiles',
+                   included_groups = :all,
+                   test = nil)
       @config_file = File.new(config_file, 'r')
+      @dotfile_path = dotfile_path
       @included_groups = included_groups
       @current_group = ''
       @dotfiles = []
@@ -60,9 +64,7 @@ module Dotfile
     end
 
     def build_paths(line)
-      config_path = File.dirname(@config_file)
-      dotfile_path = "/resources/dotfiles/#{@current_group}/"
-      source = config_path + dotfile_path + line[0]
+      source = "#{@dotfile_path}/#{@current_group}/" + line[0]
       destination = File.expand_path(line[1])
       [source, destination]
     end
@@ -124,7 +126,6 @@ module Dotfile
           @dotfiles << dotfile
         end
       end
-
     end
 
     def remove_directories

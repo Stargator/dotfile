@@ -4,7 +4,9 @@ require 'dotfile/dotfile_groupconfig.rb'
 describe Dotfile::GroupConfig do
 
   let(:config_file) { 'spec/examples/groups.conf' }
-  let(:group) { Dotfile::GroupConfig.new(config_file, %w{ vim zsh xorg }, :test) }
+  let(:dotfile_path) { 'spec/examples/resources/dotfiles' }
+  let(:included) { %w{ vim zsh xorg } }
+  let(:group) { Dotfile::GroupConfig.new(config_file, dotfile_path, included, :test) }
 
   it 'reads examples/groups.conf' do
     File.exist?(config_file).should be_true

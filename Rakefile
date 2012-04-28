@@ -69,7 +69,7 @@ end
 
 ### Dotfile Manipulation ###
 
-# Edits a matching file from groups.conf. If multiple matches occur, the user
+# Edits a matching file from config/groups.conf. If multiple matches occur, the user
 # selects the appropriate file from a list.
 desc "Edit a dotfile loosely matching a given name."
 task :edit, :name do |t, args|
@@ -79,7 +79,7 @@ task :edit, :name do |t, args|
 
   editor = ENV['EDITOR'] || 'vi'
 
-  groups = Dotfile::GroupConfig.new('groups.conf')
+  groups = Dotfile::GroupConfig.new('config/groups.conf')
   file_matches = groups.dotfiles.select do |d|
     relative_path(d[:source]).include? args[:name]
   end
