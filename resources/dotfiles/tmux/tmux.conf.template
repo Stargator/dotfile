@@ -65,7 +65,7 @@ bind L select-window -t :+
 
 # Set status bar colours - may make this template (ie. configurable).
 set -g status-bg {{tmux-status-background}}
-set -g status-fg black {{tmux-status-foreground}}
+set -g status-fg {{tmux-status-foreground}}
 
 # Set active pane colour (usually to match the status bar!)
-set-option -g pane-active-border-fg {{tmux-active-pane-border}}
+set -g pane-active-border-fg {{tmux-active-pane-border}}
