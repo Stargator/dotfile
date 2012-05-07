@@ -101,23 +101,24 @@ set -g visual-activity {{tmux-show-activity}}
 # Set status bar colours.
 set -g status-fg {{tmux-status-fg}}
 set -g status-bg {{tmux-status-bg}}
+set -g status-attr {{tmux-status-attr}}
 
-setw -g window-status-fg cyan
-setw -g window-status-bg black
-setw -g window-status-attr dim
+setw -g window-status-fg {{tmux-window-fg}}
+setw -g window-status-bg {{tmux-window-bg}}
+setw -g window-status-attr {{tmux-window-attr}}
 
-setw -g window-status-current-fg white
-setw -g window-status-current-bg red
-setw -g window-status-current-attr bright
+setw -g window-status-current-fg {{tmux-active-window-fg}}
+setw -g window-status-current-bg {{tmux-active-window-bg}}
+setw -g window-status-current-attr {{tmux-active-window-attr}}
 
 # Set pane colours.
-set -g pane-active-border-fg {{tmux-active-pane-border}}
-set -g pane-active-border-bg black
+set -g pane-border-fg {{tmux-pane-fg}}
+set -g pane-border-bg {{tmux-pane-bg}}
 
-set -g pane-border-fg white
-set -g pane-border-bg black
+set -g pane-active-border-fg {{tmux-active-pane-fg}}
+set -g pane-active-border-bg {{tmux-active-pane-bg}}
 
 # Set command line colours.
-set -g message-fg white
-set -g message-bg black
-set -g message-attr bright
+set -g message-fg {{tmux-message-fg}}
+set -g message-bg {{tmux-message-bg}}
+set -g message-attr {{tmux-message-attr}}
