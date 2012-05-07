@@ -2,6 +2,11 @@ $LOAD_PATH << './lib'
 
 require 'dotfile'
 
+### Aliases ###
+task :i => :install
+task :t => :test
+task :e, [:name] => :edit
+
 ### Installation ###
 
 desc "Install dotfiles based on personal configuration."
@@ -72,7 +77,7 @@ end
 # Edits a matching file from config/groups.conf. If multiple matches occur, the user
 # selects the appropriate file from a list.
 desc "Edit a dotfile loosely matching a given name."
-task :edit, :name do |t, args|
+task :edit, [:name] do |t, args|
   def relative_path(path)
     path.sub('./resources/dotfiles/', '')
   end
