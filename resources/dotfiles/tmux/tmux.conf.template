@@ -5,19 +5,18 @@
       
     # c = new window.
     # n = next window.
-    # p = NOT previous window, as I changed it...
-    # 0,1,2... = select a window (listed along the bottom).
     # , = rename window.
     # $ = rename session.
     # s = select a session.
-    # t = show time (nice makeshift screensaver).
+    # t = show time.
 
+
+#----------------------#
+#   General Settings   #
+#----------------------#
 
 # Reload tmux configuration.
 bind r source-file ~/.tmux.conf \; display-message "Configuration reloaded." # Note the \; allows multiple commands with a single binding.
-
-# Send prefix to programs which use Ctrl-b.
-bind B send-prefix
 
 # Not zero based numbering.
 set -g base-index 1
@@ -26,6 +25,24 @@ setw -g pane-base-index 1
 # Minimal delay on sending commands.
 set -sg escape-time 1
 
+# 256 Colors.
+set -g default-terminal "screen-256color"
+
+# Mouse interaction.
+set -g mouse-select-pane {{tmux-mouse-interaction}}
+set -g mouse-resize-pane {{tmux-mouse-interaction}}
+set -g mouse-select-window {{tmux-mouse-interaction}}
+
+# Enable mouse scrolling.
+set -g terminal-overrides 'xterm*:smcup@:rmcup@'
+
+#------------------#
+#   Key Bindings   # 
+#------------------#
+
+# Send prefix to programs which use Ctrl-b.
+bind B send-prefix
+
 # Vi style keys in copy-mode etc.
 set -g mode-keys vi
 unbind [
@@ -33,26 +50,20 @@ bind C-[ copy-mode # Easier to quickly type and more VIM-like.
 bind -t vi-copy v begin-selection # As in VIM visual mode.
 bind -t vi-copy y copy-selection # As in VIM yank.
 
-# Enable mouse scrolling in Terminal Emulators.
-set -g terminal-overrides 'xterm*:smcup@:rmcup@'
-
 # Paste copied text.
 unbind ]
 bind p paste-buffer
 
-# Allow selecting pane by mouse click.
-set -g mouse-select-pane on
-
-# Easier bindings for window splitting.
+# Easier and more obvious bindings for window splitting.
 unbind '%'
 bind v split-window -h
 unbind '"'
 bind h split-window -v
 
-# Easier pane switching.
+# Quick pane switching.
 bind C-b last-pane
 
-# VIM-like pane selection (left, down, right, up = h, j, k, l).
+# VIM-like pane navigation (left, down, right, up = h, j, k, l).
 # Uses Ctrl-key so it doesn't need to be released as you navigate.
 bind C-h select-pane -L
 bind C-j select-pane -D
@@ -66,9 +77,47 @@ bind -r J resize-pane -D 3
 bind -r K resize-pane -U 3
 bind -r L resize-pane -R 3
 
-# Set status bar colours - may make this template (ie. configurable).
-set -g status-bg {{tmux-status-background}}
-set -g status-fg {{tmux-status-foreground}}
+#----------------#
+#   Status Bar   #
+#----------------#
 
-# Set active pane colour (usually to match the status bar!)
+# Set the status bar content.
+set -g status-utf8 on
+set -g status-left "#H [#[bright]#S#[nobright]]"
+set -g status-right "%A %d-%B-%Y %H:%M:%S"
+set -g status-interval 1 # Update every second.
+
+# Window list position.
+set -g status-justify {{tmux-windowlist-alignment}}
+
+# Window list show activity (mirrors colours).
+set -g monitor-activity {{tmux-show-activity}}
+set -g visual-activity {{tmux-show-activity}}
+
+#-------------#
+#   Colours   #
+#-------------#
+
+# Set status bar colours.
+set -g status-fg {{tmux-status-fg}}
+set -g status-bg {{tmux-status-bg}}
+
+setw -g window-status-fg cyan
+setw -g window-status-bg black
+setw -g window-status-attr dim
+
+setw -g window-status-current-fg white
+setw -g window-status-current-bg red
+setw -g window-status-current-attr bright
+
+# Set pane colours.
 set -g pane-active-border-fg {{tmux-active-pane-border}}
+set -g pane-active-border-bg black
+
+set -g pane-border-fg white
+set -g pane-border-bg black
+
+# Set command line colours.
+set -g message-fg white
+set -g message-bg black
+set -g message-attr bright

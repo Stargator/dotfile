@@ -68,12 +68,16 @@ font-rgba: none    # eg. none for grayscale anti-alias
 urxvt-linespace: 3
 
 
-### tmux
+### Tmux
 
-tmux-active-pane-border: green
+tmux-mouse-interaction: "on"
+tmux-windowlist-alignment: left
+tmux-show-activity: "on"
 
-tmux-status-background: green
-tmux-status-foreground: black
+tmux-active-pane-border: cyan
+
+tmux-status-bg: black
+tmux-status-fg: white
 
 
 ### wmii
