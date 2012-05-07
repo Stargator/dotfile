@@ -83,6 +83,7 @@ bind -r L resize-pane -R 3
 
 # Set the status bar content.
 set -g status-utf8 on
+set -g status-left-length 40
 set -g status-left "#H [#[bright]#S#[nobright]]"
 set -g status-right "%A %d-%B-%Y %H:%M:%S"
 set -g status-interval 1 # Update every second.
