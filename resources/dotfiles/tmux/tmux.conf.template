@@ -16,12 +16,22 @@
 # Reload tmux configuration.
 bind r source-file ~/.tmux.conf \; display-message "Configuration reloaded." # Note the \; allows multiple commands with a single binding.
 
+# Send prefix to programs which use Ctrl-b.
+bind B send-prefix
+
+# Not zero based numbering.
+set -g base-index 1
+setw -g pane-base-index 1
+
+# Minimal delay on sending commands.
+set -sg escape-time 1
+
 # Vi style keys in copy-mode etc.
 set -g mode-keys vi
 unbind [
-bind C-[ copy-mode # Easier to quickly type and more vim-like.
-bind -t vi-copy v begin-selection
-bind -t vi-copy y copy-selection
+bind C-[ copy-mode # Easier to quickly type and more VIM-like.
+bind -t vi-copy v begin-selection # As in VIM visual mode.
+bind -t vi-copy y copy-selection # As in VIM yank.
 
 # Enable mouse scrolling in Terminal Emulators.
 set -g terminal-overrides 'xterm*:smcup@:rmcup@'
@@ -43,14 +53,19 @@ bind h split-window -v
 bind C-b last-pane
 
 # VIM-like pane selection (left, down, right, up = h, j, k, l).
+# Uses Ctrl-key so it doesn't need to be released as you navigate.
 bind C-h select-pane -L
 bind C-j select-pane -D
 bind C-k select-pane -U
 bind C-l select-pane -R
 
+# Change windows left and right.
+bind H select-window -t :-
+bind L select-window -t :+
+
 # Set status bar colours - may make this template (ie. configurable).
-set -g status-bg yellow
-set -g status-fg black
+set -g status-bg {{tmux-status-background}}
+set -g status-fg black ((tmux-status-foreground}}
 
 # Set active pane colour (usually to match the status bar!)
-set-option -g pane-active-border-fg yellow
+set-option -g pane-active-border-fg {{tmux-active-pane-border}}

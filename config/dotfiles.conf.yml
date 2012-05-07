@@ -68,6 +68,14 @@ font-rgba: none    # eg. none for grayscale anti-alias
 urxvt-linespace: 3
 
 
+### tmux
+
+tmux-active-pane-border: green
+
+tmux-status-background: green
+tmux-status-foreground: black
+
+
 ### wmii
 
 wmii-theme: wmii_foolish_passion    # Themes are found in dotfiles/templates/themes.
