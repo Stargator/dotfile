@@ -89,7 +89,7 @@ tmux-status-bg: black
 tmux-status-fg: white
 tmux-status-attr: dim
 
-tmux-window-fg: cyan
+tmux-window-fg: white
 tmux-window-bg: black
 tmux-window-attr: dim
 
