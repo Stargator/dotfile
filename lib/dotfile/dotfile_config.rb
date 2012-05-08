@@ -7,7 +7,7 @@ module Dotfile
     def initialize(config_file = "#{Dotfile.dir}/dotfile.conf")
       @config = YAML.load(File.open config_file)
       @dir = Dotfile.dir
-      read_groups_conf
+      read_groups_conf if @config['groups']
     end
 
     def read_groups_conf

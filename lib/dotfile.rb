@@ -82,6 +82,9 @@ module Dotfile
 
   def self.copy_defaults
     FileUtils.mkdir_p(dir)
+    FileUtils.mkdir_p(dir + '/dotfiles')
+    FileUtils.mkdir_p(dir + '/scripts')
+    FileUtils.mkdir_p(dir + '/themes')
     FileUtils.cp('default/dotfile.conf', dir)
     FileUtils.cp('default/groups.conf', dir)
   end
