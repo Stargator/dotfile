@@ -1,8 +1,0 @@
-# Key bindings for delete, home, end etc.
-# I may need to have another look at this - home and end only work with numpad on my desktop.
-bindkey  "\033[3~"    delete-char
-bindkey  "\033[3;5~"  delete-char
-bindkey  "\033[1~"    beginning-of-line
-bindkey  "\033[4~"    end-of-line
-bindkey  "\033[7~"    beginning-of-line
-bindkey  "\033[8~"    end-of-line

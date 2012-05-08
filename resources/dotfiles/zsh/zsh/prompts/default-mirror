@@ -1,8 +1,0 @@
-# Prompt line 1.
-precmd() { print -P "\n%B%F{magenta}%n%f @ %F{magenta}%m%f on %F{magenta}%y%f in %F{magenta}%~%f${vcs_info_msg_0_}%F{magenta}${vcs_info_msg_1_}%f" }
-
-# Prompt line 2.
-PROMPT='%1~ $ %b' # (Bold) User @ Host on Line \n Working Directory $
-
-# Right of prompt.
-RPROMPT=''
