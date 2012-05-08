@@ -2,15 +2,15 @@ module Dotfile
 
   class GroupConfig
 
-    attr_reader :config_file, :included_groups, :current_group, :dotfiles
+    attr_reader :config_file, :groups, :current_group, :dotfiles
 
     def initialize(config_file = "#{Dotfile.dir}/groups.conf",
                    dotfile_path = "#{Dotfile.dir}/dotfiles",
-                   included_groups = :all,
+                   groups = :all,
                    test = nil)
       @config_file = File.new(config_file, 'r')
       @dotfile_path = dotfile_path
-      @included_groups = included_groups
+      @groups = groups
       @current_group = ''
       @dotfiles = []
 
@@ -55,8 +55,8 @@ module Dotfile
     end
 
     def included_group?
-      return true if @included_groups == :all
-      @included_groups.include?(@current_group)
+      return true if @groups == :all
+      @groups.include?(@current_group)
     end
 
     def split_line(line)

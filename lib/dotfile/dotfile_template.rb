@@ -36,7 +36,7 @@ module Dotfile
 
     def return_option_value(option)
       # If option is a theme, it must be sourced from an external file.
-      if option =~ /.*-theme/
+      if option =~ /.*_theme/
         File.readlines("#{Dotfile.dir}/themes/#{@config[option]}").join
       else
         @config[option]

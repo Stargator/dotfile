@@ -11,7 +11,7 @@ module Dotfile
     end
 
     def read_groups_conf
-      groups = @config['included-groups'].split(' ')
+      groups = @config['groups'].split(' ')
       groups_conf = Dotfile::GroupConfig.new("#{@dir}/groups.conf",
                                              "#{@dir}/dotfiles",
                                              groups)

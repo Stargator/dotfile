@@ -25,8 +25,8 @@ task :install do
   Dotfile.configure
 
   # Run preceeding optional scripts.
-  puts "Executing preceeding optional shell scripts..."
-  Dotfile.run_optional_before
+  puts "Executing preceeding scripts..."
+  Dotfile.execute_before
   puts
 
   # List the static_files to be copied.
@@ -52,8 +52,8 @@ task :install do
   puts
 
   # Run succeeding optional scripts.
-  puts "Executing succeeding optional shell scripts..."
-  Dotfile.run_optional_after
+  puts "Executing succeeding scripts..."
+  Dotfile.execute_after
   puts
 
   puts "All done!"

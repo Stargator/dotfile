@@ -79,7 +79,7 @@ describe Dotfile::GroupConfig do
       context 'when given a non-included group name' do
         before(:all) { @group.parse_line('[not_included]') }
 
-        specify { @group.included_groups.should_not include(@group.current_group) }
+        specify { @group.groups.should_not include(@group.current_group) }
         specify { @group.current_group.should eq('not_included') }
 
         context 'then given paths' do

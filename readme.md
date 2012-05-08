@@ -1,31 +1,29 @@
-Kelsey's Dotfiles
-===================
+dotfile
+=========
 
-These are my personal configuration files... with a twist!
-
-_... vim, zsh, font rendering etc. ..._
+Generate dotfiles dynamically. Dotfile templates are based around a central configuration file which specifies commonly used configuration options. The dotfiles, along with the central configuration files may be distributed to other systems and slightly tweaked to suit the environment.
 
 
 Usage
 -------
 
 ### Structure
-Dotfiles are stored as one of two types based on their filename. Files ending in a ".template" suffix will be dynamically generated. All other files will be treated as regular files and will be copied directly. Template files will substitute anything between any instance of `{{some_option}}` with the corresponding `some_option` found in `~/.dotfiles.conf.yaml` (this file will be created after running `rake install` for the first time).
+Dotfiles are stored as one of two types based on their filename. Files ending in a ".template" suffix will be dynamically generated. All other files will be treated as regular files and will be copied directly. Template files will substitute anything between any instance of `{{some_option}}` with the corresponding `some_option` found in `~/.dotfile/dotfile.conf` (this file will be created after running `rake install` for the first time).
 
-All dotfiles (both template and regular) are found in `resources/dotfiles`. Every dotfile is part of a "group" which is specified in `config/groups.conf`. Any dotfile within a group that is listed under `included-groups` in `~/.dotfiles.conf.yml` will be copied over during a `rake install`. See the `config/groups.conf` file for more information on how this file works.
+All dotfiles (both template and regular) are found in `~/.dotfile/dotfiles`. Every dotfile is part of a "group" which is specified in `~/.dotfile/groups.conf`. Any dotfile within a group that is listed under `groups` in `~/.dotfile/dotfile.conf` will be copied over during a `rake install`. See the `default/groups.conf` file for more information on how this file works.
 
 ### Themes
-Where there is a `-theme` suffix to an option in `~/.dotfiles.conf.yml`, it refers to the corresponding file found in `resources/themes`.
+Where there is a `_theme` suffix to an option in `~/.dotfile/dotfile.conf`, it refers to the corresponding file found in `~/.dotfile/themes`.
 
 ### Optional Scripts
-Files listed under `optional-before` or `optional-after` in `~/.dotfiles.conf.yml` refer to similarly named scripts in the `lib/optional` directory. These files are executed at the beginning or end of the installation process respectively. Either ruby or shell sripts are acceptable. Ruby scripts should have the `.rb` suffix.
+Files listed under `execute_before` or `execute_after` in `~/.dotfile/dotfile.conf` refer to similarly named scripts in the `~/.dotfile/scripts` directory. These files are executed at the beginning or end of the installation process respectively. Either ruby or shell sripts are acceptable. Ruby scripts should have the `.rb` suffix.
 
 ### Rake Tasks / Installing
 For easy editing of dotfiles, run `rake edit['dotfile_name']`. The dotfile name need not be exact, as it will find any matches and ask which you file you'd like to edit (relies on the EDITOR environment variable).
 
 ------
 
-To install dotfiles locally, run `rake install`. Local copies of any dotfiles listed in `config/groups.conf` will be overwritten without warning, so be careful!
+To install dotfiles locally, run `rake install`. Local copies of any dotfiles listed in `~/.dotfile/groups.conf` and specified in `~/.dotfile/dotfile.conf` will be overwritten without warning, so be careful!
 
 
 To do
