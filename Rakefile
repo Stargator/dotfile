@@ -22,7 +22,11 @@ task :install do
   end
 
   #Load the configuration.
-  Dotfile.configure
+  begin
+    Dotfile.configure
+  rescue DotfileError
+    abort "No groups specified in configuration file. Exiting..."
+  end
 
   # Run preceeding optional scripts.
   puts "Executing preceeding scripts..."

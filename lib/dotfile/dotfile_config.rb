@@ -7,7 +7,13 @@ module Dotfile
     def initialize(config_file = "#{Dotfile.dir}/dotfile.conf")
       @config = YAML.load(File.open config_file)
       @dir = Dotfile.dir
-      read_groups_conf if @config['groups']
+
+      # Make sure there are groups specified.
+      if @config['groups']
+        read_groups_conf
+      else
+        raise(DotfileError, "No groups specified.")
+      end
     end
 
     def read_groups_conf
