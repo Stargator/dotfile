@@ -52,27 +52,27 @@ module Dotfile
 
   # Other optional shell scripts to load.
 
-  def self.execute_script(scripts)
+  def self.execute_scripts(scripts)
     if scripts
-      scripts.each do |k, v|
+      scripts.split.each do |s|
         files = Dir.entries("#{dir}/scripts").select do |f|
-          f.match(k)
+          f.match(s)
         end
 
         files.each do |f|
           interpreter = f =~ /\.rb$/ ? 'ruby' : 'sh'
-          system("#{interpreter} #{dir}/scripts/#{f}") if v
+          system("#{interpreter} #{dir}/scripts/#{f}")
         end
       end
     end
   end
 
   def self.execute_before
-    execute_script(@config.config['execute_before'])
+    execute_scripts(@config.config['execute_before'])
   end
 
   def self.execute_after
-    execute_script(@config.config['execute_after'])
+    execute_scripts(@config.config['execute_after'])
   end
 
   def self.copy_defaults
