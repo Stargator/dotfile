@@ -9,17 +9,11 @@ require 'dotfile/dotfile_template'
 #   dotfile.rb
 #   ------------
 #
-#     Generate dotfiles based on configurations found in ~/.dotfiles.conf.yml.
+#     Generate dotfiles based on configurations found in ~/.dotfile/dotfile.conf
 #
 #     Example of usage:
 #     
-#         begin
-#           Dotfile.configure
-#         rescue DotfileError
-#           print "Missing keys:\n  "
-#           Dotfile.missing.join("\n  ")
-#           abort
-#         end
+#         Dotfile.configure
 #         
 #         puts "Copying dotfiles..."
 #         Dotfile.all.each do |dotfile|
