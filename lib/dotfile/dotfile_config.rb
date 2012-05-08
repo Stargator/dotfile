@@ -2,29 +2,20 @@ module Dotfile
 
   class Config
 
-    attr_reader :config_local, :config_default, :missing
-    attr_reader :static_files, :templates
+    attr_reader :config, :static_files, :templates
 
-    def initialize(config_local, config_default = nil)
-      @config_local = YAML.load(File.open config_local)
-      @config_default = YAML.load(File.open config_default) if config_default
-    end
-
-    def check_local
-      error_message = "~/.dotfiles.conf.yml is out of date."
-      raise DotfileError, error_message unless up_to_date?
-    end
-
-    def up_to_date?
-      @missing = @config_default.keys - @config_local.keys
-      @missing.empty?
+    def initialize(dir = Dotfile.dir)
+      @config = YAML.load(File.open "#{dir}/dotfile.conf")
+      @dir = dir
+      read_groups_conf
     end
 
     def read_groups_conf
-      groups = @config_local['included-groups'].split(' ')
-      groups_conf = Dotfile::GroupConfig.new('config/groups.conf',
-                                             'resources/dotfiles',
+      groups = @config['included-groups'].split(' ')
+      groups_conf = Dotfile::GroupConfig.new("#{@dir}/groups.conf",
+                                             "#{@dir}/dotfiles",
                                              groups)
+
       @dotfiles = groups_conf.dotfiles
 
       @static_files = []
@@ -32,7 +23,7 @@ module Dotfile
 
       @dotfiles.each do |dotfile|
         if dotfile[:source] =~ /\.template$/
-          @templates << Dotfile::Template.new(dotfile, @config_local)
+          @templates << Dotfile::Template.new(dotfile, @config)
         else
           @static_files << Dotfile::Static.new(dotfile)
         end

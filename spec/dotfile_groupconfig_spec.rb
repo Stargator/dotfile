@@ -4,7 +4,7 @@ require 'dotfile/dotfile_groupconfig.rb'
 describe Dotfile::GroupConfig do
 
   let(:config_file) { 'spec/examples/groups.conf' }
-  let(:dotfile_path) { 'spec/examples/resources/dotfiles' }
+  let(:dotfile_path) { 'spec/examples/dotfiles' }
   let(:included) { %w{ vim zsh xorg } }
   let(:group) { Dotfile::GroupConfig.new(config_file, dotfile_path, included, :test) }
 
@@ -63,7 +63,7 @@ describe Dotfile::GroupConfig do
 
         context 'then given paths' do
           describe 'the parsed line' do
-            let(:source) { "spec/examples/resources/dotfiles/vim/test_file" }
+            let(:source) { "spec/examples/dotfiles/vim/test_file" }
             let(:destination) { File.expand_path("~/.test_file") }
             subject { @group.parse_line(valid_line) }
 

@@ -15,23 +15,14 @@ task :install do
        "------------------------------------\n\n"
 
   # Check for existence of ~/.dotfiles.conf.yml
-  f = File.expand_path('~/.dotfiles.conf.yml')
+  f = File.expand_path('~/.dotfile/dotfile.conf')
   unless File.exists?(f)
-    puts "~/.dotfiles.conf.yml does not exist... creating.\n\n"
-    Dotfile.copy_config
+    puts "~/.dotfile/dotfile.conf does not exist... creating.\n\n"
+    Dotfile.copy_defaults
   end
 
   #Load the configuration.
-  begin
-    Dotfile.configure
-    puts "Your local config file is up to date.\n\n"
-  rescue DotfileError
-    puts "!!! Your local config file is not up to date.\n\n" +
-         "You're missing the following keys:\n\n  #{Dotfile.missing.join("\n  ")}\n\n" +
-         "Either add the keys listed above to your local config file, or remove it.\n\n" +
-         "!!! Installation failed"
-    abort
-  end
+  Dotfile.configure
 
   # Run preceeding optional scripts.
   puts "Executing preceeding optional shell scripts..."
@@ -79,12 +70,12 @@ end
 desc "Edit a dotfile loosely matching a given name."
 task :edit, [:name] do |t, args|
   def relative_path(path)
-    path.sub('./resources/dotfiles/', '')
+    path.sub("#{Dotfile.dir}/dotfiles/", '')
   end
 
   editor = ENV['EDITOR'] || 'vi'
 
-  groups = Dotfile::GroupConfig.new('config/groups.conf')
+  groups = Dotfile::GroupConfig.new("#{Dotfile.dir}/groups.conf")
   file_matches = groups.dotfiles.select do |d|
     relative_path(d[:source]).include? args[:name]
   end

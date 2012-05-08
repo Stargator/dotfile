@@ -34,12 +34,12 @@ module Dotfile
     @dotfiles
   end
 
+  def self.dir
+    File.expand_path('~/.dotfile')
+  end
+
   def self.configure
-    local = File.expand_path('~/.dotfiles.conf.yml')
-    default = 'config/dotfiles.conf.yml'
-    @config = Dotfile::Config.new(local, default)
-    @config.check_local
-    @config.read_groups_conf
+    @config = Dotfile::Config.new
 
     @dotfiles = []
     @dotfiles += static_files
@@ -61,29 +61,30 @@ module Dotfile
   def self.run_optional(scripts)
     if scripts
       scripts.each do |k, v|
-        files = Dir.entries('./lib/optional').select do |f|
+        files = Dir.entries("#{dir}/optional").select do |f|
           f.match(k)
         end
 
         files.each do |f|
           interpreter = f =~ /\.rb$/ ? 'ruby' : 'sh'
-          system("#{interpreter} ./lib/optional/#{f}") if v
+          system("#{interpreter} #{dir}/optional/#{f}") if v
         end
       end
     end
   end
 
   def self.run_optional_before
-    run_optional(@config.config_local['optional-before'])
+    run_optional(@config.config['optional-before'])
   end
 
   def self.run_optional_after
-    run_optional(@config.config_local['optional-after'])
+    run_optional(@config.config['optional-after'])
   end
 
-  def self.copy_config
-    destination = File.expand_path('~/.dotfiles.conf.yml')
-    FileUtils.cp('config/dotfiles.conf.yml', destination)
+  def self.copy_defaults
+    FileUtils.mkdir_p(dir)
+    FileUtils.cp('default/dotfile.conf', dir)
+    FileUtils.cp('default/groups.conf', dir)
   end
 
   def self.copy_dotfile(dotfile)
@@ -95,10 +96,6 @@ module Dotfile
     all.each do |dotfile|
       copy_dotfile(dotfile)
     end
-  end
-
-  def self.missing
-    @config.missing
   end
 
 end
