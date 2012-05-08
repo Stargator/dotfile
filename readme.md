@@ -18,6 +18,9 @@ Where there is a `_theme` suffix to an option in `~/.dotfile/dotfile.conf`, it r
 ### Optional Scripts
 Files listed under `execute_before` or `execute_after` in `~/.dotfile/dotfile.conf` refer to similarly named scripts in the `~/.dotfile/scripts` directory. These files are executed at the beginning or end of the installation process respectively. Either ruby or shell sripts are acceptable. Ruby scripts should have the `.rb` suffix.
 
+### Local Configuration
+To avoid modifying a dotfiles repository when making small tweaks to `~/.dotfile/dotfile.conf` on a per-machine basis, consider using a local configuration file outside of the repo. When the file `~/.dotfile.conf.local` exists on the filesystem, this file will be sourced instead.
+
 ### Rake Tasks / Installing
 For easy editing of dotfiles, run `rake edit['dotfile_name']`. The dotfile name need not be exact, as it will find any matches and ask which you file you'd like to edit (relies on the EDITOR environment variable).
 

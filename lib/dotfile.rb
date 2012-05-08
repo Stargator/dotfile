@@ -33,7 +33,12 @@ module Dotfile
   end
 
   def self.configure
-    @config = Dotfile::Config.new
+    local_config_file = File.expand_path('~/.dotfile.conf.local')
+    if File.exists?(local_config_file)
+      @config = Dotfile::Config.new(local_config_file)
+    else
+      @config = Dotfile::Config.new
+    end
 
     @dotfiles = []
     @dotfiles += static_files

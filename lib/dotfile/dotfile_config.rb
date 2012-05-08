@@ -4,9 +4,9 @@ module Dotfile
 
     attr_reader :config, :static_files, :templates
 
-    def initialize(dir = Dotfile.dir)
-      @config = YAML.load(File.open "#{dir}/dotfile.conf")
-      @dir = dir
+    def initialize(config_file = "#{Dotfile.dir}/dotfile.conf")
+      @config = YAML.load(File.open config_file)
+      @dir = Dotfile.dir
       read_groups_conf
     end
 

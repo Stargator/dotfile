@@ -9,7 +9,7 @@ describe Dotfile::GroupConfig do
   let(:group) { Dotfile::GroupConfig.new(config_file, dotfile_path, included, :test) }
 
   it 'reads examples/groups.conf' do
-    File.exist?(config_file).should be_true
+    File.exists?(config_file).should be_true
   end
 
   describe 'parsing a line' do
