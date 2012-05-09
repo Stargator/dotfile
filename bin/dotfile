@@ -1,5 +1,60 @@
-$LOAD_PATH << __FILE__ + '/../lib'
+#!/usr/bin/env ruby
+
+$LOAD_PATH << File.dirname(__FILE__) + '/../lib'
 
 require 'dotfile'
+require 'dotfile/dotfile_cli'
+require 'optparse'
+require 'ostruct'
 
+class Dotfile::Options
 
+  def self.parse
+    options = OpenStruct.new
+    options.update = false
+    options.update_file = nil
+    options.edit = false
+    options.edit_file = nil
+    options.edit_config = false
+    options.edit_groups = false
+
+    o = OptionParser.new do |opts|
+      opts.banner = "Usage: dotfile [option] [file]\n\n"
+
+      opts.on('-u', '--update [FILE]', "Update dotfile/s locally.") do |file|
+        options.update = true
+        options.update_file = file if file
+      end
+
+      opts.on('-e', '--edit FILE', "Edit a matching dotfile with $EDITOR.") do |file|
+        options.edit = true
+        options.edit_file = file
+      end
+
+      opts.on('-c', '--edit-config', "Edit ~/.dotfile/dotfile.conf.") do
+        options.edit_config = true
+      end
+
+      opts.on('-g', '--edit-groups', "Edit ~/.dotfile/groups.conf.") do
+        options.edit_groups = true
+      end
+
+      opts.on_tail('-h', '--help', "Show help.") do
+        puts opts
+      end
+
+      opts.on_tail('-v', '--version', "Show version number.") do
+        puts "dotfile v#{Dotfile::VERSION}\n\n" + \
+             "  Copyright (C) 2012 Kelsey David Judson", \
+             "  Web: http://github.com/kelseyjudson/dotfile"
+      end
+    end
+
+    o.parse!
+    options
+  end
+
+end
+
+dotfile = Dotfile::CLI.new(Dotfile::Options.parse)
+dotfile.run

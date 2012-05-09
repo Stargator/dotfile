@@ -24,12 +24,11 @@ require 'dotfile/dotfile_template'
 
 module Dotfile
 
+  VERSION = 0.1
+  LOCAL_DIR = File.expand_path('~/.dotfile')
+
   def self.all
     @dotfiles
-  end
-
-  def self.dir
-    File.expand_path('~/.dotfile')
   end
 
   def self.configure
@@ -60,13 +59,13 @@ module Dotfile
   def self.execute_scripts(scripts)
     if scripts
       scripts.split.each do |s|
-        files = Dir.entries("#{dir}/scripts").select do |f|
+        files = Dir.entries("#{LOCAL_DIR}/scripts").select do |f|
           f.match(s)
         end
 
         files.each do |f|
           interpreter = f =~ /\.rb$/ ? 'ruby' : 'sh'
-          system("#{interpreter} #{dir}/scripts/#{f}")
+          system("#{interpreter} #{LOCAL_DIR}/scripts/#{f}")
         end
       end
     end
@@ -81,12 +80,12 @@ module Dotfile
   end
 
   def self.copy_defaults
-    FileUtils.mkdir_p(dir)
-    FileUtils.mkdir_p(dir + '/dotfiles')
-    FileUtils.mkdir_p(dir + '/scripts')
-    FileUtils.mkdir_p(dir + '/themes')
-    FileUtils.cp('default/dotfile.conf', dir)
-    FileUtils.cp('default/groups.conf', dir)
+    FileUtils.mkdir_p(LOCAL_DIR)
+    FileUtils.mkdir_p(LOCAL_DIR + '/dotfiles')
+    FileUtils.mkdir_p(LOCAL_DIR + '/scripts')
+    FileUtils.mkdir_p(LOCAL_DIR + '/themes')
+    FileUtils.cp('default/dotfile.conf', LOCAL_DIR)
+    FileUtils.cp('default/groups.conf', LOCAL_DIR)
   end
 
   def self.copy_dotfile(dotfile)

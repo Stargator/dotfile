@@ -4,9 +4,8 @@ module Dotfile
 
     attr_reader :config, :static_files, :templates
 
-    def initialize(config_file = "#{Dotfile.dir}/dotfile.conf")
+    def initialize(config_file = "#{Dotfile::LOCAL_DIR}/dotfile.conf")
       @config = YAML.load(File.open config_file)
-      @dir = Dotfile.dir
 
       # Make sure there are groups specified.
       if @config['groups']
@@ -18,8 +17,8 @@ module Dotfile
 
     def parse_groups
       groups = @config['groups'].split
-      groups_conf = Dotfile::GroupParser.new("#{@dir}/groups.conf",
-                                             "#{@dir}/dotfiles",
+      groups_conf = Dotfile::GroupParser.new("#{Dotfile::LOCAL_DIR}/groups.conf",
+                                             "#{Dotfile::LOCAL_DIR}/dotfiles",
                                              groups)
 
       @dotfiles = groups_conf.dotfiles
