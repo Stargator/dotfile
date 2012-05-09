@@ -1,7 +1,7 @@
 dotfile
 =========
 
-### A dynamic dotfile manager...
+### A Dynamic Dotfile Manager...
 
 ---
 
