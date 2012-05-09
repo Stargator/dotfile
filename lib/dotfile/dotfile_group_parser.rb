@@ -1,6 +1,6 @@
 module Dotfile
 
-  class GroupConfig
+  class GroupParser
 
     attr_reader :config_file, :groups, :current_group, :dotfiles
 

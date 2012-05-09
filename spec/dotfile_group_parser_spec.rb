@@ -1,12 +1,12 @@
 require 'spec_helper.rb'
-require 'dotfile/dotfile_groupconfig.rb'
+require 'dotfile/dotfile_group_parser.rb'
 
-describe Dotfile::GroupConfig do
+describe Dotfile::GroupParser do
 
   let(:config_file) { 'spec/examples/groups.conf' }
   let(:dotfile_path) { 'spec/examples/dotfiles' }
   let(:included) { %w{ vim zsh xorg } }
-  let(:group) { Dotfile::GroupConfig.new(config_file, dotfile_path, included, :test) }
+  let(:group) { Dotfile::GroupParser.new(config_file, dotfile_path, included, :test) }
 
   it 'reads examples/groups.conf' do
     File.exists?(config_file).should be_true

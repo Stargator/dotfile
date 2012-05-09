@@ -80,7 +80,7 @@ task :edit, [:name] do |t, args|
 
   editor = ENV['EDITOR'] || 'vi'
 
-  groups = Dotfile::GroupConfig.new("#{Dotfile.dir}/groups.conf")
+  groups = Dotfile::GroupParser.new("#{Dotfile.dir}/groups.conf")
   file_matches = groups.dotfiles.select do |d|
     relative_path(d[:source]).include? args[:name]
   end

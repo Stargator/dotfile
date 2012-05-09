@@ -2,7 +2,7 @@ require 'yaml'
 require 'tempfile'
 require 'fileutils'
 require 'dotfile/dotfile_config'
-require 'dotfile/dotfile_groupconfig'
+require 'dotfile/dotfile_group_parser'
 require 'dotfile/dotfile_static'
 require 'dotfile/dotfile_template'
 
