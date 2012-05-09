@@ -45,14 +45,13 @@ class Dotfile::Options
       end
 
       opts.on_tail('-h', '--help', "Show help.") do
-        puts opts
+        abort opts.help
       end
 
       opts.on_tail('-v', '--version', "Show version number.") do
-        puts "dotfile v#{Dotfile::VERSION}",
-             "",
-             "  Copyright (C) 2012 Kelsey David Judson",
-             "  Web: http://github.com/kelseyjudson/dotfile"
+        abort "dotfile v#{Dotfile::VERSION}\n\n" +
+              "  Copyright (C) 2012 Kelsey David Judson\n" +
+              "  Web: http://github.com/kelseyjudson/dotfile"
       end
     end
 
