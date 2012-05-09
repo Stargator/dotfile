@@ -3,6 +3,8 @@ dotfile
 
 _A dynamic dotfile manager..._
 
+---
+
 Generate dotfiles dynamically. Dotfile templates are based around a central configuration file which specifies commonly used configuration options. The dotfiles, along with the central configuration files may be distributed to other systems and slightly tweaked to suit the environment.
 
 
