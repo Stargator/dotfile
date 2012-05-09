@@ -6,10 +6,6 @@ module Dotfile
       @options = options
     end
 
-    def puts(*string)
-      super unless @options.quiet
-    end
-
     def run
       if @options.edit_groups
         edit_file(Dotfile::LOCAL_DIR + '/groups.conf')
@@ -66,8 +62,18 @@ module Dotfile
       file_matches.each_with_index do |d, i|
         $stdout.puts "#{i + 1}. #{relative_path(d[:source])}"
       end
-      print "\nChoice? "
-      file_matches[$stdin.gets.to_i - 1][:source]
+
+      $stdout.puts
+
+      loop do
+        print "Choice? "
+        choice = $stdin.gets.to_i
+        next if choice == 0
+
+        if choice <= file_matches.length
+          break file_matches[choice - 1][:source]
+        end
+      end 
     end
 
     def groups
@@ -76,6 +82,10 @@ module Dotfile
 
     def relative_path(path)
       path.sub("#{Dotfile::LOCAL_DIR}/dotfiles/", '')
+    end
+
+    def puts(*string)
+      super unless @options.quiet
     end
 
   end
