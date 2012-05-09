@@ -51,6 +51,8 @@ class Dotfile::Options
     end
 
     o.parse!
+
+    options.usage = o.help
     options
   end
 
