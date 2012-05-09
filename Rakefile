@@ -3,6 +3,7 @@ $LOAD_PATH << './lib'
 require 'dotfile'
 
 ### Aliases ###
+
 task :i => :install
 task :t => :test
 task :e, [:name] => :edit
@@ -24,8 +25,8 @@ task :install do
   #Load the configuration.
   begin
     Dotfile.configure
-  rescue DotfileError
-    abort "No groups specified in configuration file. Exiting..."
+  rescue DotfileError => e
+    abort "Error: " + e.message + "\n\n*** Exiting ***"
   end
 
   # Run preceeding optional scripts.

@@ -35,6 +35,9 @@ module Dotfile
     end
 
     def return_option_value(option)
+      error_message = "Option #{option} in #{name} not found in dotfile.conf."
+      raise(DotfileError, error_message) if @config[option] == nil
+
       # If option is a theme, it must be sourced from an external file.
       if option =~ /.*_theme/
         File.readlines("#{Dotfile.dir}/themes/#{@config[option]}").join

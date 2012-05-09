@@ -12,7 +12,7 @@ module Dotfile
       if @config['groups']
         read_groups_conf
       else
-        raise(DotfileError, "No groups specified.")
+        raise(DotfileError, "No groups specified in configuration file. Exiting...")
       end
     end
 
