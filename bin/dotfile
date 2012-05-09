@@ -1,0 +1,5 @@
+$LOAD_PATH << __FILE__ + '/../lib'
+
+require 'dotfile'
+
+

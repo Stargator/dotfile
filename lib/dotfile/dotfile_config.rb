@@ -10,23 +10,25 @@ module Dotfile
 
       # Make sure there are groups specified.
       if @config['groups']
-        read_groups_conf
+        parse_groups
       else
         raise(DotfileError, "No groups specified in configuration file. Exiting...")
       end
     end
 
-    def read_groups_conf
+    def parse_groups
       groups = @config['groups'].split
       groups_conf = Dotfile::GroupParser.new("#{@dir}/groups.conf",
                                              "#{@dir}/dotfiles",
                                              groups)
 
       @dotfiles = groups_conf.dotfiles
-
       @static_files = []
       @templates = []
+      sort_dotfile_types
+    end
 
+    def sort_dotfile_types
       @dotfiles.each do |dotfile|
         if dotfile[:source] =~ /\.template$/
           @templates << Dotfile::Template.new(dotfile, @config)
