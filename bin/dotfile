@@ -17,6 +17,7 @@ class Dotfile::Options
     options.edit_file = nil
     options.edit_config = false
     options.edit_groups = false
+    options.quiet = false
 
     o = OptionParser.new do |opts|
       opts.banner = "Usage: dotfile [option] [file]\n\n"
@@ -37,6 +38,10 @@ class Dotfile::Options
 
       opts.on('-g', '--edit-groups', "Edit ~/.dotfile/groups.conf.") do
         options.edit_groups = true
+      end
+
+      opts.on('-q', '--quiet', "No non-critical output.") do
+        options.quiet = true
       end
 
       opts.on_tail('-h', '--help', "Show help.") do

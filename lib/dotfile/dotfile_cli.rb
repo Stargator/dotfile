@@ -6,6 +6,10 @@ module Dotfile
       @options = options
     end
 
+    def puts(*string)
+      super unless @options.quiet
+    end
+
     def run
       if @options.edit_groups
         edit_file(Dotfile::LOCAL_DIR + '/groups.conf')
@@ -56,9 +60,11 @@ module Dotfile
     end
 
     def multiple_matches(file_matches)
-      puts "Multiple matches found. Select a file to edit:\n\n"
+      # This is necessary output and shouldn't be inhibited by --quiet.
+      # Therefore use $stdout to ignore class puts.
+      $stdout.puts "Multiple matches found. Select a file to edit:\n\n"
       file_matches.each_with_index do |d, i|
-        puts "#{i + 1}. #{relative_path(d[:source])}"
+        $stdout.puts "#{i + 1}. #{relative_path(d[:source])}"
       end
       print "\nChoice? "
       file_matches[$stdin.gets.to_i - 1][:source]
