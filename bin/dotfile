@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 
-$LOAD_PATH << File.dirname(__FILE__) + '/../lib'
+gem_root = File.dirname(__FILE__) + '/..'
+$LOAD_PATH << gem_root + '/lib'
+Dir.chdir(gem_root)
 
 require 'dotfile'
 require 'dotfile/dotfile_cli'
