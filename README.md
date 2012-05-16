@@ -27,6 +27,8 @@ Combining options can save a little time:
 
 Filenames specified above `FILE` need not be exact, as `dotfile` will take any matching dotfile/s defined in `groups.conf`. Where multiple matches are found, `dotfile` will present a list of choices.
 
+For all command-line options and short forms, use `dotfile --help`.
+
 
 Setting Up the Environment
 ----------------------------
