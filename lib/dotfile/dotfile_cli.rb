@@ -103,7 +103,7 @@ module Dotfile
         if choice <= file_matches.length
           break file_matches[choice - 1]
         end
-      end 
+      end
     end
 
     def groups
