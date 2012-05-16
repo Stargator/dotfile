@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
   s.bindir      = 'bin'
   s.executables = ['dotfile']
 
+  s.platform    = Gem::Platform::RUBY
   s.has_rdoc    = false
 
 end
