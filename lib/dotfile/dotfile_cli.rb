@@ -50,7 +50,7 @@ module Dotfile
         # List the templates to be copied.
         list_template
         # Install to home directory.
-        copy_files
+        update_files
         # Run succeeding optional scripts.
         execute_after
         puts "All done!"
@@ -152,10 +152,10 @@ module Dotfile
       puts
     end
 
-    def copy_files
-      puts "Installing new configuration files..."
+    def update_files
+      puts "Updating dotfiles..."
       Dotfile.all.each do |dotfile|
-        Dotfile.copy_dotfile(dotfile)
+        Dotfile.update_dotfile(dotfile)
         puts "-> " + dotfile.name
       end
       puts

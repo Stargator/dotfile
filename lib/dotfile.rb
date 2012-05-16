@@ -90,14 +90,14 @@ module Dotfile
     cp('default/groups.conf', LOCAL_DIR)
   end
 
-  def self.copy_dotfile(dotfile)
+  def self.update_dotfile(dotfile)
     mkdir_p(dotfile.destination_path)
-    cp(dotfile.source, dotfile.destination)
+    File.write(dotfile.destination, dotfile.content.join("\n"))
   end
 
-  def self.copy_all
+  def self.update_all
     all.each do |dotfile|
-      copy_dotfile(dotfile)
+      update_dotfile(dotfile)
     end
   end
 
