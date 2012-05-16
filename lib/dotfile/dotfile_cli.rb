@@ -38,7 +38,7 @@ module Dotfile
     end
 
     def update
-      if @options.update_file
+      if @options.update_file || @options.edit_file
         update_single_file
       else
         puts "Running Full Update",
@@ -115,7 +115,7 @@ module Dotfile
     end
 
     def update_single_file
-      dotfile = find_match(@options.update_file)
+      dotfile = find_match(@options.update_file || @options.edit_file)
       @config = load_configuration
       dotfile_object = @config.dotfile_by_type(dotfile)
       puts "Updating #{dotfile_object.destination}."
