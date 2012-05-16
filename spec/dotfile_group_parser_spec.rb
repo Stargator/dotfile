@@ -53,7 +53,7 @@ describe Dotfile::GroupParser do
           describe 'the parsed line' do
             specify { @group.parse_line(valid_line).should be_nil }
           end
-        end   
+        end
       end
 
       context 'when given an included group name' do
