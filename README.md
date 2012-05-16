@@ -31,7 +31,7 @@ Dotfiles are stored as one of two types based on their filename. Files ending in
 All dotfiles (both templates and static files) are found in `~/.dotfile/dotfiles`. Every dotfile is part of a "group" which is specified in `~/.dotfile/groups.conf`. Any dotfile within a group that is listed under `groups` in `~/.dotfile/dotfile.conf` will be copied over during a `dotfile --update`. See the `default/groups.conf` file for more information on how this file works.
 
 ### Themes
-Where there is a `_theme` suffix to an option in `~/.dotfile/dotfile.conf`, it refers to the corresponding file found in `~/.dotfile/themes`.
+Where there is a `_theme` suffix to an option in `~/.dotfile/dotfile.conf`, it refers to the corresponding file found in `~/.dotfile/themes`. This functionality will likely be superceded by Chromatic (more information below).
 
 ### Optional Scripts
 Files listed under `execute_before` or `execute_after` in `~/.dotfile/dotfile.conf` refer to similarly named scripts in the `~/.dotfile/scripts` directory. These files are executed at the beginning or end of the installation process respectively. Either ruby or shell sripts are acceptable. Filenames for ruby scripts should end in the `.rb` suffix.
@@ -48,4 +48,4 @@ To do
 -------
 
 ### Chromatic
-Create a one-size-fits-all colour/theme generator to work with dotfile.rb (colour.rb or something). This will take one colour file (in some format yet to be determined) which defines the 16/8 ANSI colours of a "theme". It will then generate themes based on this file for X, wmii, gnome-terminal, etc... This way you can choose one "theme" in dotfiles.conf.yaml and it will apply to everything. Also makes development of new themes much easier!
+Create a one-size-fits-all colour/theme generator. This will take one colour file (in some format yet to be determined) which defines the 16/8 ANSI colours of a "theme" along with some optional extra information. It will then generate themes based on this file for various output formats... You should be able to choose one "theme" in dotfile.conf and it will apply to everything. Should make development of new themes much easier!
