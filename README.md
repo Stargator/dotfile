@@ -67,6 +67,9 @@ Sometimes it's nice to be able to specify small tweaks outside of the main repos
 
 To install dotfiles locally, run `dotfile --update`. Local copies of any dotfiles listed in `~/.dotfile/groups.conf` and specified in `~/.dotfile/dotfile.conf` will be overwritten without warning. Be careful!
 
+### Example Setup
+For an example setup, see my own [dotfiles repository](http://github.com/kelseyjudson/dotfiles).
+
 
 To do
 -------
