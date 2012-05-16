@@ -19,7 +19,7 @@ module Dotfile
 
     def parse
       parse_file
-      recurse
+      convert_directories
     end
 
     ### Parsing a line
@@ -82,6 +82,19 @@ module Dotfile
 
     ### Handling Directories
 
+    def convert_directories
+      add_directory_contents
+      remove_directories
+    end
+
+    def add_directory_contents
+      get_directories.each do |dir|
+        find_dotfiles(dir).each do |dotfile|
+          @dotfiles << dotfile
+        end
+      end
+    end
+
     def get_directories
       @dotfiles.select do |dotfile|
         File.directory?(dotfile[:source])
@@ -104,37 +117,15 @@ module Dotfile
     def add_recursively(path)
       dir_contents = []
 
-      Dir.entries(path).each do |entry|
-        next if entry =~ /^\.\.?$/
-        full_path = path + '/' + entry
-        if File.directory?(full_path)
-          contents = add_recursively(full_path)
-          contents.each do |entry_2|
-            dir_contents << entry + '/' + entry_2
-          end
-        else
-          dir_contents << entry
-        end
+      Dir.glob("#{path}/**/*") do |f|
+        dir_contents << f.sub(/^#{path}\//, '') unless File.directory?(f)
       end
 
       dir_contents
     end
 
-    def add_directory_contents
-      get_directories.each do |dir|
-        find_dotfiles(dir).each do |dotfile|
-          @dotfiles << dotfile
-        end
-      end
-    end
-
     def remove_directories
       @dotfiles -= get_directories
-    end
-
-    def recurse
-      add_directory_contents
-      remove_directories
     end
 
   end

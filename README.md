@@ -21,7 +21,7 @@ Setting Up the Environment
         | | +-dotfile_two
         +-scripts/
         | +-script.sh         # As specified in dotfile.conf (execute_before/after)
-        | +-script.rb
+        | +-script.rb         #
         +-themes/
         +-dotfile.conf
         +-groups.conf
