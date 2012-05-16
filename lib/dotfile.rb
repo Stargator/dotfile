@@ -27,6 +27,8 @@ module Dotfile
   VERSION = 0.1
   LOCAL_DIR = File.expand_path('~/.dotfile')
 
+  extend FileUtils
+
   def self.all
     @dotfiles
   end
@@ -80,17 +82,17 @@ module Dotfile
   end
 
   def self.copy_defaults
-    FileUtils.mkdir_p(LOCAL_DIR)
-    FileUtils.mkdir_p(LOCAL_DIR + '/dotfiles')
-    FileUtils.mkdir_p(LOCAL_DIR + '/scripts')
-    FileUtils.mkdir_p(LOCAL_DIR + '/themes')
-    FileUtils.cp('default/dotfile.conf', LOCAL_DIR)
-    FileUtils.cp('default/groups.conf', LOCAL_DIR)
+    mkdir_p(LOCAL_DIR)
+    mkdir_p(LOCAL_DIR + '/dotfiles')
+    mkdir_p(LOCAL_DIR + '/scripts')
+    mkdir_p(LOCAL_DIR + '/themes')
+    cp('default/dotfile.conf', LOCAL_DIR)
+    cp('default/groups.conf', LOCAL_DIR)
   end
 
   def self.copy_dotfile(dotfile)
-    FileUtils.mkdir_p(dotfile.destination_path)
-    FileUtils.cp(dotfile.source, dotfile.destination)
+    mkdir_p(dotfile.destination_path)
+    cp(dotfile.source, dotfile.destination)
   end
 
   def self.copy_all

@@ -11,7 +11,7 @@ module Dotfile
       @destination = dotfile_hash[:destination]
       @destination_path = File.dirname(@destination)
 
-      generate
+      parse
     end
 
     def filename
@@ -22,19 +22,19 @@ module Dotfile
       filename.sub(/\.template$/, '')
     end
 
-    def generate
+    def parse
       lines = File.readlines(@dotfile[:source])
       # Substitute any placeholders for equivalent key/value in config file.
       lines.map! do |l|
         l.gsub(/\{\{[\w-]+\}\}/) do |option|
           option.gsub!(/\{\{|\}\}/, "")
-          return_option_value(option)
+          option_value(option)
         end
       end
       write_tmp(lines)
     end
 
-    def return_option_value(option)
+    def option_value(option)
       error_message = "Option #{option} for #{name} not found in dotfile.conf."
       raise(DotfileError, error_message) if @config[option] == nil
 
