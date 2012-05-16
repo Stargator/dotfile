@@ -6,7 +6,7 @@ require 'dotfile/dotfile_template'
 
 module Dotfile
 
-  VERSION = '0.1.1'
+  VERSION = '0.1.2'
   LOCAL_DIR = File.expand_path('~/.dotfile')
 
 end

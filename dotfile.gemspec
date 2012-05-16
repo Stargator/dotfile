@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.summary     = "Dynamic dotfile management system."
   s.description = "A simple dotfile management system designed to make updating/tweaking configurations a breeze."
 
-  s.version     = '0.1.1'
-  s.date        = '2012-05-16'
+  s.version     = '0.1.2'
+  s.date        = '2012-05-17'
 
   s.author      = 'Kelsey Judson'
   s.email       = 'kelseyjudson@gmail.com'
