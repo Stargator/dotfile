@@ -8,6 +8,26 @@ dotfile
 A simple dotfile management system designed to make updating/tweaking configurations a breeze. Dotfile templates are based around a central configuration file which specifies commonly used configuration options. The dotfiles, along with these central configuration files may be distributed to other systems and slightly tweaked to suit the environment.
 
 
+Command Line Usage
+--------------------
+
+NOTE: If you haven't already set up your environment for first time use, see the section below.
+
+The basic options are as follows:
+
+* `dotfile --update` - Update local copies of all dotfiles and run any scripts.
+* `dotfile --update FILE` - Update a single file matching FILE.
+* `dotfile --edit FILE` - Edit a file matching FILE with $EDITOR (falls back to vi).
+* `dotfile --setup` - Prepare the local environment, creating the needed directory structure.
+* `dotfile --quiet` - Suppress all but absolutely necessary messages.
+
+Combining options can save a little time:
+
+* `dotfile --edit FILE --update` - Edit and then update a single file.
+
+Filenames specified above `FILE` need not be exact, as `dotfile` will take any matching dotfile/s defined in `groups.conf`. Where multiple matches are found, `dotfile` will present a list of choices.
+
+
 Setting Up the Environment
 ----------------------------
 
