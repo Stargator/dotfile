@@ -17,6 +17,7 @@ class Dotfile::Options
     options.edit_file = nil
     options.edit_config = false
     options.edit_groups = false
+    options.setup = false
     options.quiet = false
 
     o = OptionParser.new do |opts|
@@ -38,6 +39,10 @@ class Dotfile::Options
 
       opts.on('-g', '--edit-groups', "Edit ~/.dotfile/groups.conf.") do
         options.edit_groups = true
+      end
+
+      opts.on('-s', '--setup', "Prepare the local environment (~/.dotfile).") do
+        options.setup = true
       end
 
       opts.on('-q', '--quiet', "No non-critical output.") do

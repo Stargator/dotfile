@@ -26,7 +26,7 @@ Setting Up the Environment
 
 
 ### Basics
-Dotfiles are stored as one of two types based on their filename. Files ending in a ".template" suffix will be compiled before updating the local copy. These will substitute anything between any instance of `{{some_option}}` with the corresponding `some_option:` found in `~/.dotfile/dotfile.conf` (this file will be created after running `dotfile --update` for the first time). All other files will be updated as is (these are called "static files"). 
+Dotfiles are stored as one of two types based on their filename. Files ending in a ".template" suffix will be compiled before updating the local copy. These will substitute anything between any instance of `{{some_option}}` with the corresponding `some_option:` found in `~/.dotfile/dotfile.conf`. This file will be created after running `dotfile --setup` or running `dotfile --update` for the first time. All other files will be updated as is (these are called "static files"). 
 
 All dotfiles (both templates and static files) are found in `~/.dotfile/dotfiles`. Every dotfile is part of a "group" which is specified in `~/.dotfile/groups.conf`. Any dotfile within a group that is listed under `groups` in `~/.dotfile/dotfile.conf` will be copied over during a `dotfile --update`. See the `default/groups.conf` file for more information on how this file works.
 

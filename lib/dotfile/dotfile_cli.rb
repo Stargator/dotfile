@@ -12,6 +12,16 @@ module Dotfile
     end
 
     def run
+      if @options.setup
+        if configuration_exists?
+          abort "~/.dotfile/dotfile.conf already exists. Exiting..."
+        else
+          puts "~/.dotfile/dotfile.conf does not exist... Creating.\n\n"
+          copy_defaults
+          exit
+        end
+      end
+
       if @options.edit_groups
         edit_file(@local_dir + '/groups.conf')
       end
@@ -116,6 +126,7 @@ module Dotfile
 
     def update_single_file
       dotfile = find_match(@options.update_file || @options.edit_file)
+      check_configuration
       @config = load_configuration
       dotfile_object = @config.dotfile_by_type(dotfile)
       puts "Updating #{dotfile_object.destination}."
@@ -123,11 +134,14 @@ module Dotfile
     end
 
     def check_configuration
-      f = "#{@local_dir}/dotfile.conf"
-      unless File.exists?(f)
-        puts "#{f} does not exist... creating.\n\n"
+      unless configuration_exists?
+        puts "~/.dotfile/dotfile.conf does not exist... Creating.\n\n"
         copy_defaults
       end
+    end
+
+    def configuration_exists?
+      File.exists?("#{@local_dir}/dotfile.conf")
     end
 
     def load_configuration_all
