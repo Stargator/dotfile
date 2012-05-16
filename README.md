@@ -16,8 +16,8 @@ NOTE: If you haven't already set up your environment for first time use, see the
 The basic options are as follows:
 
 * `dotfile --update` - Update local copies of all dotfiles and run any scripts.
-* `dotfile --update FILE` - Update a single file matching FILE.
-* `dotfile --edit FILE` - Edit a file matching FILE with $EDITOR (falls back to vi).
+* `dotfile --update FILE` - Update a single file matching `FILE`.
+* `dotfile --edit FILE` - Edit a file matching `FILE` with `$EDITOR` (falls back to `vi`).
 * `dotfile --setup` - Prepare the local environment, creating the needed directory structure.
 * `dotfile --quiet` - Suppress all but absolutely necessary messages.
 
