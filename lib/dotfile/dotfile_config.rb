@@ -1,3 +1,5 @@
+require 'yaml'
+
 module Dotfile
 
   class Config
@@ -6,34 +8,46 @@ module Dotfile
 
     def initialize(config_file = "#{Dotfile::LOCAL_DIR}/dotfile.conf")
       @config = YAML.load(File.open config_file)
-
-      # Make sure there are groups specified.
-      if @config['groups']
-        parse_groups
-      else
-        raise(DotfileError, "No groups specified in configuration file. Exiting...")
-      end
     end
 
-    def parse_groups
-      groups = @config['groups'].split
-      groups_conf = Dotfile::GroupParser.new("#{Dotfile::LOCAL_DIR}/groups.conf",
-                                             "#{Dotfile::LOCAL_DIR}/dotfiles",
-                                             groups)
-
-      @dotfiles = groups_conf.dotfiles
+    def load_dotfiles
+      @dotfiles = load_groups
       @static_files = []
       @templates = []
       sort_dotfile_types
     end
 
+    def load_groups
+      groups_check
+      config_file = "#{Dotfile::LOCAL_DIR}/groups.conf"
+      dotfile_path = "#{Dotfile::LOCAL_DIR}/dotfiles"
+      groups = @config['groups'].split
+
+      Dotfile::GroupParser.new(config_file, dotfile_path, groups).dotfiles
+    end
+
+    def groups_check
+      # Make sure there are groups specified.
+      error_message = "No groups specified in configuration file. Exiting..."
+      raise(DotfileError, error_message) unless @config['groups']
+    end
+
     def sort_dotfile_types
       @dotfiles.each do |dotfile|
-        if dotfile[:source] =~ /\.template$/
-          @templates << Dotfile::Template.new(dotfile, @config)
+        dotfile_object = dotfile_by_type(dotfile)
+        if dotfile_object.class == Dotfile::Template
+          @templates << dotfile_object
         else
-          @static_files << Dotfile::Static.new(dotfile)
+          @static_files << dotfile_object
         end
+      end
+    end
+
+    def dotfile_by_type(dotfile)
+      if dotfile[:source] =~ /\.template$/
+        Dotfile::Template.new(dotfile, @config)
+      else
+        Dotfile::Static.new(dotfile)
       end
     end
 

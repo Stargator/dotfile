@@ -1,18 +1,23 @@
+require 'fileutils'
+
 module Dotfile
 
   class CLI
 
+    include FileUtils
+
     def initialize(options)
+      @local_dir = Dotfile::LOCAL_DIR
       @options = options
     end
 
     def run
       if @options.edit_groups
-        edit_file(Dotfile::LOCAL_DIR + '/groups.conf')
+        edit_file(@local_dir + '/groups.conf')
       end
 
       if @options.edit_config
-        edit_file(Dotfile::LOCAL_DIR + '/dotfile.conf')
+        edit_file(@local_dir + '/dotfile.conf')
       end
 
       if @options.edit
@@ -34,15 +39,14 @@ module Dotfile
 
     def update
       if @options.update_file
-        name = find_match(@options.update_file)
-        puts "I am updating from #{name[:source]} to #{name[:destination]}."
+        update_single_file
       else
         puts "Running Full Update",
              "---------------------",
         # Check for existence of ~/.dotfile/dotfile.conf
         check_configuration
         # Load the configuration.
-        load_configuration
+        load_configuration_all
         # Execute preceeding scripts.
         execute_before
         # List the static_files to be copied.
@@ -103,45 +107,108 @@ module Dotfile
     end
 
     def groups
-      Dotfile::GroupParser.new("#{Dotfile::LOCAL_DIR}/groups.conf")
+      Dotfile::GroupParser.new("#{@local_dir}/groups.conf")
     end
 
     def relative_path(path)
-      path.sub("#{Dotfile::LOCAL_DIR}/dotfiles/", '')
+      path.sub("#{@local_dir}/dotfiles/", '')
+    end
+
+    def update_single_file
+      dotfile = find_match(@options.update_file)
+      @config = load_configuration
+      dotfile_object = @config.dotfile_by_type(dotfile)
+      puts "Updating #{dotfile_object.destination}."
+      update_dotfile(dotfile_object)
     end
 
     def check_configuration
-      f = File.expand_path('~/.dotfile/dotfile.conf')
+      f = "#{@local_dir}/dotfile.conf"
       unless File.exists?(f)
-        puts "~/.dotfile/dotfile.conf does not exist... creating.\n\n"
-        Dotfile.copy_defaults
+        puts "#{f} does not exist... creating.\n\n"
+        copy_defaults
       end
     end
 
-    def load_configuration
-      Dotfile.configure
+    def load_configuration_all
+      @config = load_configuration
+      @config.load_dotfiles
+
+      @dotfiles = []
+      @dotfiles += static_files
+      @dotfiles += templates
     rescue DotfileError => e
       abort "Error: " + e.message + "\n\n*** Exiting ***"
     end
 
-    def execute_before
+    def load_configuration
+      local_config_file = File.expand_path('~/.dotfile.conf.local')
+      if File.exists?(local_config_file)
+        Dotfile::Config.new(local_config_file)
+      else
+        Dotfile::Config.new
+      end
+    end
+
+    def static_files
+      @config.static_files
+    end
+
+    def templates
+      @config.templates
+    end
+
+    def all_dotfiles
+      @dotfiles
+    end
+
+    def execute_scripts(scripts)
+      if scripts
+        scripts.split.each do |s|
+          files = Dir.entries("#{@local_dir}/scripts").select do |f|
+            f.match(s)
+          end
+
+          files.each do |f|
+            interpreter = f =~ /\.rb$/ ? 'ruby' : 'sh'
+            system("#{interpreter} #{@local_dir}/scripts/#{f}")
+          end
+        end
+      end
+    end
+
+   def execute_before
       puts "Executing preceeding scripts..."
-      Dotfile.execute_before
+      execute_scripts(@config.config['execute_before'])
       puts
     end
 
     def execute_after
       puts "Executing succeeding scripts..."
-      Dotfile.execute_after
+      execute_scripts(@config.config['execute_after'])
       puts
     end
 
+    def copy_defaults
+      mkdir_p(@local_dir)
+      mkdir_p(@local_dir + '/dotfiles')
+      mkdir_p(@local_dir + '/scripts')
+      mkdir_p(@local_dir + '/themes')
+      cp('default/dotfile.conf', @local_dir)
+      cp('default/groups.conf', @local_dir)
+    end
+
+    def update_dotfile(dotfile)
+      mkdir_p(dotfile.destination_path)
+      File.write(dotfile.destination, dotfile.content.join("\n"))
+    end
+
     def list_static
-      list_dotfiles(Dotfile.static_files, "static")
+      list_dotfiles(static_files, "static")
     end
 
     def list_template
-      list_dotfiles(Dotfile.templates, "dynamically generated")
+      list_dotfiles(templates, "dynamically generated")
     end
 
     def list_dotfiles(dotfiles, description)
@@ -154,8 +221,8 @@ module Dotfile
 
     def update_files
       puts "Updating dotfiles..."
-      Dotfile.all.each do |dotfile|
-        Dotfile.update_dotfile(dotfile)
+      all_dotfiles.each do |dotfile|
+        update_dotfile(dotfile)
         puts "-> " + dotfile.name
       end
       puts
