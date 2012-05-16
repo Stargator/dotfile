@@ -108,7 +108,7 @@ module Dotfile
       loop do
         print "Choice? "
         choice = $stdin.gets.to_i
-        next if choice == 0
+        next if choice <= 0
 
         if choice <= file_matches.length
           break file_matches[choice - 1]
