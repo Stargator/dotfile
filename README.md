@@ -19,7 +19,9 @@ Setting Up the Environment
         | +-group_name/       # As specified in groups.conf.
         | | +-dotfile_one
         | | +-dotfile_two
-        +-scripts/            # As specified in dotfile.conf (execute_before/after)
+        +-scripts/
+        | +-script.sh         # As specified in dotfile.conf (execute_before/after)
+        | +-script.rb
         +-themes/
         +-dotfile.conf
         +-groups.conf
