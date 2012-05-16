@@ -34,7 +34,7 @@ module Dotfile
 
     def edit_file(file)
       editor = ENV['EDITOR'] || 'vi'
-      exec(editor + ' ' + file)
+      system(editor + ' ' + file)
     end
 
     def update
