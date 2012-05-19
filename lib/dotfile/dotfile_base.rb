@@ -1,6 +1,10 @@
+require 'fileutils'
+
 module Dotfile
 
   class Base
+
+    include FileUtils
 
     attr_reader :name, :group, :content
     attr_reader :source, :destination, :destination_path
@@ -19,6 +23,11 @@ module Dotfile
 
     def name
       filename
+    end
+
+    def update
+      mkdir_p(@destination_path)
+      File.write(@destination, @content.join("\n"))
     end
 
   end

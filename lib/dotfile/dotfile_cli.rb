@@ -138,7 +138,7 @@ module Dotfile
       @config = load_configuration
       dotfile_object = @config.dotfile_by_type(dotfile)
       puts "Updating #{dotfile_object.destination}."
-      update_dotfile(dotfile_object)
+      dotfile_object.update
     end
 
     def check_configuration
@@ -220,11 +220,6 @@ module Dotfile
       cp('default/groups.conf', @local_dir)
     end
 
-    def update_dotfile(dotfile)
-      mkdir_p(dotfile.destination_path)
-      File.write(dotfile.destination, dotfile.content.join("\n"))
-    end
-
     def list_static
       list_dotfiles(static_files, "static")
     end
@@ -244,7 +239,7 @@ module Dotfile
     def update_files
       puts "Updating dotfiles..."
       all_dotfiles.each do |dotfile|
-        update_dotfile(dotfile)
+        dotfile.update
         puts "-> " + dotfile.name
       end
       puts
