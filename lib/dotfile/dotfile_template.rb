@@ -2,9 +2,9 @@ module Dotfile
 
   class Template < Dotfile::Base
 
-    def initialize(dotfile, config)
+    def initialize(dotfile, settings)
       super(dotfile)
-      @config = config
+      @settings = settings
       parse
     end
 
@@ -26,13 +26,13 @@ module Dotfile
 
     def option_value(option)
       error_message = "Option #{option} for #{name} not found in dotfile.conf."
-      raise(Dotfile::Error, error_message) if @config[option] == nil
+      raise(Dotfile::Error, error_message) if @settings[option] == nil
 
       # If option is a theme, it must be sourced from an external file.
       if option =~ /.*_theme/
-        File.readlines("#{Dotfile::THEMES}/#{@config[option]}").join
+        File.readlines("#{Dotfile::THEMES}/#{@settings[option]}").join
       else
-        @config[option]
+        @settings[option]
       end
     end
 
