@@ -1,3 +1,7 @@
+$LOAD_PATH << "#{File.dirname(__FILE__)}/lib"
+
+require 'dotfile/version'
+
 files = Dir['lib/**/*'] +
         Dir['default/*'] +
         Dir['bin/*'] +
@@ -10,8 +14,7 @@ Gem::Specification.new do |s|
   s.description = "A simple dotfile management system designed to make updating/tweaking configurations a breeze."
   s.license     = 'MIT'
 
-  s.version     = '0.1.2'
-  s.date        = '2012-05-17'
+  s.version     = Dotfile::VERSION
 
   s.author      = 'Kelsey Judson'
   s.email       = 'kelseyjudson@gmail.com'
