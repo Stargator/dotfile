@@ -9,8 +9,7 @@ module Dotfile
   VERSION = '0.1.2'
   LOCAL_DIR = File.expand_path('~/.dotfile')
 
-end
+  class Error < StandardError
+  end
 
-# Handles any errors specific to the use of Dotfile.
-class DotfileError < StandardError
 end

@@ -29,7 +29,7 @@ module Dotfile
     def groups_check
       # Make sure there are groups specified.
       error_message = "No groups specified in configuration file. Exiting..."
-      raise(DotfileError, error_message) unless @config['groups']
+      raise(Dotfile::Error, error_message) unless @config['groups']
     end
 
     def sort_dotfile_types

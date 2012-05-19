@@ -9,6 +9,11 @@ module Dotfile
     def initialize(options)
       @local_dir = Dotfile::LOCAL_DIR
       @options = options
+
+      # We store the following separately in case of multiple matches where
+      # the update file may need to refer to the file chosen for editing.
+      @edit_file = options.edit_file
+      @update_file = options.update_file
     end
 
     def run
@@ -31,7 +36,7 @@ module Dotfile
       end
 
       if @options.edit
-        name = find_source(@options.edit_file)
+        name = find_source(@edit_file)
         edit_file(name)
       end
 
@@ -48,7 +53,7 @@ module Dotfile
     end
 
     def update
-      if @options.update_file || @options.edit_file
+      if @update_file || @edit_file
         update_single_file
       else
         puts "Running Full Update",
@@ -89,31 +94,34 @@ module Dotfile
       if file_matches.length == 1
         file_matches[0]
       elsif file_matches.length > 1
-        multiple_matches(file_matches)
+        multiple_matches(file_matches, name)
       else
         abort "No matches found for \"#{name}\"."
       end
     end
 
-    def multiple_matches(file_matches)
+    def multiple_matches(file_matches, name)
       # This is necessary output and shouldn't be inhibited by --quiet.
       # Therefore use $stdout to ignore class puts.
-      $stdout.puts "Multiple matches found. Select a file:\n\n"
+      $stdout.puts "Multiple matches found for #{name}. Select a file:\n\n"
       file_matches.each_with_index do |d, i|
         $stdout.puts "#{i + 1}. #{relative_path(d[:source])}"
       end
 
       $stdout.puts
 
-      loop do
+      choice = loop do
         print "Choice? "
-        choice = $stdin.gets.to_i
-        next if choice <= 0
+        answer = $stdin.gets.to_i
+        next if answer <= 0
 
-        if choice <= file_matches.length
-          break file_matches[choice - 1]
+        if answer <= file_matches.length
+          break file_matches[answer - 1]
         end
       end
+
+      @matched_file = relative_path(choice[:source])
+      choice
     end
 
     def groups
@@ -125,7 +133,7 @@ module Dotfile
     end
 
     def update_single_file
-      dotfile = find_match(@options.update_file || @options.edit_file)
+      dotfile = find_match(@update_file || @matched_file || @edit_file)
       check_configuration
       @config = load_configuration
       dotfile_object = @config.dotfile_by_type(dotfile)
@@ -151,7 +159,7 @@ module Dotfile
       @dotfiles = []
       @dotfiles += static_files
       @dotfiles += templates
-    rescue DotfileError => e
+    rescue Dotfile::Error => e
       abort "Error: " + e.message + "\n\n*** Exiting ***"
     end
 

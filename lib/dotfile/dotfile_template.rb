@@ -26,7 +26,7 @@ module Dotfile
 
     def option_value(option)
       error_message = "Option #{option} for #{name} not found in dotfile.conf."
-      raise(DotfileError, error_message) if @config[option] == nil
+      raise(Dotfile::Error, error_message) if @config[option] == nil
 
       # If option is a theme, it must be sourced from an external file.
       if option =~ /.*_theme/
