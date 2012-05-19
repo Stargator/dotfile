@@ -105,7 +105,7 @@ module Dotfile
       # Therefore use $stdout to ignore class puts.
       $stdout.puts "Multiple matches found for #{name}. Select a file:\n\n"
       file_matches.each_with_index do |d, i|
-        $stdout.puts "#{i + 1}. #{relative_path(d[:source])}"
+        $stdout.puts "    #{i + 1}. #{relative_path(d[:source])}"
       end
 
       $stdout.puts
