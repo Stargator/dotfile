@@ -30,7 +30,7 @@ module Dotfile
 
       # If option is a theme, it must be sourced from an external file.
       if option =~ /.*_theme/
-        File.readlines("#{Dotfile::LOCAL_DIR}/themes/#{@config[option]}").join
+        File.readlines("#{Dotfile::THEMES}/#{@config[option]}").join
       else
         @config[option]
       end

@@ -7,7 +7,6 @@ module Dotfile
     include FileUtils
 
     def initialize(options)
-      @local_dir = Dotfile::LOCAL_DIR
       @options = options
 
       # We store the following separately in case of multiple matches where
@@ -28,11 +27,11 @@ module Dotfile
       end
 
       if @options.edit_groups
-        edit_file(@local_dir + '/groups.conf')
+        edit_file(Dotfile::GROUPS)
       end
 
       if @options.edit_config
-        edit_file(@local_dir + '/dotfile.conf')
+        edit_file(Dotfile::SETTINGS)
       end
 
       if @options.edit
@@ -125,18 +124,18 @@ module Dotfile
     end
 
     def groups
-      Dotfile::GroupParser.new("#{@local_dir}/groups.conf")
+      Dotfile::GroupParser.new(Dotfile::GROUPS)
     end
 
     def relative_path(path)
-      path.sub("#{@local_dir}/dotfiles/", '')
+      path.sub("#{Dotfile::DOTFILES}/", '')
     end
 
     def update_single_file
       dotfile = find_match(@update_file || @matched_file || @edit_file)
       check_configuration
-      @config = load_configuration
-      dotfile_object = @config.dotfile_by_type(dotfile)
+      @configuration = load_configuration
+      dotfile_object = @configuration.dotfile_by_type(dotfile)
       puts "Updating #{dotfile_object.destination}."
       dotfile_object.update
     end
@@ -149,12 +148,11 @@ module Dotfile
     end
 
     def configuration_exists?
-      File.exists?("#{@local_dir}/dotfile.conf")
+      File.exists?(Dotfile::SETTINGS)
     end
 
     def load_configuration_all
-      @config = load_configuration
-      @config.load_dotfiles
+      @configuration = load_configuration load_dotfiles: true
 
       @dotfiles = []
       @dotfiles += static_files
@@ -163,21 +161,21 @@ module Dotfile
       abort "Error: " + e.message + "\n\n*** Exiting ***"
     end
 
-    def load_configuration
-      local_config_file = File.expand_path('~/.dotfile.conf.local')
-      if File.exists?(local_config_file)
-        Dotfile::Config.new(local_config_file)
+    def load_configuration(option = { load_dotfiles: false })
+      if File.exists?(Dotfile::LOCAL_SETTINGS)
+        Dotfile::Configuration.new local_configuration: true,
+                                   load_dotfiles: option[:load_dotfiles]
       else
-        Dotfile::Config.new
+        Dotfile::Configuration.new load_dotfiles: option[:load_dotfiles]
       end
     end
 
     def static_files
-      @config.static_files
+      @configuration.static_files
     end
 
     def templates
-      @config.templates
+      @configuration.templates
     end
 
     def all_dotfiles
@@ -187,13 +185,13 @@ module Dotfile
     def execute_scripts(scripts)
       if scripts
         scripts.split.each do |s|
-          files = Dir.entries("#{@local_dir}/scripts").select do |f|
+          files = Dir.entries(Dotfile::SCRIPTS).select do |f|
             f.match(s)
           end
 
           files.each do |f|
             interpreter = f =~ /\.rb$/ ? 'ruby' : 'sh'
-            system("#{interpreter} #{@local_dir}/scripts/#{f}")
+            system("#{interpreter} #{Dotfile::SCRIPTS}/#{f}")
           end
         end
       end
@@ -201,23 +199,23 @@ module Dotfile
 
    def execute_before
       puts "Executing preceeding scripts..."
-      execute_scripts(@config.config['execute_before'])
+      execute_scripts(@configuration.settings['execute_before'])
       puts
     end
 
     def execute_after
       puts "Executing succeeding scripts..."
-      execute_scripts(@config.config['execute_after'])
+      execute_scripts(@configuration.settings['execute_after'])
       puts
     end
 
     def copy_defaults
-      mkdir_p(@local_dir)
-      mkdir_p(@local_dir + '/dotfiles')
-      mkdir_p(@local_dir + '/scripts')
-      mkdir_p(@local_dir + '/themes')
-      cp('default/dotfile.conf', @local_dir)
-      cp('default/groups.conf', @local_dir)
+      mkdir_p(Dotfile::DIRECTORY)
+      mkdir_p(Dotfile::DIRECTORY + '/dotfiles')
+      mkdir_p(Dotfile::DIRECTORY + '/scripts')
+      mkdir_p(Dotfile::DIRECTORY + '/themes')
+      cp('default/dotfile.conf', Dotfile::DIRECTORY)
+      cp('default/groups.conf', Dotfile::DIRECTORY)
     end
 
     def list_static
