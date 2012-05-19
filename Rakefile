@@ -9,3 +9,7 @@ end
 task :release => :build do
   system "gem push dotfile-#{Dotfile::VERSION}.gem"
 end
+
+task :install => :build do
+  system "gem install dotfile-#{Dotfile::VERSION}.gem"
+end
