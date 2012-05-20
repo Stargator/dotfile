@@ -13,6 +13,7 @@ class Dotfile::Options
 
   def self.parse
     options = OpenStruct.new
+    options.empty = ARGV.empty?
     options.update = false
     options.update_file = nil
     options.edit = false
@@ -21,9 +22,8 @@ class Dotfile::Options
     options.edit_groups = false
     options.setup = false
     options.quiet = false
-    options.empty = ARGV.empty?
 
-    o = OptionParser.new do |opts|
+    @options = OptionParser.new do |opts|
       opts.banner = "Usage: dotfile [option] [file]\n\n"
 
       opts.on('-u', '--update [FILE]', "Update dotfile/s locally.") do |file|
@@ -63,10 +63,16 @@ class Dotfile::Options
       end
     end
 
-    o.parse!
+    handle_missing_arguments { @options.parse! }
 
-    options.usage = o.help
+    options.usage = @options.help
     options
+  end
+
+  def self.handle_missing_arguments
+    yield
+  rescue OptionParser::MissingArgument
+    abort @options.help
   end
 
 end
