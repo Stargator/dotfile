@@ -16,6 +16,8 @@ module Dotfile
     end
 
     def run
+      abort @options.usage if @options.empty
+
       if @options.setup
         if configuration_exists?
           abort "~/.dotfile/dotfile.conf already exists. Exiting..."
@@ -42,8 +44,6 @@ module Dotfile
       if @options.update
         update
       end
-
-      # abort @options.usage
     end
 
     def edit_file(file)

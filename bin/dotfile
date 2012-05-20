@@ -21,6 +21,7 @@ class Dotfile::Options
     options.edit_groups = false
     options.setup = false
     options.quiet = false
+    options.empty = ARGV.empty?
 
     o = OptionParser.new do |opts|
       opts.banner = "Usage: dotfile [option] [file]\n\n"
