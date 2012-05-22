@@ -4,13 +4,8 @@ module Dotfile
 
     attr_reader :settings, :groups, :static_files, :templates
 
-    def initialize(options  = { local_configuration: false,
-                                load_dotfiles: true })
-      @settings = if options[:local_configuration]
-        Dotfile::Settings.new(Dotfile::LOCAL_SETTINGS)
-      else
-        Dotfile::Settings.new
-      end
+    def initialize(options  = { load_dotfiles: true })
+      @settings = Dotfile::Settings.new
       
       if options[:load_dotfiles]
         load_dotfiles

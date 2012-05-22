@@ -48,18 +48,18 @@ class Dotfile::Options
         options.setup = true
       end
 
-      opts.on('-q', '--quiet', "No non-critical output.") do
+      opts.on('-q', '--quiet', "Suppress all non-critical output.") do
         options.quiet = true
-      end
-
-      opts.on_tail('-h', '--help', "Show help.") do
-        abort opts.help
       end
 
       opts.on_tail('-v', '--version', "Show version number.") do
         abort "dotfile v#{Dotfile::VERSION}\n\n" +
               "    Copyright (C) 2012 Kelsey David Judson\n" +
               "    Web: http://github.com/kelseyjudson/dotfile"
+      end
+
+      opts.on_tail('-h', '--help', "Show help.") do
+        abort opts.help
       end
     end
 

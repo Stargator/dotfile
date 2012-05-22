@@ -7,27 +7,36 @@ dotfile
 
 A simple dotfile management system designed to make updating/tweaking configurations a breeze. Dotfile templates are based around a central configuration file which specifies commonly used configuration options. The dotfiles, along with these central configuration files may be distributed to other systems and slightly tweaked to suit the environment.
 
+---
 
-Command Line Usage
---------------------
+### Install Gem
 
-NOTE: If you haven't already set up your environment for first time use, see the section below.
+    gem install dotfile
 
-The basic options are as follows:
+NOTE: Before doing anything else, read the below section on how to set up your environment.
 
-* `dotfile --update` - Update local copies of all dotfiles and run any scripts.
-* `dotfile --update FILE` - Update a single file matching `FILE`.
-* `dotfile --edit FILE` - Edit a file matching `FILE` with `$EDITOR` (falls back to `vi`).
-* `dotfile --setup` - Prepare the local environment, creating the needed directory structure.
-* `dotfile --quiet` - Suppress all but absolutely necessary messages.
+### Usage
 
-Combining options can save a little time:
+    dotfile --help
 
-* `dotfile --edit FILE --update` - Edit and then update a single file.
+    Usage: dotfile [option] [file]
 
-Filenames specified above `FILE` need not be exact, as `dotfile` will take any matching dotfile/s defined in `groups.conf`. Where multiple matches are found, `dotfile` will present a list of choices.
+        -u, --update [FILE]              Update dotfile/s locally.
+        -e, --edit FILE                  Edit a matching dotfile with $EDITOR.
+        -c, --edit-config                Edit ~/.dotfile/dotfile.conf.
+        -g, --edit-groups                Edit ~/.dotfile/groups.conf.
+        -s, --setup                      Prepare the local environment (~/.dotfile).
+        -q, --quiet                      Suppress all non-critical output.
+        -v, --version                    Show version number.
+        -h, --help                       Show help.
 
-For all command-line options and short forms, use `dotfile --help`.
+
+Some commands can be combined. For example, you may want to edit and then update a certain file in a single command:
+
+    dotfile -e FILE -u
+
+
+Filenames specified above (`FILE`) need not be exact, as `dotfile` will take any matching dotfile/s defined in `groups.conf`. Where multiple matches are found, `dotfile` will present a list of choices.
 
 
 Setting Up the Environment
@@ -61,7 +70,7 @@ Where there is a `_theme` suffix to an option in `~/.dotfile/dotfile.conf`, it r
 Files listed under `execute_before` or `execute_after` in `~/.dotfile/dotfile.conf` refer to similarly named scripts in the `~/.dotfile/scripts` directory. These files are executed at the beginning or end of the installation process respectively. Either ruby or shell sripts are acceptable. Filenames for ruby scripts should end in the `.rb` suffix.
 
 ### Local Configuration
-Sometimes it's nice to be able to specify small tweaks outside of the main repository to set options unique to a certain system environment. In such a case, a local configuration file may be preferable. When the file `~/.dotfile.conf.local` exists on the filesystem, this file will be sourced as opposed to `~/.dotfile/dotfile.conf`.
+To specify options outside of your dotfiles repo (on a per machine basis), use the local configuration file `~/.dotfile.conf.local`. When this file exists, any options specified there will take priority over the same option in the main configuration file.
 
 ------
 
@@ -73,6 +82,10 @@ For an example setup, see my own [dotfiles repository](http://github.com/kelseyj
 
 To do
 -------
+
+* Spec the rest of the codebase.
+* Add new command-line option - `--set option new_value`.
+* Add options for editing of themes/scripts from command-line.
 
 ### Chromatic
 Create a one-size-fits-all colour/theme generator. This will take one colour file (in some format yet to be determined) which defines the 16/8 ANSI colours of a "theme" along with some optional extra information. It will then generate themes based on this file for various output formats... You should be able to choose one "theme" in dotfile.conf and it will apply to everything. Should make development of new themes much easier!

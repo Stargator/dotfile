@@ -162,12 +162,7 @@ module Dotfile
     end
 
     def load_configuration(option = { load_dotfiles: false })
-      if File.exists?(Dotfile::LOCAL_SETTINGS)
-        Dotfile::Configuration.new local_configuration: true,
-                                   load_dotfiles: option[:load_dotfiles]
-      else
-        Dotfile::Configuration.new load_dotfiles: option[:load_dotfiles]
-      end
+      Dotfile::Configuration.new load_dotfiles: option[:load_dotfiles]
     end
 
     def static_files
