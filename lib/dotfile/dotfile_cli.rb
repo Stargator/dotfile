@@ -36,6 +36,10 @@ module Dotfile
         edit_file(Dotfile::SETTINGS)
       end
 
+      if @options.edit_local
+        edit_file(Dotfile::LOCAL_SETTINGS)
+      end
+
       if @options.edit
         name = find_source(@edit_file)
         edit_file(name)

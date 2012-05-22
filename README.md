@@ -24,6 +24,7 @@ NOTE: Before doing anything else, read the below section on how to set up your e
         -u, --update [FILE]              Update dotfile/s locally.
         -e, --edit FILE                  Edit a matching dotfile with $EDITOR.
         -c, --edit-config                Edit ~/.dotfile/dotfile.conf.
+        -l, --edit-local                 Edit ~.dotfile.conf.local.
         -g, --edit-groups                Edit ~/.dotfile/groups.conf.
         -s, --setup                      Prepare the local environment (~/.dotfile).
         -q, --quiet                      Suppress all non-critical output.
@@ -34,6 +35,14 @@ NOTE: Before doing anything else, read the below section on how to set up your e
 Some commands can be combined. For example, you may want to edit and then update a certain file in a single command:
 
     dotfile -e FILE -u
+
+    # Equivalent of...
+    dotfile -e FILE -u FILE
+
+
+... or edit the local configuration file and then run a full update.
+
+    dotfile -l -u
 
 
 Filenames specified above (`FILE`) need not be exact, as `dotfile` will take any matching dotfile/s defined in `groups.conf`. Where multiple matches are found, `dotfile` will present a list of choices.

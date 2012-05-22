@@ -19,6 +19,7 @@ class Dotfile::Options
     options.edit = false
     options.edit_file = nil
     options.edit_config = false
+    options.edit_local = false
     options.edit_groups = false
     options.setup = false
     options.quiet = false
@@ -38,6 +39,10 @@ class Dotfile::Options
 
       opts.on('-c', '--edit-config', "Edit ~/.dotfile/dotfile.conf.") do
         options.edit_config = true
+      end
+
+      opts.on('-l', '--edit-local', "Edit ~.dotfile.conf.local.") do
+        options.edit_local = true
       end
 
       opts.on('-g', '--edit-groups', "Edit ~/.dotfile/groups.conf.") do
