@@ -10,6 +10,7 @@ module Dotfile
       @errors = []
       @settings = load_yaml(Dotfile::SETTINGS)
       set_local_settings
+      p @errors
     end
 
     def [](key)
@@ -23,16 +24,18 @@ module Dotfile
     private
 
     def load_yaml(file, critical = { critical: true })
-      YAML.load_file(file)
-    rescue NoMethodError => e
-      handle_error("Error processing #{file}.", e)
+      settings = YAML.load_file(file)
+      raise Dotfile::Error unless settings.class == Hash
+      settings
+    rescue Dotfile::Error => e
+      handle_error("Error processing #{file}.", e, critical)
     rescue TypeError => e
-      handle_error("Settings file #{file} is empty.", e)
+      handle_error("Settings file #{file} is empty.", e, critical)
     end
 
-    def handle_error(message, error)
+    def handle_error(message, error, critical)
       @errors << error
-      critical ? abort(message) : nil
+      critical[:critical] ? abort(message) : nil
     end
 
     def set_local_settings

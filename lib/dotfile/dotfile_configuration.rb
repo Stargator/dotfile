@@ -6,7 +6,7 @@ module Dotfile
 
     def initialize(options  = { load_dotfiles: true })
       @settings = Dotfile::Settings.new
-      
+
       if options[:load_dotfiles]
         load_dotfiles
       end
