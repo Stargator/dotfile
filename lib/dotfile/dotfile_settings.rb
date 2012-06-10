@@ -10,7 +10,6 @@ module Dotfile
       @errors = []
       @settings = load_yaml(Dotfile::SETTINGS)
       set_local_settings
-      p @errors
     end
 
     def [](key)
