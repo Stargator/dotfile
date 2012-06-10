@@ -27,7 +27,7 @@ module Dotfile
 
     def update
       mkdir_p(@destination_path)
-      File.write(@destination, @content.join("\n"))
+      File.write(@destination, @content.join)
     end
 
   end
