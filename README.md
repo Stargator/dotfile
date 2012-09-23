@@ -94,7 +94,4 @@ To do
 
 * Spec the rest of the codebase.
 * Add new command-line option - `--set option new_value`.
-* Add options for editing of themes/scripts from command-line.
-
-### Chromatic
-Create a one-size-fits-all colour/theme generator. This will take one colour file (in some format yet to be determined) which defines the 16/8 ANSI colours of a "theme" along with some optional extra information. It will then generate themes based on this file for various output formats... You should be able to choose one "theme" in dotfile.conf and it will apply to everything. Should make development of new themes much easier!
+* Add options for editing of files/scripts from command-line.
