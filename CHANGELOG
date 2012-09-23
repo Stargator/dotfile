@@ -1,0 +1,2 @@
+20120924 - 0.1.9
+  * Old theme functionality is broken. I felt there was no choice but to remove it in favour of a more flexible alternative. The old method (matching against .*_theme$) meant that no option could end in "_theme". This obviously caused issues when I tried to set "gtk3_theme: Adwaita". This is just a result of poor planning. The new method is to specify a file (rather than "theme") in a template as "{{file:the_option}}", then simply use "the_option:" in dotfile.conf. The files matched will be searched for under ~.dotfile/files (or Dotfile::FILES).

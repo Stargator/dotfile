@@ -13,7 +13,7 @@ module Dotfile
   SETTINGS        = "#{DIRECTORY}/dotfile.conf"
   GROUPS          = "#{DIRECTORY}/groups.conf"
   DOTFILES        = "#{DIRECTORY}/dotfiles"
-  THEMES          = "#{DIRECTORY}/themes"
+  FILES           = "#{DIRECTORY}/files"
   SCRIPTS         = "#{DIRECTORY}/scripts"
 
   class Error < StandardError

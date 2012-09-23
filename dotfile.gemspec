@@ -5,7 +5,7 @@ require 'dotfile/version'
 files = Dir['lib/**/*'] +
         Dir['default/*'] +
         Dir['bin/*'] +
-        %w{ LICENSE README.md dotfile.gemspec }
+        %w{ CHANGELOG LICENSE README.md dotfile.gemspec }
 
 Gem::Specification.new do |s|
 

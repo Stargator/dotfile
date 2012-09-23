@@ -61,8 +61,8 @@ Setting Up the Environment
         | | +-dotfile_two
         +-scripts/
         | +-script.sh         # As specified in dotfile.conf (execute_before/after)
-        | +-script.rb         #
-        +-themes/
+        | +-script.rb         # "
+        +-files/
         +-dotfile.conf
         +-groups.conf
 
@@ -72,8 +72,8 @@ Dotfiles are stored as one of two types based on their filename. Files ending in
 
 All dotfiles (both templates and static files) are found in `~/.dotfile/dotfiles`. Every dotfile is part of a "group" which is specified in `~/.dotfile/groups.conf`. Any dotfile within a group that is listed under `groups` in `~/.dotfile/dotfile.conf` will be copied over during a `dotfile --update`. See the `default/groups.conf` file for more information on how this file works.
 
-### Themes
-Where there is a `_theme` suffix to an option in `~/.dotfile/dotfile.conf`, it refers to the corresponding file found in `~/.dotfile/themes`. This functionality will likely be superceded by Chromatic (more information below).
+### External Files
+Where there is a `file:` prefix to an option in a template file, it refers to the corresponding file found in `~/.dotfile/files`. The `file:` prefix to the option should be left off in `~/.dotfile/dotfile.conf`. For example, a theme file specified `{{file:x_theme}}` in a template file may be written as `x_theme: themes/my_theme` in `~/.dotfile/dotfile.conf`. This file will then be found under `~/.dotfile/files/themes/my_theme`.
 
 ### Optional Scripts
 Files listed under `execute_before` or `execute_after` in `~/.dotfile/dotfile.conf` refer to similarly named scripts in the `~/.dotfile/scripts` directory. These files are executed at the beginning or end of the installation process respectively. Either ruby or shell sripts are acceptable. Filenames for ruby scripts should end in the `.rb` suffix.
