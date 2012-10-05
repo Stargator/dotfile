@@ -37,19 +37,19 @@ class Dotfile::Options
         options.edit_file = file
       end
 
-      opts.on('-c', '--edit-config', "Edit ~/.dotfile/dotfile.conf.") do
+      opts.on('-c', '--edit-config', "Edit dotfile.conf.") do
         options.edit_config = true
       end
 
-      opts.on('-l', '--edit-local', "Edit ~.dotfile.conf.local.") do
+      opts.on('-l', '--edit-local', "Edit ~/.dotfile.conf.local.") do
         options.edit_local = true
       end
 
-      opts.on('-g', '--edit-groups', "Edit ~/.dotfile/groups.conf.") do
+      opts.on('-g', '--edit-groups', "Edit groups.conf.") do
         options.edit_groups = true
       end
 
-      opts.on('-s', '--setup', "Prepare the local environment (~/.dotfile).") do
+      opts.on('-s', '--setup', "Prepare the local environment.") do
         options.setup = true
       end
 

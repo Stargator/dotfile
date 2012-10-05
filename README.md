@@ -17,9 +17,9 @@ A simple dotfile management system designed to make updating/tweaking configurat
 
         -u, --update [FILE]              Update dotfile/s locally.
         -e, --edit FILE                  Edit a matching dotfile with $EDITOR.
-        -c, --edit-config                Edit ~/.dotfile/dotfile.conf.
-        -l, --edit-local                 Edit ~.dotfile.conf.local.
-        -g, --edit-groups                Edit ~/.dotfile/groups.conf.
+        -c, --edit-config                Edit dotfile.conf.
+        -l, --edit-local                 Edit ~/.dotfile.conf.local.
+        -g, --edit-groups                Edit groups.conf.
         -s, --setup                      Prepare the local environment.
         -q, --quiet                      Suppress all non-critical output.
         -v, --version                    Show version number.
