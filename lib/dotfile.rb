@@ -14,9 +14,16 @@ module Dotfile
   # Default to XDG Base Directory Specification conformance.
   # We do not use XDG_DATA_HOME as we need to stick to a single directory.
 
-  DIRECTORY       = Dir.exists?("#{xdg_config}/dotfile") ?
-                    "#{xdg_config}/dotfile" :
-                    "#{home}/.dotfile"
+  xdg_dir = "#{xdg_config}/dotfile"
+  home_dir = "#{home}/.dotfile"
+
+  DIRECTORY       = if Dir.exists?(xdg_dir)
+                      xdg_dir
+                    elsif Dir.exists?(home_dir)
+                      home_dir
+                    else
+                      xdg_dir
+                    end
 
   LOCAL_SETTINGS  = "#{home}/.dotfile.conf.local"
   SETTINGS        = "#{DIRECTORY}/dotfile.conf"

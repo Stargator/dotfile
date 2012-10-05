@@ -212,7 +212,7 @@ module Dotfile
       mkdir_p(Dotfile::DIRECTORY)
       mkdir_p(Dotfile::DIRECTORY + '/dotfiles')
       mkdir_p(Dotfile::DIRECTORY + '/scripts')
-      mkdir_p(Dotfile::DIRECTORY + '/themes')
+      mkdir_p(Dotfile::DIRECTORY + '/files')
       cp('default/dotfile.conf', Dotfile::DIRECTORY)
       cp('default/groups.conf', Dotfile::DIRECTORY)
     end
