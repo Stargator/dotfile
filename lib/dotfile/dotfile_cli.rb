@@ -20,9 +20,9 @@ module Dotfile
 
       if @options.setup
         if configuration_exists?
-          abort "~/.dotfile/dotfile.conf already exists. Exiting..."
+          abort "#{Dotfile::DIRECTORY} already exists. Exiting..."
         else
-          puts "~/.dotfile/dotfile.conf does not exist... Creating.\n\n"
+          puts "#{Dotfile::DIRECTORY} does not exist... Creating.\n\n"
           copy_defaults
           exit
         end
@@ -61,7 +61,7 @@ module Dotfile
       else
         puts "Running Full Update",
              "---------------------",
-        # Check for existence of ~/.dotfile/dotfile.conf
+        # Check for existence of dotfile.conf
         check_configuration
         # Load the configuration.
         load_configuration_all
@@ -146,7 +146,7 @@ module Dotfile
 
     def check_configuration
       unless configuration_exists?
-        puts "~/.dotfile/dotfile.conf does not exist... Creating.\n\n"
+        puts "#{Dotfile::DIRECTORY} does not exist... Creating.\n\n"
         copy_defaults
       end
     end

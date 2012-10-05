@@ -8,8 +8,17 @@ require 'dotfile/dotfile_template'
 
 module Dotfile
 
-  DIRECTORY       = File.expand_path('~/.dotfile')
-  LOCAL_SETTINGS  = File.expand_path('~/.dotfile.conf.local')
+  home = ENV['HOME']
+  xdg_config = ENV['XDG_CONFIG_HOME'] || "#{home}/.config"
+
+  # Default to XDG Base Directory Specification conformance.
+  # We do not use XDG_DATA_HOME as we need to stick to a single directory.
+
+  DIRECTORY       = Dir.exists?("#{xdg_config}/dotfile") ?
+                    "#{xdg_config}/dotfile" :
+                    "#{home}/.dotfile"
+
+  LOCAL_SETTINGS  = "#{home}/.dotfile.conf.local"
   SETTINGS        = "#{DIRECTORY}/dotfile.conf"
   GROUPS          = "#{DIRECTORY}/groups.conf"
   DOTFILES        = "#{DIRECTORY}/dotfiles"

@@ -9,11 +9,7 @@ A simple dotfile management system designed to make updating/tweaking configurat
 
 ---
 
-### Install Gem
-
     gem install dotfile
-
-NOTE: Before doing anything else, read the below section on how to set up your environment.
 
 ### Usage
 
@@ -26,11 +22,10 @@ NOTE: Before doing anything else, read the below section on how to set up your e
         -c, --edit-config                Edit ~/.dotfile/dotfile.conf.
         -l, --edit-local                 Edit ~.dotfile.conf.local.
         -g, --edit-groups                Edit ~/.dotfile/groups.conf.
-        -s, --setup                      Prepare the local environment (~/.dotfile).
+        -s, --setup                      Prepare the local environment.
         -q, --quiet                      Suppress all non-critical output.
         -v, --version                    Show version number.
         -h, --help                       Show help.
-
 
 Some commands can be combined. For example, you may want to edit and then update a certain file in a single command:
 
@@ -39,59 +34,45 @@ Some commands can be combined. For example, you may want to edit and then update
     # Equivalent of...
     dotfile -e FILE -u FILE
 
-
 ... or edit the local configuration file and then run a full update.
 
     dotfile -l -u
 
-
 Filenames specified above (`FILE`) need not be exact, as `dotfile` will take any matching dotfile/s defined in `groups.conf`. Where multiple matches are found, `dotfile` will present a list of choices.
 
 
-Setting Up the Environment
-----------------------------
-
 ### Directory Structure
 
-    +-~/
-      +-.dotfile/
-        +-dotfiles/
-        | +-group_name/       # As specified in groups.conf.
-        | | +-dotfile_one
-        | | +-dotfile_two
-        +-scripts/
-        | +-script.sh         # As specified in dotfile.conf (execute_before/after)
-        | +-script.rb         # "
-        +-files/
-        +-dotfile.conf
-        +-groups.conf
+The dotfiles directory should be (in order of preference) `$XDG_CONFIG_HOME/dotfile`, `~/.config/dotfile` or `~/.dotfile`. Files or directories referred to after this point will be found under this directory.
 
+The dotfiles directory should include the following files/directories:
 
-### Basics
-Dotfiles are stored as one of two types based on their filename. Files ending in a ".template" suffix will be compiled before updating the local copy. These will substitute anything between any instance of `{{some_option}}` with the corresponding `some_option:` found in `~/.dotfile/dotfile.conf`. This file will be created after running `dotfile --setup` or running `dotfile --update` for the first time. All other files will be updated as is (these are called "static files"). 
+    dotfiles/   scripts/   files/   dotfile.conf   groups.conf
 
-All dotfiles (both templates and static files) are found in `~/.dotfile/dotfiles`. Every dotfile is part of a "group" which is specified in `~/.dotfile/groups.conf`. Any dotfile within a group that is listed under `groups` in `~/.dotfile/dotfile.conf` will be copied over during a `dotfile --update`. See the `default/groups.conf` file for more information on how this file works.
+###### dotfiles/
 
-### External Files
-Where there is a `file:` prefix to an option in a template file, it refers to the corresponding file found in `~/.dotfile/files`. The `file:` prefix to the option should be left off in `~/.dotfile/dotfile.conf`. For example, a theme file specified `{{file:x_theme}}` in a template file may be written as `x_theme: themes/my_theme` in `~/.dotfile/dotfile.conf`. This file should be found under `~/.dotfile/files/themes/my_theme`. The contents of the file will be inserted into the template file at the point of the option.
+Dotfiles are stored as one of two types based on their filename. Files ending in a ".template" suffix will be compiled before updating the local copy. In these files, any instance of `{{some_option}}` will be substituted with the corresponding `some_option:` found in `dotfile.conf`. All other files will be updated as is (these are called "static files"). 
 
-### Optional Scripts
-Files listed under `execute_before` or `execute_after` in `~/.dotfile/dotfile.conf` refer to similarly named scripts in the `~/.dotfile/scripts` directory. These files are executed at the beginning or end of the installation process respectively. Either ruby or shell sripts are acceptable. Filenames for ruby scripts should end in the `.rb` suffix.
+###### dotfiles/\<group\>/
 
-### Local Configuration
-To specify options outside of your dotfiles repo (on a per machine basis), use the local configuration file `~/.dotfile.conf.local`. When this file exists, any options specified there will take priority over the same option in the main configuration file.
+Each dotfile is part of a "group" which is specified in `groups.conf`. Each group has it's own directory under `dotfiles`. Any dotfile within a group that is listed under `groups` in `dotfile.conf` will be copied over during a `dotfile --update`. See the `default/groups.conf` file in this directory for more information on how this file works.
+
+###### scripts/
+
+Ruby or shell script to execute before or after installation based on the `execute_before/after` options in `dotfile.conf`. Ruby scripts must be suffixed `.rb` or they will be treated as `sh` scripts. Scripts specified in `dotfile.conf` need not include their suffix.
+
+###### files/
+
+Where there is a `file:` prefix to an option in a template file, it refers to the corresponding file found in the `files` directory. The `file:` prefix to the option should be left off in `dotfile.conf`. For example, a theme file specified `{{file:x_theme}}` in a template file may be written as `x_theme: themes/my_theme` in `dotfile.conf`. This file should be found under `files/themes/my_theme`. The contents of the file will be inserted into the template file at the point of the option.
+
+###### ~/.dotfile.conf.local
+
+To override options in `dotfile.conf`, use the "local" configuration file `~/.dotfile.conf.local`. Ideally, `dotfile.conf` will define a set of sensible "base" settings, while `~/.dotfile.conf.local`, will define settings on a per system basis. For instance, setting the `groups` option in `~/.dotfile.conf.local`, you can choose to skip certain groups that may not be relevant to the current system.
 
 ------
 
-To install dotfiles locally, run `dotfile --update`. Local copies of any dotfiles listed in `~/.dotfile/groups.conf` and specified in `~/.dotfile/dotfile.conf` will be overwritten without warning. Be careful!
+### Example
 
-### Example Setup
-For an example setup, see my own [dotfiles repository](http://github.com/kelseyjudson/dotfiles).
+For an example setup, see my own [dotfiles repository][0].
 
-
-To do
--------
-
-* Spec the rest of the codebase.
-* Add new command-line option - `--set option new_value`.
-* Add options for editing of files/scripts from command-line.
+[0]: http://github.com/kelseyjudson/dotfiles
