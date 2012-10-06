@@ -3,7 +3,7 @@ dotfile
 
 ### A Dynamic Dotfile Manager...
 
----
+------
 
 A simple dotfile management system designed to make updating/tweaking configurations a breeze. Dotfile templates are based around a central configuration file which specifies commonly used configuration options. The dotfiles, along with these central configuration files may be distributed to other systems and slightly tweaked to suit the environment.
 

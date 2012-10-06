@@ -73,8 +73,8 @@ module Dotfile
 
     def parse_file
       @config_file.readlines.each do |line|
-        parsed = parse_line(line)
-        @dotfiles << parsed if parsed
+        dotfile = parse_line(line)
+        @dotfiles << dotfile if dotfile
       end
 
       @config_file.close
@@ -105,9 +105,13 @@ module Dotfile
       dir_contents = add_recursively(directory[:source])
 
       dir_contents.map! do |path|
+        # Destination for found templates is not explicitly set in groups.conf,
+        # so it is necessary to remove the suffix for template files here.
+        destination = path =~ /\.template$/ ? path.sub(/\.template$/, '') : path
+
         { group: directory[:group],
           source: directory[:source] + '/' + path,
-          destination: directory[:destination] + '/' + path
+          destination: directory[:destination] + '/' + destination
         }
       end
 
