@@ -1,5 +1,5 @@
 module Dotfile
-  class Static < Dotfile::Base
+  class Static < Base
 
     def initialize(dotfile)
       super

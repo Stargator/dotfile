@@ -44,9 +44,9 @@ module Dotfile
         opts.on('-s', '--set OPTION:VALUE', "Temporarily set an option value.") do |o|
           arg = o.split(':')
           if arg.length == 2
-            options.set = { option: arg[0], value: arg[1] }
+            options.set = { arg[0] => arg[1] }
           else
-            abort "Usage: dotfile --set OPTION:VALUE"
+            abort "Usage: dotfile --set OPTION:VALUE -u [FILE]"
           end
         end
 
@@ -71,7 +71,7 @@ module Dotfile
         end
 
         opts.on_tail('-v', '--version', "Show version number.") do
-          puts "dotfile v#{Dotfile::VERSION}\n\n" +
+          puts "dotfile v#{VERSION}\n\n" +
                "    Copyright (C) 2012 Kelsey David Judson\n" +
                "    Web: http://github.com/kelseyjudson/dotfile"
           exit
@@ -85,7 +85,13 @@ module Dotfile
 
       handle_missing_arguments { @options.parse! }
 
+      # Must update (full or single) when using --set.
+      if options.set && !options.update
+        abort "Usage: dotfile --set OPTION:VALUE -u [FILE]"
+      end
+
       options.usage = @options.help
+
       options
     end
 

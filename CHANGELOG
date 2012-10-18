@@ -1,4 +1,7 @@
+20121018 - 0.2.0
+  * Added new command line option "--set OPTION:VALUE". Temporarily set an option to another value for only the current update (for testing or whatever). Should always be used with an update option, or it won't do anything!
   * Comply (a little loosely) with the XDG Base Directory Specification. Dotfiles directory will now default to $XDG_CONFIG_HOME/dotfile, falling back to ~/.config/dotfile and finally ~/.dotfile (the previous default).
+  * Fixed a bug where template files would not be parsed if found recursively under a directory (not specified explicitly) in groups.conf.
 
 20120924 - 0.1.9
   * Old theme functionality is broken. I felt there was no choice but to remove it in favour of a more flexible alternative. The old method (matching against .*_theme$) meant that no option could end in "_theme". This obviously caused issues when I tried to set "gtk3_theme: Adwaita". This is just a result of poor planning. The new method is to specify a file (rather than "theme") in a template as "{{file:the_option}}", then simply use "the_option:" in dotfile.conf. The files matched will be searched for under ~.dotfile/files (or Dotfile::FILES).

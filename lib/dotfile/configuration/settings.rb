@@ -14,10 +14,8 @@ module Dotfile
         main_configuration
         local_configuration
 
-        # Options set through command line --set.
-        if set_option
-          @settings.merge!(set_option)
-        end
+        # Options set through command line --set take precedence.
+        @settings.merge!(set_option) if set_option
       end
 
       def [](key)

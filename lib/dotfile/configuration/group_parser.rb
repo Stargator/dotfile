@@ -7,8 +7,8 @@ module Dotfile
 
       attr_reader :config_file, :groups, :current_group, :dotfiles
 
-      def initialize(config_file = Dotfile::GROUPS,
-                     dotfile_path = Dotfile::DOTFILES,
+      def initialize(config_file = GROUPS,
+                     dotfile_path = DOTFILES,
                      groups = :all,
                      test = nil)
         @config_file = File.new(config_file, 'r')

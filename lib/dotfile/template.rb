@@ -1,5 +1,5 @@
 module Dotfile
-  class Template < Dotfile::Base
+  class Template < Base
 
     def initialize(dotfile, settings)
       super(dotfile)
@@ -32,7 +32,7 @@ module Dotfile
 
       # If option is a file, it must be sourced.
       if value_is_file
-        File.readlines("#{Dotfile::FILES}/#{@settings[option]}").join
+        File.readlines("#{FILES}/#{@settings[option]}").join
       else
         @settings[option]
       end

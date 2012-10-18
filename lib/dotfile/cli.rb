@@ -19,24 +19,24 @@ module Dotfile
 
       if @options.setup
         if configuration_exists?
-          abort "#{Dotfile::DIRECTORY} already exists. Exiting..."
+          abort "#{DIRECTORY} already exists. Exiting..."
         else
-          puts "#{Dotfile::DIRECTORY} does not exist... Creating.\n\n"
+          puts "#{DIRECTORY} does not exist... Creating.\n\n"
           copy_defaults
           exit
         end
       end
 
       if @options.edit_groups
-        edit_file(Dotfile::GROUPS)
+        edit_file(GROUPS)
       end
 
       if @options.edit_config
-        edit_file(Dotfile::SETTINGS)
+        edit_file(SETTINGS)
       end
 
       if @options.edit_local
-        edit_file(Dotfile::LOCAL_SETTINGS)
+        edit_file(LOCAL_SETTINGS)
       end
 
       if @options.edit
@@ -89,7 +89,10 @@ module Dotfile
     end
 
     def find_matching_dotfile(name)
-      file_matches = groups.dotfiles.select do |d|
+      # Just the dotfile definitions needed for search.
+      dotfiles = Configuration::GroupParser.new(GROUPS).dotfiles
+
+      file_matches = dotfiles.select do |d|
         relative_path(d[:source]).include? name
       end
 
@@ -103,7 +106,7 @@ module Dotfile
     end
 
     def multiple_matches(file_matches, name)
-      # This is necessary output and shouldn't be inhibited by --quiet.
+      # This is necessary output and shouldn't be suppressed by --quiet.
       # Therefore use $stdout to ignore class puts.
       $stdout.puts "Multiple matches found for #{name}. Select a file:\n\n"
       file_matches.each_with_index do |d, i|
@@ -126,12 +129,8 @@ module Dotfile
       choice
     end
 
-    def groups
-      Dotfile::GroupParser.new(Dotfile::GROUPS)
-    end
-
     def relative_path(path)
-      path.sub("#{Dotfile::DOTFILES}/", '')
+      path.sub("#{DOTFILES}/", '')
     end
 
     def update_single_file
@@ -145,51 +144,37 @@ module Dotfile
 
     def check_configuration
       unless configuration_exists?
-        puts "#{Dotfile::DIRECTORY} does not exist... Creating.\n\n"
+        puts "#{DIRECTORY} does not exist... Creating.\n\n"
         copy_defaults
       end
     end
 
     def configuration_exists?
-      File.exists?(Dotfile::SETTINGS)
+      File.exists?(SETTINGS)
     end
 
     def load_configuration_all
-      @configuration = load_configuration load_dotfiles: true
-
-      @dotfiles = []
-      @dotfiles += static_files
-      @dotfiles += templates
+      @configuration = load_configuration true
+      @dotfiles = @configuration.static_files + @configuration.templates
     rescue Dotfile::Error => e
       abort "Error: " + e.message + "\n\n*** Exiting ***"
     end
 
-    def load_configuration(option = { load_dotfiles: false })
-      Dotfile::Configuration.new load_dotfiles: option[:load_dotfiles]
-    end
-
-    def static_files
-      @configuration.static_files
-    end
-
-    def templates
-      @configuration.templates
-    end
-
-    def all_dotfiles
-      @dotfiles
+    def load_configuration(full_update = false)
+      options = { full_update: full_update, set_option: @options.set }
+      Configuration.new(options)
     end
 
     def execute_scripts(scripts)
       if scripts
         scripts.split.each do |s|
-          files = Dir.entries(Dotfile::SCRIPTS).select do |f|
+          files = Dir.entries(SCRIPTS).select do |f|
             f.match(s)
           end
 
           files.each do |f|
             interpreter = f =~ /\.rb$/ ? 'ruby' : 'sh'
-            system("#{interpreter} #{Dotfile::SCRIPTS}/#{f}")
+            system("#{interpreter} #{SCRIPTS}/#{f}")
           end
         end
       end
@@ -208,20 +193,20 @@ module Dotfile
     end
 
     def copy_defaults
-      mkdir_p(Dotfile::DIRECTORY)
-      mkdir_p(Dotfile::DIRECTORY + '/dotfiles')
-      mkdir_p(Dotfile::DIRECTORY + '/scripts')
-      mkdir_p(Dotfile::DIRECTORY + '/files')
-      cp('default/dotfile.conf', Dotfile::DIRECTORY)
-      cp('default/groups.conf', Dotfile::DIRECTORY)
+      mkdir_p(DIRECTORY)
+      mkdir_p(DIRECTORY + '/dotfiles')
+      mkdir_p(DIRECTORY + '/scripts')
+      mkdir_p(DIRECTORY + '/files')
+      cp('default/dotfile.conf', DIRECTORY)
+      cp('default/groups.conf', DIRECTORY)
     end
 
     def list_static
-      list_dotfiles(static_files, "static")
+      list_dotfiles(@configuration.static_files, "static")
     end
 
     def list_template
-      list_dotfiles(templates, "dynamically generated")
+      list_dotfiles(@configuration.templates, "dynamically generated")
     end
 
     def list_dotfiles(dotfiles, description)
@@ -234,7 +219,7 @@ module Dotfile
 
     def update_files
       puts "Updating dotfiles..."
-      all_dotfiles.each do |dotfile|
+      @dotfiles.each do |dotfile|
         dotfile.update
         puts "-> " + dotfile.name
       end

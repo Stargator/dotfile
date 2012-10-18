@@ -8,14 +8,26 @@ module Dotfile
     attr_reader   :groups, :static_files, :templates
     attr_accessor :settings
 
-    def initialize(options  = { load_dotfiles: true })
-      @settings = Settings.new
+    def initialize(options = { full_update: true })
+      # Command line option --set, otherwise nil.
+      set_option = options[:set_option]
+
+      @settings = Settings.new(set_option)
       @static_files = []
       @templates = []
 
       # Depending on whether a full update or single dotfile.
-      if options[:load_dotfiles]
+      if options[:full_update]
         create_dotfiles
+      end
+    end
+
+    # Used by CLI
+    def dotfile_by_type(dotfile)
+      if dotfile[:source] =~ /\.template$/
+        Template.new(dotfile, @settings)
+      else
+        Static.new(dotfile)
       end
     end
 
@@ -28,7 +40,7 @@ module Dotfile
 
       # Determine type and create objects.
       dotfiles.each do |dotfile|
-        unsorted << by_type(dotfile)
+        unsorted << dotfile_by_type(dotfile)
       end
 
       # Sort objects into arrays based on type.
@@ -41,16 +53,10 @@ module Dotfile
       end
     end
 
-    def by_type(dotfile)
-      if dotfile[:source] =~ /\.template$/
-        Template.new(dotfile, @settings)
-      else
-        Static.new(dotfile)
-      end
-    end
-
     def load_groups
+      # Make sure there are groups specified.
       groups_option_check
+
       groups_file = GROUPS
       dotfile_path = DOTFILES
       groups = @settings['groups'].split
@@ -59,9 +65,11 @@ module Dotfile
     end
 
     def groups_option_check
-      # Make sure there are groups specified.
       error_message = "No groups specified in configuration file."
-      raise(Dotfile::Error, error_message) unless @settings['groups']
+
+      unless @settings['groups']
+        raise(Dotfile::Error, error_message)
+      end
     end
 
   end
