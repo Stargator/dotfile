@@ -41,12 +41,16 @@ module Dotfile
           options.edit_file = file
         end
 
-        opts.on('-s', '--set OPTION:VALUE', "Temporarily set an option value.") do |o|
-          arg = o.split(':')
-          if arg.length == 2
-            options.set = { arg[0] => arg[1] }
-          else
-            abort "Usage: dotfile --set OPTION:VALUE -u [FILE]"
+        opts.on('-s', '--set OPTION:VALUE[,...]', "Temporarily set an option value.") do |args|
+          args_list = args.split(',').map { |arg| arg.split(':') }
+
+          options.set = {}
+          args_list.each do |arg|
+            if arg.length == 2
+              options.set.merge!({ arg[0] => arg[1] })
+            else
+              abort "Usage: dotfile --set OPTION:VALUE[,...] -u [FILE]"
+            end
           end
         end
 
