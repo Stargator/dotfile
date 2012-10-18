@@ -18,6 +18,7 @@ class Dotfile::Options
     options.update_file = nil
     options.edit = false
     options.edit_file = nil
+    options.set = nil
     options.edit_config = false
     options.edit_local = false
     options.edit_groups = false
@@ -37,6 +38,15 @@ class Dotfile::Options
         options.edit_file = file
       end
 
+      opts.on('-s', '--set OPTION:VALUE', "Temporarily set an option value.") do |o|
+        arg = o.split(':')
+        if arg.length == 2
+          options.set = { option: arg[0], value: arg[1] }
+        else
+          abort "Usage: dotfile --set OPTION:VALUE"
+        end
+      end
+
       opts.on('-c', '--edit-config', "Edit dotfile.conf.") do
         options.edit_config = true
       end
@@ -49,7 +59,7 @@ class Dotfile::Options
         options.edit_groups = true
       end
 
-      opts.on('-s', '--setup', "Prepare the local environment.") do
+      opts.on('-S', '--setup', "Prepare the local environment.") do
         options.setup = true
       end
 
@@ -58,13 +68,15 @@ class Dotfile::Options
       end
 
       opts.on_tail('-v', '--version', "Show version number.") do
-        abort "dotfile v#{Dotfile::VERSION}\n\n" +
-              "    Copyright (C) 2012 Kelsey David Judson\n" +
-              "    Web: http://github.com/kelseyjudson/dotfile"
+        puts "dotfile v#{Dotfile::VERSION}\n\n" +
+             "    Copyright (C) 2012 Kelsey David Judson\n" +
+             "    Web: http://github.com/kelseyjudson/dotfile"
+        exit
       end
 
       opts.on_tail('-h', '--help', "Show help.") do
-        abort opts.help
+        puts opts.help
+        exit
       end
     end
 

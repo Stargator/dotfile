@@ -61,7 +61,7 @@ module Dotfile
       else
         puts "Running Full Update",
              "---------------------",
-        # Check for existence of dotfile.conf
+        # Check for existence of dotfile.conf.
         check_configuration
         # Load the configuration.
         load_configuration_all

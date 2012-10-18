@@ -2,7 +2,8 @@ module Dotfile
 
   class Configuration
 
-    attr_reader :settings, :groups, :static_files, :templates
+    attr_reader   :groups, :static_files, :templates
+    attr_accessor :settings
 
     def initialize(options  = { load_dotfiles: true })
       @settings = Dotfile::Settings.new
