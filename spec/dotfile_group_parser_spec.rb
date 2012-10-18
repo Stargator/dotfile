@@ -1,5 +1,5 @@
 require 'spec_helper.rb'
-require 'dotfile/dotfile_group_parser.rb'
+require 'dotfile/group_parser.rb'
 
 describe Dotfile::GroupParser do
 

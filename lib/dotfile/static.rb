@@ -1,5 +1,4 @@
 module Dotfile
-
   class Static < Dotfile::Base
 
     def initialize(dotfile)
@@ -12,5 +11,4 @@ module Dotfile
     end
 
   end
-
 end

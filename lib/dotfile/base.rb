@@ -1,7 +1,6 @@
 require 'fileutils'
 
 module Dotfile
-
   class Base
 
     include FileUtils
@@ -31,5 +30,4 @@ module Dotfile
     end
 
   end
-
 end

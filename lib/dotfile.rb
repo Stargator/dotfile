@@ -1,10 +1,10 @@
 require 'dotfile/version'
-require 'dotfile/dotfile_configuration'
-require 'dotfile/dotfile_settings'
-require 'dotfile/dotfile_group_parser'
-require 'dotfile/dotfile_base'
-require 'dotfile/dotfile_static'
-require 'dotfile/dotfile_template'
+require 'dotfile/configuration'
+require 'dotfile/configuration/settings'
+require 'dotfile/group_parser'
+require 'dotfile/base'
+require 'dotfile/static'
+require 'dotfile/template'
 
 module Dotfile
 

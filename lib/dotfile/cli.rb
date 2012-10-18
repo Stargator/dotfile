@@ -1,7 +1,6 @@
 require 'fileutils'
 
 module Dotfile
-
   class CLI
 
     include FileUtils
@@ -247,5 +246,4 @@ module Dotfile
     end
 
   end
-
 end

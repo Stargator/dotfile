@@ -1,5 +1,4 @@
 module Dotfile
-
   class GroupParser
 
     attr_reader :config_file, :groups, :current_group, :dotfiles
@@ -133,5 +132,4 @@ module Dotfile
     end
 
   end
-
 end

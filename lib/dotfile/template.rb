@@ -1,5 +1,4 @@
 module Dotfile
-
   class Template < Dotfile::Base
 
     def initialize(dotfile, settings)
@@ -40,5 +39,4 @@ module Dotfile
     end
 
   end
-
 end
