@@ -58,7 +58,7 @@ Each dotfile is part of a "group" which is specified in `groups.conf`. Each grou
 
 ###### scripts/
 
-Ruby or shell script to execute before or after installation based on the `execute_before/after` options in `dotfile.conf`. Ruby scripts must be suffixed `.rb` or they will be treated as `sh` scripts. Scripts specified in `dotfile.conf` need not include their suffix.
+Scripts to execute before or after installation based on the `execute_before/after` options in `dotfile.conf`. Scripts specified in `dotfile.conf` need not include their file extension, however if two exist with the same name but a different extension, they will both be executed. Scripts without a file extension must be executable and have a valid shebang line.
 
 ###### files/
 

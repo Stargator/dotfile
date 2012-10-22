@@ -1,5 +1,3 @@
-require 'fileutils'
-
 module Dotfile
 
   # Parent class for dotfile types (eg. +Static+ and +Template+). Provides the
@@ -10,8 +8,6 @@ module Dotfile
   # lines.
 
   class Base
-
-    include FileUtils
 
     attr_reader :name, :group, :content
     attr_reader :source, :destination, :destination_path
@@ -35,13 +31,6 @@ module Dotfile
     # implementation. See +Dotfile::Template+.
     def name
       filename
-    end
-
-    # This shouldn't be defined here, it should be the job of the dotfile to
-    # update _itself_. That should be the job of a controller class.
-    def update
-      mkdir_p(@destination_path)
-      File.write(@destination, @content.join)
     end
 
   end
