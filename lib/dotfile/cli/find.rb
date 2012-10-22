@@ -12,6 +12,9 @@ module Dotfile
       end
 
       def find_matching_dotfile(name)
+        # Relies on groups.conf.
+        check_configuration
+
         # Just the dotfile definitions needed for search.
         dotfiles = Dotfile::Configuration::GroupParser.new(GROUPS).dotfiles
 

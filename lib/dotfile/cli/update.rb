@@ -35,7 +35,6 @@ module Dotfile
         dotfile_definition = find_match(
           @update_file || @matched_file || @edit_file
         )
-        check_configuration
         @configuration = load_configuration
         dotfile = @configuration.dotfile_by_type(dotfile_definition)
         puts "Updating #{dotfile.destination}."
