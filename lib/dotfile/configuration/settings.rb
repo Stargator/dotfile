@@ -1,14 +1,21 @@
-# Loads main and local configuration files and any setting set explicitly
-# on the command line with --set.
-
 require 'yaml'
 
 module Dotfile
   class Configuration
+
+    # Loads main and local configuration files and any settings set explicitly
+    # on the command line with --set.
+
     class Settings
 
       attr_reader :errors
 
+      # [set_option]  Setting this argument indicates that the command line
+      #               +--set+ option was given. The argument should be in the
+      #               form of a hash to be merged into the settings hash.
+      #
+      #               eg. +{ 'prompt_colour' => 'yellow' }+
+      #
       def initialize(set_option = nil)
         @errors = []
         main_configuration
@@ -61,5 +68,6 @@ module Dotfile
       end
 
     end
+
   end
 end

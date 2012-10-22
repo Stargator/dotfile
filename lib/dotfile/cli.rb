@@ -1,19 +1,27 @@
 require 'fileutils'
+require 'dotfile/cli/options'
 
 module Dotfile
+
+  # Handles command line options. Interfaces with the other classes to provide
+  # a usable system.
+
   class CLI
 
     include FileUtils
 
-    def initialize(options)
-      @options = options
+    def initialize
+      @options = Options.new
 
       # We store the following separately in case of multiple matches where
       # the update file may need to refer to the file chosen for editing.
-      @edit_file = options.edit_file
-      @update_file = options.update_file
+      @edit_file = @options.edit_file
+      @update_file = @options.update_file
     end
 
+    # Run through and perform tasks based on the command line options provided.
+    # Sequentially performs tasks in order to allow multiple actions from one
+    # command with sane assumptions on usage.
     def run
       abort @options.usage if @options.empty
 
@@ -49,36 +57,12 @@ module Dotfile
       end
     end
 
+    private
+
     def edit_file(file)
       editor = ENV['EDITOR'] || 'vi'
       system(editor + ' ' + file)
     end
-
-    def update
-      if @update_file || @edit_file
-        update_single_file
-      else
-        puts "Running Full Update",
-             "---------------------",
-        # Check for existence of dotfile.conf.
-        check_configuration
-        # Load the configuration.
-        load_configuration_all
-        # Execute preceeding scripts.
-        execute_before
-        # List the static_files to be copied.
-        list_static
-        # List the templates to be copied.
-        list_template
-        # Install to home directory.
-        update_files
-        # Run succeeding optional scripts.
-        execute_after
-        puts "All done!"
-      end
-    end
-
-    private
 
     def find_match(name)
       find_matching_dotfile(name)
@@ -131,6 +115,30 @@ module Dotfile
 
     def relative_path(path)
       path.sub("#{DOTFILES}/", '')
+    end
+
+    def update
+      if @update_file || @edit_file
+        update_single_file
+      else
+        puts "Running Full Update",
+             "---------------------",
+        # Check for existence of dotfile.conf.
+        check_configuration
+        # Load the configuration.
+        load_configuration_all
+        # Execute preceeding scripts.
+        execute_before
+        # List the static_files to be copied.
+        list_static
+        # List the templates to be copied.
+        list_template
+        # Install to home directory.
+        update_files
+        # Run succeeding optional scripts.
+        execute_after
+        puts "All done!"
+      end
     end
 
     def update_single_file
@@ -231,4 +239,5 @@ module Dotfile
     end
 
   end
+
 end

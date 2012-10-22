@@ -1,8 +1,9 @@
-# Parses the groups.conf file and returns definitions (as a hash) for each
-# dotfile found in enabled groups.
-
 module Dotfile
   class Configuration
+
+    # Parses the groups.conf file and returns definitions (as a hash) for each
+    # dotfile found in enabled groups.
+
     class GroupParser
 
       attr_reader :config_file, :groups, :current_group, :dotfiles
@@ -136,5 +137,6 @@ module Dotfile
       end
 
     end
+
   end
 end

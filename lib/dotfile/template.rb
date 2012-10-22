@@ -1,15 +1,25 @@
 module Dotfile
+
+  # A template file performs substitutions to the source file based on a user's
+  # dotfile configuration.
+
   class Template < Base
 
+    # Takes an additional argument +settings+ - and instance of
+    # +Dotfile::Configuration::Settings+ to provide option substitution
+    # values.
     def initialize(dotfile, settings)
       super(dotfile)
       @settings = settings
       parse
     end
 
+    # Template files must remove their filename extension.
     def name
       super.sub(/\.template$/, '')
     end
+
+    private
 
     def parse
       lines = File.readlines(@source)

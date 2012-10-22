@@ -1,13 +1,27 @@
-# Loads Settings (dotfile configurations) and GroupParser. Sorts each dotfile
-# returned by GroupParser by type and creates an instance of the appropriate
-# class (Template or Static).
 
 module Dotfile
+
+  # Loads and provides access to +Settings+ (dotfile configurations) and
+  # +GroupParser+. Sorts each dotfile returned by +GroupParser+ by type and
+  # creates an instance of the appropriate class (+Template+ or +Static+).
+
   class Configuration
 
     attr_reader   :groups, :static_files, :templates
     attr_accessor :settings
 
+    # Takes an options hash as argument.
+    # [:full_update]  Configure for a full update if true, otherwise configure
+    #                 for the update of a single file. A full update will create
+    #                 dotfile objects for every dotfile in an enabled group.
+    # [:set_option]   Indicates that the command line +--set+ option was given
+    #                 and passes the value of this to the +Settings+ constructor
+    #                 so that it may substitute the contained value. This should
+    #                 be in the form of a hash to be merged into the settings
+    #                 hash.
+    #
+    #                 eg. +{ 'prompt_colour' => 'yellow' }+
+    #
     def initialize(options = { full_update: true })
       # Command line option --set, otherwise nil.
       set_option = options[:set_option]
@@ -22,7 +36,8 @@ module Dotfile
       end
     end
 
-    # Used by CLI
+    # This method is used by +Dotfile::CLI+ to retrieve a dotfile object in the
+    # case of updating a single dotfile.
     def dotfile_by_type(dotfile)
       if dotfile[:source] =~ /\.template$/
         Template.new(dotfile, @settings)
@@ -73,4 +88,5 @@ module Dotfile
     end
 
   end
+
 end
