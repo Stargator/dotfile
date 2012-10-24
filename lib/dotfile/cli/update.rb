@@ -12,7 +12,7 @@ module Dotfile
           update_single_file
         else
           puts "Running Full Update",
-               "---------------------",
+               "---------------------"
           # Check for existence of dotfile.conf.
           check_configuration
           # Load the configuration.
@@ -42,15 +42,15 @@ module Dotfile
       end
 
       def list_static
-        list_dotfiles(@configuration.static_files, "static")
+        list_dotfiles(@configuration.static_files, "Static")
       end
 
       def list_template
-        list_dotfiles(@configuration.templates, "dynamically generated")
+        list_dotfiles(@configuration.templates, "Template")
       end
 
-      def list_dotfiles(dotfiles, description)
-        puts "The following #{description} files will be copied:"
+      def list_dotfiles(dotfiles, type)
+        puts "#{type}:\n#{'-' * (type.length + 3)}"
         dotfiles.each do |dotfile|
           puts "-> " + dotfile.name
         end
@@ -58,7 +58,8 @@ module Dotfile
       end
 
       def update_files
-        puts "Updating dotfiles..."
+        puts "Updating:",
+             "-----------"
         @dotfiles.each do |dotfile|
           update_dotfile(dotfile)
           puts "-> " + dotfile.name
