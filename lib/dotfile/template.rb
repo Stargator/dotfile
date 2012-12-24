@@ -10,8 +10,7 @@ module Dotfile
     # values.
     def initialize(dotfile, settings)
       super(dotfile)
-      @settings = settings
-      parse
+      parse(settings)
     end
 
     # Template files must remove their filename extension.
@@ -21,30 +20,30 @@ module Dotfile
 
     private
 
-    def parse
+    def parse(settings)
       lines = File.readlines(@source)
       # Substitute any placeholders for equivalent key/value in config file.
       lines.map! do |l|
         l.gsub(/\{\{[\w:-]+\}\}/) do |option|
           option.gsub!(/\{\{|\}\}/, "")
-          option_value(option)
+          option_value(option, settings)
         end
       end
       @content = lines
     end
 
-    def option_value(option)
+    def option_value(option, settings)
       value_is_file = option =~ /^file.*/
       option.sub!('file:', '')
 
       error_message = "Option #{option} for #{name} not found in dotfile.conf."
-      raise(Dotfile::Error, error_message) if @settings[option] == nil
+      raise(Dotfile::Error, error_message) if settings[option] == nil
 
       # If option is a file, it must be sourced.
       if value_is_file
-        File.readlines("#{FILES}/#{@settings[option]}").join
+        File.readlines("#{FILES}/#{settings[option]}").join
       else
-        @settings[option]
+        settings[option]
       end
     end
 
