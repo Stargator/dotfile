@@ -36,9 +36,12 @@ module Dotfile
   LOCAL_SETTINGS  = "#{home}/.dotfile.conf.local"
   SETTINGS        = "#{DIRECTORY}/dotfile.conf"
   GROUPS          = "#{DIRECTORY}/groups.conf"
+  EXEC            = "#{DIRECTORY}/exec.rb"
   DOTFILES        = "#{DIRECTORY}/dotfiles"
   FILES           = "#{DIRECTORY}/files"
   SCRIPTS         = "#{DIRECTORY}/scripts"
+
+  require EXEC if File.exists?(EXEC)
 
   class Error < StandardError
   end

@@ -24,8 +24,8 @@ module Dotfile
       lines = File.readlines(@source)
       # Substitute any placeholders for equivalent key/value in config file.
       lines.map! do |l|
-        l.gsub(/\{\{[\w:-]+\}\}/) do |option|
-          option.gsub!(/\{\{|\}\}/, "")
+        l.gsub(/\{\{(\w+:)?[\w\s,]+\}\}/) do |option|
+          option.gsub!(/\{\{|\}\}/, '')
           option_value(option, settings)
         end
       end
@@ -33,18 +33,47 @@ module Dotfile
     end
 
     def option_value(option, settings)
-      value_is_file = option =~ /^file.*/
-      option.sub!('file:', '')
+      type = option_type(option)
+      option.sub!(/file:|exec:/, '')
 
-      error_message = "Option #{option} for #{name} not found in dotfile.conf."
-      raise(Dotfile::Error, error_message) if settings[option] == nil
+      option_check(option, settings) unless type == :exec
 
-      # If option is a file, it must be sourced.
-      if value_is_file
-        File.readlines("#{FILES}/#{settings[option]}").join
+      case type
+      when :file
+        option_file(option, settings)
+      when :exec
+        option_exec(option)
       else
         settings[option]
       end
+
+    end
+
+    def option_type(option)
+      case option
+      when /^file:.*/
+        :file
+      when /^exec:.*/
+        :exec
+      end
+    end
+
+    def option_check(option, settings)
+      error_message = "Option #{option} for #{name} not found in dotfile.conf."
+      raise(Dotfile::Error, error_message) if settings[option] == nil
+    end
+
+    def option_file(option, settings)
+      File.readlines("#{FILES}/#{settings[option]}").join
+    end
+
+    def option_exec(option)
+      method, *args = option.split(',').map { |s| s.strip }
+
+      error_message = "\"exec:\" found in #{source} but DotfileExec not defined."
+      raise(Dotfile::Error, error_message) unless defined? DotfileExec
+
+      DotfileExec.send(method, *args)
     end
 
   end

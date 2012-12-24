@@ -1,4 +1,3 @@
-
 module Dotfile
 
   # Loads and provides access to +Settings+ (dotfile configurations) and

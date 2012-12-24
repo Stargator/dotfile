@@ -37,6 +37,7 @@ module Dotfile
         mkdir_p(DIRECTORY + '/files')
         cp('default/dotfile.conf', DIRECTORY)
         cp('default/groups.conf', DIRECTORY)
+        cp('default/exec.rb', DIRECTORY)
       end
 
     end

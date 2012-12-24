@@ -46,7 +46,7 @@ The dotfiles directory should be (in order of preference) `$XDG_CONFIG_HOME/dotf
 
 The dotfiles directory should include the following files/directories:
 
-    dotfiles/   scripts/   files/   dotfile.conf   groups.conf
+    dotfiles/   scripts/   files/   dotfile.conf   groups.conf   exec.rb
 
 ###### dotfiles/
 
@@ -63,6 +63,10 @@ Scripts to execute before or after installation based on the `execute_before/aft
 ###### files/
 
 Where there is a `file:` prefix to an option in a template file, it refers to the corresponding file found in the `files` directory. The `file:` prefix to the option should be left off in `dotfile.conf`. For example, a theme file specified `{{file:x_theme}}` in a template file may be written as `x_theme: themes/my_theme` in `dotfile.conf`. This file should be found under `files/themes/my_theme`. The contents of the file will be inserted into the template file at the point of the option.
+
+###### exec.rb
+
+Template files can substitute in data returned by a method using the syntax `{{exec:method_name,arg1,arg2}}`. These methods should be defined as class methods of `DotfileExec` within the `exec.rb` file in your dotfile directory.
 
 ###### ~/.dotfile.conf.local
 
