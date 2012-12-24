@@ -1,3 +1,4 @@
+20121224 - 0.2.2
   * Add new template syntax {{exec:method_name,arg1,arg2}}. Methods are defined in <dotfile_directory>/exec.rb.
   * Scripts set with the executable permission bit will now execute regardless of their interpreter, and regardless of file extension (assuming a valid shebang). Non-executable files will still execute assuming they have an accepted file extension. Currently accepted extensions are now .rb, .py, .pl and .sh. If the script is non-executable AND has no extension, a warning will be given and the script will be ignored.
   * Refactored Dotfile::CLI into separate modules for the sake of organization.
