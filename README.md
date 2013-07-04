@@ -35,7 +35,7 @@ Some commands can be combined. For example, you may want to edit and then update
 
 ... or edit the local configuration file and then run a full update.
 
-    dotfile -l -u
+    dotfile -lu
 
 Filenames specified above (`FILE`) need not be exact, as `dotfile` will take any matching dotfile/s defined in `groups.conf`. Where multiple matches are found, `dotfile` will present a list of choices.
 
