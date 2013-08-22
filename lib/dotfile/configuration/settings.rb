@@ -40,7 +40,7 @@ module Dotfile
       end
 
       def local_configuration
-        if File.exists?(LOCAL_SETTINGS)
+        if LOCAL_SETTINGS
           local_settings = load_configuration(LOCAL_SETTINGS, critical: false)
           prioritize_local(local_settings) if local_settings
         end

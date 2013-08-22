@@ -16,14 +16,14 @@ require 'dotfile/configuration/group_parser'
 
 module Dotfile
 
-  home = ENV['HOME']
-  xdg_config = ENV['XDG_CONFIG_HOME'] || "#{home}/.config"
+  home            = ENV['HOME']
+  xdg_config      = ENV['XDG_CONFIG_HOME'] || "#{home}/.config"
 
   # Default to XDG Base Directory Specification conformance.
   # We do not use XDG_DATA_HOME as we need to stick to a single directory.
 
-  xdg_dir = "#{xdg_config}/dotfile"
-  home_dir = "#{home}/.dotfile"
+  xdg_dir         = "#{xdg_config}/dotfile"
+  home_dir        = "#{home}/.dotfile"
 
   DIRECTORY       = if Dir.exists?(xdg_dir)
                       xdg_dir
@@ -33,7 +33,18 @@ module Dotfile
                       xdg_dir
                     end
 
-  LOCAL_SETTINGS  = "#{home}/.dotfile.conf.local"
+  home_local      = "#{home}/.dotfile.conf.local"
+  dotfile_local   = "#{DIRECTORY}/dotfile.conf.local"
+
+  # If no local configuration file exists, LOCAL_SETTINGS will be nil.
+
+  LOCAL_SETTINGS  = if File.exists?(home_local)
+                      home_local
+                    elsif File.exists?(dotfile_local)
+                      dotfile_local
+                    end
+
+                      "#{home}/.dotfile.conf.local"
   SETTINGS        = "#{DIRECTORY}/dotfile.conf"
   GROUPS          = "#{DIRECTORY}/groups.conf"
   EXEC            = "#{DIRECTORY}/exec.rb"

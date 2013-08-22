@@ -12,17 +12,17 @@ module Dotfile
                     :usage
 
       def initialize
-        @empty = ARGV.empty?
-        @update = false
-        @update_file = nil
-        @edit = false
-        @edit_file = nil
-        @set = nil
-        @edit_config = false
-        @edit_local = false
-        @edit_groups = false
-        @setup = false
-        @quiet = false
+        @empty        = ARGV.empty?
+        @update       = false
+        @update_file  = nil
+        @edit         = false
+        @edit_file    = nil
+        @set          = nil
+        @edit_config  = false
+        @edit_local   = false
+        @edit_groups  = false
+        @setup        = false
+        @quiet        = false
 
         parse
       end
@@ -77,12 +77,15 @@ module Dotfile
           opts.on_tail('-v', '--version', "Show version number.") do
             puts "dotfile v#{VERSION}\n\n" +
                  "    Copyright (C) 2012 Kelsey David Judson\n" +
-                 "    Web: http://github.com/kelseyjudson/dotfile"
+                 "    Web: http://github.com/kelseyjudson/dotfile\n\n"
+
             exit
           end
 
           opts.on_tail('-h', '--help', "Show help.") do
             puts opts.help
+            puts
+
             exit
           end
         end
