@@ -28,12 +28,14 @@ module Dotfile
       end
 
       def execute_script(script)
-        if File.executable?(script)
+        f = "#{SCRIPTS}/#{script}"
+
+        if File.executable?(f)
           # Simply execute if script is executable...
-          system("#{SCRIPTS}/#{script}")
+          system(f)
         elsif interpreter = guess_interpreter(script)
           # ... else, try to guess interpreter based on file extension.
-          system("#{interpreter} #{SCRIPTS}/#{script}")
+          system("#{interpreter} #{f}")
         else
           # Shouldn't be crucial to successful update so just warn.
           puts "Warning: Script #{script} not executable."
