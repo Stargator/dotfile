@@ -55,7 +55,11 @@ module Dotfile
       end
 
       if @options.edit_local
-        edit_file(LOCAL_SETTINGS)
+        if LOCAL_SETTINGS
+          edit_file(LOCAL_SETTINGS)
+        else
+          abort "dotfile.conf.local does not exist. Exiting..."
+        end
       end
 
       if @options.edit

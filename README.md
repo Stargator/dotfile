@@ -83,10 +83,12 @@ Any dotfile within a group that is listed under the option `groups` in
 Scripts to execute before or after installation based on the values of the
 `execute_before/after` options in `dotfile.conf`.
 
-Scripts specified here need not include their file extension, however if two
-exist with the same name but a different extension, they will both be
-executed. Scripts without a file extension must be executable and have a valid
-shebang line.
+If a script is executable, it will be executed assuming it has a valid shebang
+line. Otherwise, dotfile will try to guess the interpreter based on the file
+extension.
+
+If two scripts exist with the same name but a different extension, then they
+will both be executed (so avoid doing this).
 
 ###### files/
 
