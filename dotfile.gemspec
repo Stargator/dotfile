@@ -10,8 +10,9 @@ files = Dir['lib/**/*'] +
 Gem::Specification.new do |s|
 
   s.name        = 'dotfile'
-  s.summary     = "Dynamic dotfile management system."
-  s.description = "A simple dotfile management system designed to make updating/tweaking configurations a breeze."
+  s.summary     = 'Dynamic dotfile management system.'
+  s.description = 'A simple dotfile management system designed to make ' +
+                  'updating/tweaking configurations a breeze.'
   s.license     = 'MIT'
 
   s.version     = Dotfile::VERSION
