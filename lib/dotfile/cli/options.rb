@@ -83,9 +83,7 @@ module Dotfile
           end
 
           opts.on_tail('-h', '--help', "Show help.") do
-            puts opts.help
-            puts
-
+            puts "#{opts.help}\n"
             exit
           end
         end
@@ -97,13 +95,13 @@ module Dotfile
           abort "Usage: dotfile --set OPTION:VALUE[,...] -u [FILE]"
         end
 
-        @usage = options.help
+        @usage = "#{options.help}\n"
       end
 
       def handle_missing_arguments(options)
         yield
       rescue OptionParser::MissingArgument
-        abort options.help
+        abort "#{options.help}\n"
       end
 
     end
